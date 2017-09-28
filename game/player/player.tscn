@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/sprites_basic.png" type="Texture" id=2]
@@ -19,6 +19,40 @@ tracks/0/keys = {
 "transitions": FloatArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=4]
+
+resource/name = "run_continue"
+length = 0.18
+loop = true
+step = 0.09
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprites_move:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.09 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 1,
+"values": [ 11, 12 ]
+}
+
+[sub_resource type="Animation" id=3]
+
+resource/name = "run_start"
+length = 0.5
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprites_move:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": FloatArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 10, 11, 12, 11, 12 ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -52,7 +86,7 @@ script/script = ExtResource( 1 )
 texture = ExtResource( 2 )
 vframes = 7
 hframes = 10
-frame = 4
+frame = 12
 
 [node name="anim" type="AnimationPlayer" parent="."]
 
@@ -60,7 +94,10 @@ playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
 anims/idle = SubResource( 1 )
+anims/run_continue = SubResource( 4 )
+anims/run_start = SubResource( 3 )
 anims/walk = SubResource( 2 )
+next/run_start = "run_continue"
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]

@@ -18,10 +18,10 @@ func _fixed_process(delta):
 	var next_anim = CONST.PLAYER_ANIM_IDLE
 	current_sprite = sprites_move
 	#gather inputs
-	var move_left = Input.is_action_pressed("move_left")
-	var move_right = Input.is_action_pressed("move_right")
-	var move_up = Input.is_action_pressed("move_up")
-	var move_down = Input.is_action_pressed("move_down")
+	var move_left = Input.is_action_pressed(CONST.INPUT_ACTION_MOVE_LEFT)
+	var move_right = Input.is_action_pressed(CONST.INPUT_ACTION_MOVE_RIGHT)
+	var move_up = Input.is_action_pressed(CONST.INPUT_ACTION_MOVE_UP)
+	var move_down = Input.is_action_pressed(CONST.INPUT_ACTION_MOVE_DOWN)
 	
 	
 	var pos = get_pos()

@@ -20,6 +20,6 @@ const INPUT_ACTION_MOVE_DOWN = "move_down"
 
 #how many milliseconds of input pause are allowed
 #to be considered a double-tap
-const DOUBLE_TAP_INTERVAL = 250
+const DOUBLE_TAP_INTERVAL = 100
 
 

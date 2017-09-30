@@ -2,6 +2,8 @@ extends Area2D
 #quick access to constnats
 onready var CONST = get_node("/root/const")
 
+const GRAVITY = Vector2(0.0, 9.8)
+const JUMP_HEIGHT = 200
 const MOVESPEED_X_WALK = 100
 const MOVESPEED_Y_WALK = 50
 const MOVESPEED_X_RUN = 175
@@ -24,7 +26,10 @@ onready var sprites_move = get_node("sprites_move")
 var curr_anim = ""
 var current_sprite
 var move_vector = Vector2(0, 0)
+var jump_start_height = 0 #Y height to come back to after jump finished
 var running = false
+var jumping = false
+
 var last_action_up = {
 	"time":0,
 	"action": ""
@@ -52,7 +57,7 @@ func _fixed_process(delta):
 			running = false
 	else:
 		if (!frame_action.empty() and frame_action == last_action_up.action
-			and OS.get_unix_time() - last_action_up.time <= CONST.DOUBLE_TAP_INTERVAL):
+			and OS.get_unix_time() - last_action_up.time <= CONST.DOUBLE_TAP_INTERVAL_MS):
 				running = true
 	
 	if (running):
@@ -60,13 +65,19 @@ func _fixed_process(delta):
 	else:
 		move_vector *= WALK_SPEED
 	
+	var pressed_jump = Input.is_action_pressed(CONST.INPUT_ACTION_JUMP)
+	if (pressed_jump and !jumping):
+		jumping = true
+		next_anim = CONST.PLAYER_ANIM_JUMP_START
+	
+	
+	
 	#integrate new position
 	set_pos(pos + (move_vector * delta))
 	
 	#setup movement animation
 	if (move_vector.length_squared() != 0):
-		if (running
-			and !curr_anim == CONST.PLAYER_ANIM_RUN_CONTINUE):
+		if (running):
 			next_anim = CONST.PLAYER_ANIM_RUN_START
 		else:
 			next_anim = CONST.PLAYER_ANIM_WALK
@@ -94,11 +105,3 @@ func _fixed_process(delta):
 func _ready():
 	set_fixed_process(true)
 	pass
-
-
-#func _on_anim_finished():
-#	#slot in second runner animation after first one over
-#	if (running 
-#	and anim.get_current_animation() == CONST.PLAYER_ANIM_RUN_START):
-#		anim.play(CONST.PLAYER_ANIM_RUN_CONTINUE)
-#		curr_anim = CONST.PLAYER_ANIM_RUN_CONTINUE

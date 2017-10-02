@@ -1,4 +1,4 @@
-extends Area2D
+extends Node2D
 #quick access to constnats
 onready var CONST = get_node("/root/const")
 
@@ -25,14 +25,12 @@ onready var MOVEMENT = {
 	CONST.INPUT_ACTION_MOVE_UP: Vector2(0.0, -1.0), 
 	CONST.INPUT_ACTION_MOVE_DOWN: Vector2(0.0, 1.0)
 }
-
+onready var parent = get_node("../")
 #quick access to animator
 onready var anim = get_node("anim")
-onready var sprites_attack = get_node("sprites_attack")
-onready var sprites_move = get_node("sprites_move")
+onready var sprite = get_node("sprites")
 
 var curr_anim = ""
-var current_sprite
 var move_vector = Vector2(0, 0)
 var jump_start_height = 0 #Y height to come back to after jump finished
 var running = false
@@ -52,8 +50,7 @@ func _fixed_process(delta):
 	
 	#initial frame logic
 	var next_anim = null
-	current_sprite = sprites_move
-	var pos = get_pos()
+	var pos = parent.get_pos()
 	move_vector = Vector2(0, 0)
 	var frame_action = ""
 	for action in MOVEMENT:
@@ -116,7 +113,7 @@ func _fixed_process(delta):
 		move_vector *= WALK_SPEED
 		
 	#integrate new position
-	set_pos(pos + (move_vector * delta))
+	parent.set_pos(pos + (move_vector * delta))
 	
 	#setup movement animation
 	if (move_vector.length_squared() != 0):
@@ -128,9 +125,9 @@ func _fixed_process(delta):
 			next_anim = CONST.PLAYER_ANIM_WALK
 		#flip sprite if direction change
 		if (move_vector.x < 0 and frame_action == CONST.INPUT_ACTION_MOVE_LEFT):
-			current_sprite.set_scale(Vector2(-1.0, 1.0))
+			sprite.set_scale(Vector2(-1.0, 1.0))
 		elif (move_vector.x > 0 and frame_action == CONST.INPUT_ACTION_MOVE_RIGHT):
-			current_sprite.set_scale(Vector2(1.0, 1.0))
+			sprite.set_scale(Vector2(1.0, 1.0))
 	else:
 		#only apply idle animation if no other
 		#animation was chosen as past of the logic

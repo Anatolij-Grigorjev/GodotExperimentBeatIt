@@ -1,34 +1,17 @@
 [gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://stages/level_1/level.gd" type="Script" id=1]
-[ext_resource path="res://stages/level_1/stage.png" type="Texture" id=2]
+[ext_resource path="res://stages/level_1/ground.tscn" type="PackedScene" id=2]
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=3]
 
 [node name="level" type="Node"]
 
 script/script = ExtResource( 1 )
 
-[node name="ground" type="Sprite" parent="."]
+[node name="ground" parent="." instance=ExtResource( 2 )]
 
-editor/display_folded = true
-transform/pos = Vector2( 966.238, 192.638 )
+transform/pos = Vector2( 963.75, 187.5 )
 transform/scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 2 )
-
-[node name="bounds" type="Polygon2D" parent="ground"]
-
-visibility/behind_parent = true
-polygon = Vector2Array( -1933.22, 220.272, -1837.4, 257.362, -1417.05, 278.998, -1364.5, 207.908, -1336.68, 139.909, -387.784, 146.091, -301.24, 75.0007, -273.422, -110.452, -1.42468, -128.997, 32.5748, -94.9974, 214.937, -73.3613, 393.854, -60.9977, 718.396, -82.6339, 758.578, -45.5434, 1117.12, -70.2704, 1138.76, -125.906, 1509.66, -125.906, 1559.11, -64.0886, 1871.29, -85.7247, 1923.84, -51.7252, 1923.84, 365.543, -1931.51, 371.725 )
-uv = Vector2Array(  )
-color = Color( 1, 1, 1, 1 )
-vertex_colors = ColorArray(  )
-offset = Vector2( 0, 0 )
-texture/texture = null
-texture/offset = Vector2( 0, 0 )
-texture/scale = Vector2( 1, 1 )
-texture/rotation = 0.0
-invert/enable = false
-invert/border = 100.0
 
 [node name="player" parent="." instance=ExtResource( 3 )]
 

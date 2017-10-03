@@ -5,7 +5,7 @@ extends Node
 # var b = "textvar"
 
 onready var player = get_node("player")
-onready var bounds_poly = get_node("ground/bounds")
+onready var ground = get_node("ground")
 
 func _ready():
 	

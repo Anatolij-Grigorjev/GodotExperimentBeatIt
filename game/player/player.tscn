@@ -1,10 +1,9 @@
-[gd_scene load_steps=13 format=1]
+[gd_scene load_steps=12 format=1]
 
-[ext_resource path="res://player/player_move.gd" type="Script" id=1]
-[ext_resource path="res://player/sprites_basic.png" type="Texture" id=2]
-[ext_resource path="res://player/sprites_attack.png" type="Texture" id=3]
-[ext_resource path="res://player/drop_shadow.png" type="Texture" id=4]
-[ext_resource path="res://player/drop_shadow.gd" type="Script" id=5]
+[ext_resource path="res://player/player_main.gd" type="Script" id=1]
+[ext_resource path="res://player/player_move.gd" type="Script" id=2]
+[ext_resource path="res://player/sprites_basic.png" type="Texture" id=3]
+[ext_resource path="res://player/sprites_attack.png" type="Texture" id=4]
 
 [sub_resource type="Animation" id=1]
 
@@ -131,15 +130,18 @@ gravity_vec = Vector2( 0, 0 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
+script/script = ExtResource( 1 )
+feet_pos = Vector2( 0, 0 )
+min_pos = Vector2( 0, 0 )
+max_pos = Vector2( 0, 0 )
 
 [node name="player_move" type="Node2D" parent="."]
 
-editor/display_folded = true
-script/script = ExtResource( 1 )
+script/script = ExtResource( 2 )
 
 [node name="sprites" type="Sprite" parent="player_move"]
 
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 vframes = 7
 hframes = 10
 frame = 4
@@ -172,18 +174,8 @@ visibility/visible = false
 [node name="sprites" type="Sprite" parent="player_attack"]
 
 transform/pos = Vector2( 75, -30 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 vframes = 7
 hframes = 9
-
-[node name="drop_shadow" type="Sprite" parent="."]
-
-visibility/opacity = 0.5
-visibility/self_opacity = 0.5
-visibility/behind_parent = true
-transform/pos = Vector2( 0, 50 )
-transform/rot = 7.83601e-07
-texture = ExtResource( 4 )
-script/script = ExtResource( 5 )
 
 

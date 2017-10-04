@@ -1,11 +1,14 @@
-[gd_scene load_steps=2 format=1]
+[gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://stages/level_1/stage.png" type="Texture" id=1]
+[ext_resource path="res://stages/bounds_checker.gd" type="Script" id=2]
 
 [node name="ground" type="Sprite"]
 
 transform/pos = Vector2( 1927, 375 )
 texture = ExtResource( 1 )
+script/script = ExtResource( 2 )
+points_from_to = Vector2( 0, 19 )
 
 [node name="bounds" type="Polygon2D" parent="."]
 

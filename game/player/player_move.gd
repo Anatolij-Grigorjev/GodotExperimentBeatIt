@@ -28,7 +28,7 @@ onready var MOVEMENT = {
 onready var parent = get_node("../")
 #quick access to animator
 onready var anim = get_node("anim")
-onready export var sprite = get_node("sprites")
+onready var sprite = get_node("sprites")
 
 var curr_anim = ""
 var move_vector = Vector2(0, 0)

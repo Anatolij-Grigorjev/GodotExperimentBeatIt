@@ -1,8 +1,6 @@
 extends Node
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
+onready var CONST = get_node("/root/const")
 
 onready var player = get_node("player")
 onready var ground = get_node("ground")

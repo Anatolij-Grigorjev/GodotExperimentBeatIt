@@ -10,16 +10,13 @@ script/script = ExtResource( 1 )
 
 [node name="ground" parent="." instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 965.257, 410.587 )
+transform/pos = Vector2( 965.257, 560.153 )
 transform/scale = Vector2( 0.5, 0.5 )
 
-[node name="bounds" parent="ground"]
-
-visibility/behind_parent = false
-
-[node name="player" parent="." instance=ExtResource( 3 )]
+[node name="player" parent="." groups=[
+"characters",
+] instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 79.5247, 429.049 )
 
 
-[editable path="ground"]

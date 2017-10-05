@@ -26,7 +26,7 @@ func _ready():
 		if (y_range.y < point.y):
 			y_range.y = point.y
 	
-	for idx in idx_range:
+	for idx in range(points_from_to.x + 1, points_from_to.y + 1):
 		average_heights.append((poly_points[idx].y + poly_points[idx - 1].y) / 2)
 
 func nearest_in_general_bounds(point):
@@ -43,7 +43,7 @@ func nearest_in_bounds(point):
 		#found polygon segment where this point is in width, adjust height
 		if (good_x < poly_points[idx].x):
 			#return height with slight offset not to make it look bad
-			good_y = clamp(good_y, average_heights[idx] + 0.5, y_range.y)
+			good_y = clamp(good_y, average_heights[idx-1] + 0.5, y_range.y)
 			break
 	
 	return point_or_better(point, good_x, good_y)

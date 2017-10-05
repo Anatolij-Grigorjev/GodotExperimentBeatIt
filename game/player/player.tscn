@@ -22,7 +22,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=2]
 
 resource/name = "jump_ascend"
 length = 0.5
@@ -39,7 +39,7 @@ tracks/0/keys = {
 "values": [ 18 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=3]
 
 resource/name = "jump_descend"
 length = 1.0
@@ -56,7 +56,7 @@ tracks/0/keys = {
 "values": [ 19 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=4]
 
 resource/name = "jump_start"
 length = 0.3
@@ -73,9 +73,8 @@ tracks/0/keys = {
 "values": [ 17 ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=5]
 
-resource/name = "run_continue"
 length = 0.18
 loop = true
 step = 0.09
@@ -90,9 +89,8 @@ tracks/0/keys = {
 "values": [ 11, 12 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=6]
 
-resource/name = "run_start"
 length = 0.5
 loop = false
 step = 0.1
@@ -107,7 +105,7 @@ tracks/0/keys = {
 "values": [ 10, 11, 12, 11, 12 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=7]
 
 length = 0.7
 loop = true
@@ -153,12 +151,12 @@ playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
 anims/idle = SubResource( 1 )
-anims/jump_ascend = SubResource( 5 )
-anims/jump_descend = SubResource( 6 )
-anims/jump_start = SubResource( 7 )
-anims/run_continue = SubResource( 2 )
-anims/run_start = SubResource( 3 )
-anims/walk = SubResource( 4 )
+anims/jump_ascend = SubResource( 2 )
+anims/jump_descend = SubResource( 3 )
+anims/jump_start = SubResource( 4 )
+anims/run_continue = SubResource( 5 )
+anims/run_start = SubResource( 6 )
+anims/walk = SubResource( 7 )
 next/jump_ascend = "jump_descend"
 next/jump_start = "jump_ascend"
 next/run_start = "run_continue"

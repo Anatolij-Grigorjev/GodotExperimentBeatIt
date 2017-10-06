@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://stages/level_1/level.gd" type="Script" id=1]
 [ext_resource path="res://stages/level_1/ground.tscn" type="PackedScene" id=2]
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 30.3173, 30.8087 )
 
 [node name="level" type="Node"]
 
@@ -18,5 +23,50 @@ transform/scale = Vector2( 0.5, 0.5 )
 ] instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 79.5247, 429.049 )
+
+[node name="stop_1" type="Area2D" parent="."]
+
+transform/pos = Vector2( 531.704, 558.008 )
+transform/scale = Vector2( 8.78127, 5.8756 )
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -0.279121, -0.356232 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="collider" type="CollisionShape2D" parent="stop_1"]
+
+transform/pos = Vector2( -0.279121, -0.356232 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="camera" type="Camera2D" parent="stop_1"]
+
+transform/pos = Vector2( -47.6787, -40.394 )
+transform/scale = Vector2( 0.516031, 0.717342 )
+anchor_mode = 0
+rotating = false
+current = false
+zoom = Vector2( 0.8, 0.8 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
+
+[connection signal="area_enter" from="stop_1" to="." method="_on_stop_1_area_enter"]
+
+[connection signal="area_exit" from="stop_1" to="." method="_on_stop_1_area_exit"]
 
 

@@ -5,12 +5,14 @@ onready var bounds_poly = get_node("bounds")
 var x_range = Vector2() #min and max X to check against scene bounds
 var y_range = Vector2() #min and max Y to check generic scene bounds
 export(Vector2) var points_from_to = Vector2(0, 19)
+export(Vector2) var texture_extents
 var average_heights = Array() #average heights to clamp the walking
 var poly_points
 var idx_range
 
 func _ready():
 	poly_points = Array()
+	texture_extents = get_texture().get_size() / 2
 	#adjus points for scale and position of transform
 	for point in bounds_poly.get_polygon():
 		poly_points.append(point * get_scale() + get_pos())

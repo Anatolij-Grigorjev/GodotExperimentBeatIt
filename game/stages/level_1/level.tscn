@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 30.3173, 30.8087 )
+extents = Vector2( 58.1728, 30.8087 )
 
 [node name="level" type="Node"]
 
@@ -30,7 +30,7 @@ transform/pos = Vector2( 531.704, 558.008 )
 transform/scale = Vector2( 8.78127, 5.8756 )
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, -0.279121, -0.356232 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 26.5341, -1.08842 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -39,19 +39,19 @@ angular_damp = 1.0
 
 [node name="collider" type="CollisionShape2D" parent="stop_1"]
 
-transform/pos = Vector2( -0.279121, -0.356232 )
+transform/pos = Vector2( 26.5341, -1.08842 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
 [node name="camera" type="Camera2D" parent="stop_1"]
 
-transform/pos = Vector2( -47.6787, -40.394 )
+transform/pos = Vector2( -31.8925, -69.7032 )
 transform/scale = Vector2( 0.516031, 0.717342 )
 anchor_mode = 0
 rotating = false
 current = false
-zoom = Vector2( 0.8, 0.8 )
+zoom = Vector2( 1, 1 )
 limit/left = -10000000
 limit/top = -10000000
 limit/right = 10000000

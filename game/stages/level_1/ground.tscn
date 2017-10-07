@@ -9,6 +9,7 @@ transform/pos = Vector2( 1927, 375 )
 texture = ExtResource( 1 )
 script/script = ExtResource( 2 )
 points_from_to = Vector2( 0, 19 )
+texture_extents = null
 
 [node name="bounds" type="Polygon2D" parent="."]
 

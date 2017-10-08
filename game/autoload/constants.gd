@@ -1,4 +1,4 @@
-#global state constants, need to be avilable everywhere
+#global state constants
 #add var with line 
 #  
 #  onready var CONST = get_node("/root/const")
@@ -12,12 +12,17 @@ const PLAYER_ANIM_WALK = "walk"
 const PLAYER_ANIM_RUN_START = "run_start"
 const PLAYER_ANIM_JUMP_START = "jump_start"
 
+#actual animation state names to configure individual animations
+const ANIM_NAME_JUMP_START = "jump_start"
+const ANIM_NAME_JUMP_ASCEND = "jump_ascend"
+
 #player input actions, defined in project settings
 const INPUT_ACTION_MOVE_LEFT = "move_left"
 const INPUT_ACTION_MOVE_RIGHT = "move_right"
 const INPUT_ACTION_MOVE_UP = "move_up"
 const INPUT_ACTION_MOVE_DOWN = "move_down"
 const INPUT_ACTION_JUMP = "jump"
+const INPUT_ACTION_ATTACK = "attack"
 
 #how many milliseconds of input pause are allowed
 #to be considered a double-tap

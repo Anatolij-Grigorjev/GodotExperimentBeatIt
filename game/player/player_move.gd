@@ -6,9 +6,9 @@ enum JUMP_STATES { WIND_UP = 0, ASCEND = 1, DESCEND = 2 }
 
 #jump constants
 const GRAVITY = Vector2(0.0, 98)
-const JUMP_HEIGHT = 200
-const JUMP_WIND_UP = 0.3
-const JUMP_ASCEND_TIME = 0.5
+const JUMP_STRENGTH = 300
+const JUMP_WIND_UP = 0.1
+const JUMP_ASCEND_TIME = 0.25
 
 const MOVESPEED_X_WALK = 100
 const MOVESPEED_Y_WALK = 50
@@ -39,12 +39,20 @@ var jump_state
 var current_jump_wind_up = 0
 var current_jump_ascend = 0
 var jump_ground
+#is the character locked into this set of actions for now?
+var locked = false
 
 var last_action_up = {
 	"time":0,
 	"action": ""
 }
 var last_frame_action = ""
+
+func _ready():
+	#setup jump length based on animations
+	anim.get_animation(CONST.ANIM_NAME_JUMP_START).set_length(JUMP_WIND_UP)
+	anim.get_animation(CONST.ANIM_NAME_JUMP_ASCEND).set_length(JUMP_ASCEND_TIME)
+	set_fixed_process(true)
 
 func _fixed_process(delta):
 	
@@ -77,6 +85,8 @@ func _fixed_process(delta):
 			jump_state = JUMP_STATES.WIND_UP
 			current_jump_wind_up = JUMP_WIND_UP
 			next_anim = CONST.PLAYER_ANIM_JUMP_START
+			#cant switch to attack while jump-squatting
+			locked = true
 	else: 
 		#process current jump state
 		if (jump_state == JUMP_STATES.WIND_UP):
@@ -85,13 +95,15 @@ func _fixed_process(delta):
 			if (current_jump_wind_up <= 0):
 				current_jump_wind_up = 0
 				jump_state = JUMP_STATES.ASCEND
-				move_vector.y = -JUMP_HEIGHT
+				move_vector.y = -JUMP_STRENGTH
 				current_jump_ascend = JUMP_ASCEND_TIME
 				jump_ground = pos.y
+				#once jump is ascending, character can attack
+				locked = false
 		
 		if (jump_state == JUMP_STATES.ASCEND):
 			current_jump_ascend -= delta
-			move_vector.y = -JUMP_HEIGHT
+			move_vector.y = -JUMP_STRENGTH
 			if (current_jump_ascend <= 0):
 				current_jump_ascend = 0
 				jump_state = JUMP_STATES.DESCEND
@@ -149,7 +161,3 @@ func _fixed_process(delta):
 			"action": last_frame_action
 		}
 	last_frame_action = frame_action
-
-func _ready():
-	set_fixed_process(true)
-	pass

@@ -11,10 +11,14 @@ const PLAYER_ANIM_IDLE = "idle"
 const PLAYER_ANIM_WALK = "walk"
 const PLAYER_ANIM_RUN_START = "run_start"
 const PLAYER_ANIM_JUMP_START = "jump_start"
+#attack animations
+const PLAYER_ANIM_ATTACK_1 = "attack_1"
+const PLAYER_ANIM_ATTACK_2 = "attack_2"
 
 #actual animation state names to configure individual animations
 const ANIM_NAME_JUMP_START = "jump_start"
 const ANIM_NAME_JUMP_ASCEND = "jump_ascend"
+
 
 #player input actions, defined in project settings
 const INPUT_ACTION_MOVE_LEFT = "move_left"

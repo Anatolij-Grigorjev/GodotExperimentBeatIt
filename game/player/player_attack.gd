@@ -26,7 +26,9 @@ func _ready():
 	attacking = false
 	attack_state = null
 	for animation in ATTACK_ANIMATIONS:
-		input_waits[animation] = anim.get_animation(animation).get_length() - 0.1
+		input_waits[animation] = anim.get_animation(animation).get_length() - 0.075
+		
+	anim.play(CONST.PLAYER_ANIM_ATTACK_IDLE)
 	set_process(true)
 	
 func _process(delta):
@@ -41,7 +43,7 @@ func _process(delta):
 		input_wait = input_waits[next_anim]
 	elif (attacking):
 		input_wait -= delta
-		if (input_wait <= 0.0):
+		if (input_wait < 0.0):
 			locked = false
 			if (Input.is_action_pressed(CONST.INPUT_ACTION_ATTACK) && attack_state < ATTACK4):
 				locked = true
@@ -55,8 +57,13 @@ func _process(delta):
 				attack_state = null
 				next_anim = null
 				input_wait = 0.0
+				
+	if (next_anim == null and !attacking):
+		next_anim = CONST.PLAYER_ANIM_ATTACK_IDLE
+		anim.play(next_anim)
+		parent.switch_mode(false)
 	
 	if (next_anim != null and next_anim != curr_anim):
 		curr_anim = next_anim
-		anim.queue(curr_anim)
+		anim.play(curr_anim)
 

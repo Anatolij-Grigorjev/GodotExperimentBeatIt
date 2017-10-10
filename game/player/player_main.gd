@@ -32,6 +32,7 @@ func _ready():
 	move_extents = UTILS.get_sprite_extents(movement.sprite)
 	attack_extents = UTILS.get_sprite_extents(attacks.sprite)
 	current_extents = move_extents
+	switch_mode(attacking)
 	set_process(true)
 
 func _process(delta):

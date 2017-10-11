@@ -26,6 +26,8 @@ onready var MOVEMENT = {
 	CONST.INPUT_ACTION_MOVE_DOWN: Vector2(0.0, 1.0)
 }
 onready var parent = get_node("../")
+#access to attacks, to know when to lock
+onready var attacks = get_node("../player_attack")
 #quick access to animator
 onready var anim = get_node("anim")
 onready var sprite = get_node("sprites")
@@ -62,7 +64,7 @@ func _fixed_process(delta):
 	move_vector = Vector2(0, 0)
 	var frame_action = ""
 	for action in MOVEMENT:
-		if (Input.is_action_pressed(action)):
+		if (Input.is_action_pressed(action) && !attacks.locked):
 			move_vector += MOVEMENT[action]
 			frame_action = action
 	

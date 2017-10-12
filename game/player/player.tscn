@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=1]
+[gd_scene load_steps=17 format=1]
 
 [ext_resource path="res://player/player_main.gd" type="Script" id=1]
 [ext_resource path="res://player/player_move.gd" type="Script" id=2]
@@ -6,14 +6,15 @@
 [ext_resource path="res://player/player_attack.gd" type="Script" id=4]
 [ext_resource path="res://player/sprites_attack.png" type="Texture" id=5]
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=8]
 
 custom_solver_bias = 0.0
 radius = 13.0456
 height = 59.4577
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 
+resource/name = "idle"
 length = 1.1
 loop = true
 step = 0.1
@@ -28,8 +29,9 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 
+resource/name = "jump_ascend"
 length = 0.4
 loop = false
 step = 0.1
@@ -44,8 +46,9 @@ tracks/0/keys = {
 "values": [ 18 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 
+resource/name = "jump_descend"
 length = 1.0
 loop = false
 step = 0.1
@@ -60,8 +63,9 @@ tracks/0/keys = {
 "values": [ 19 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 
+resource/name = "jump_start"
 length = 0.1
 loop = false
 step = 0.1
@@ -76,7 +80,7 @@ tracks/0/keys = {
 "values": [ 17 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 
 length = 0.18
 loop = true
@@ -92,7 +96,7 @@ tracks/0/keys = {
 "values": [ 11, 12 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=6]
 
 length = 0.5
 loop = false
@@ -108,7 +112,7 @@ tracks/0/keys = {
 "values": [ 10, 11, 12, 11, 12 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=7]
 
 length = 0.7
 loop = true
@@ -123,13 +127,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 4, 5, 6, 7 ]
 }
-
-[sub_resource type="Animation" id=11]
-
-resource/name = "aidle"
-length = 1.0
-loop = false
-step = 0.1
 
 [sub_resource type="Animation" id=9]
 
@@ -168,10 +165,10 @@ tracks/2/keys = {
 "values": [ Vector2( 72.3871, 7.21461 ), Vector2( 81.448, 22.2735 ), Vector2( 74.5104, 6.89963 ), Vector2( 6.9158, 6.89963 ) ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=11]
 
 resource/name = "attack_2"
-length = 0.5
+length = 0.4
 loop = false
 step = 0.1
 tracks/0/type = "value"
@@ -205,15 +202,15 @@ tracks/2/keys = {
 "values": [ Vector2( 6.9158, 6.89963 ), Vector2( 69.0483, 14.4924 ), Vector2( 81.1296, 44.1779 ), Vector2( 68.0128, 12.0762 ), Vector2( 6.22546, 12.0762 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=12]
+[sub_resource type="RectangleShape2D" id=10]
 
 custom_solver_bias = 0.0
-extents = Vector2( 6.22546, 12.0762 )
+extents = Vector2( 6.9158, 6.89963 )
 
 [node name="player" type="Area2D"]
 
 input/pickable = true
-shapes/0/shape = SubResource( 1 )
+shapes/0/shape = SubResource( 8 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 0 )
@@ -242,13 +239,13 @@ frame = 17
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/idle = SubResource( 2 )
-anims/jump_ascend = SubResource( 3 )
-anims/jump_descend = SubResource( 4 )
-anims/jump_start = SubResource( 5 )
-anims/run_continue = SubResource( 6 )
-anims/run_start = SubResource( 7 )
-anims/walk = SubResource( 8 )
+anims/idle = SubResource( 1 )
+anims/jump_ascend = SubResource( 2 )
+anims/jump_descend = SubResource( 3 )
+anims/jump_start = SubResource( 4 )
+anims/run_continue = SubResource( 5 )
+anims/run_start = SubResource( 6 )
+anims/walk = SubResource( 7 )
 next/jump_ascend = "jump_descend"
 next/jump_start = "jump_ascend"
 next/run_start = "run_continue"
@@ -267,16 +264,15 @@ transform/pos = Vector2( 75, -30 )
 texture = ExtResource( 5 )
 vframes = 7
 hframes = 9
-frame = 18
+frame = 3
 
 [node name="anim" type="AnimationPlayer" parent="player_attack"]
 
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/aidle = SubResource( 11 )
 anims/attack_1 = SubResource( 9 )
-anims/attack_2 = SubResource( 10 )
+anims/attack_2 = SubResource( 11 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -285,8 +281,8 @@ autoplay = ""
 [node name="sword" type="Area2D" parent="player_attack"]
 
 input/pickable = true
-shapes/0/shape = SubResource( 12 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, -51.8792, -28.2538 )
+shapes/0/shape = SubResource( 10 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 6.11115, -3.05559 )
 shapes/0/trigger = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -295,8 +291,8 @@ angular_damp = 1.0
 
 [node name="attack_hit" type="CollisionShape2D" parent="player_attack/sword"]
 
-transform/pos = Vector2( -51.8792, -28.2538 )
-shape = SubResource( 12 )
+transform/pos = Vector2( 6.11115, -3.05559 )
+shape = SubResource( 10 )
 trigger = true
 _update_shape_index = 0
 
@@ -321,7 +317,7 @@ drag_margin/bottom = 0.2
 
 [node name="collider" type="CollisionShape2D" parent="."]
 
-shape = SubResource( 1 )
+shape = SubResource( 8 )
 trigger = false
 _update_shape_index = 0
 

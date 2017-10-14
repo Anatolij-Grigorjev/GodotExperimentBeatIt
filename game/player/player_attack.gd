@@ -2,7 +2,7 @@ extends Node2D
 #quick access to constnats
 onready var CONST = get_node("/root/const")
 
-enum ATTACK_STATES {ATTACK1 = 0, ATTACK2 = 1, ATTACK3 = 2, ATTACK4 = 3}
+enum combo_attack_stateS {ATTACK1 = 0, ATTACK2 = 1, ATTACK3 = 2, ATTACK4 = 3}
 onready var ATTACK_ANIMATIONS = [
 	CONST.PLAYER_ANIM_ATTACK_1,
 	CONST.PLAYER_ANIM_ATTACK_2
@@ -27,14 +27,14 @@ var hitting = false
 var pressing
 var attacking
 var curr_anim = ""
-var attack_state
+var combo_attack_state
 var inputs = []
 var inputs_idx
 var inputs_insert_idx
 
 func _ready():
 	attacking = false
-	attack_state = null
+	combo_attack_state = null
 	pressing = {
 		CONST.INPUT_ACTION_ATTACK: false
 	}
@@ -48,28 +48,19 @@ func _process(delta):
 	
 	var next_action = inputs[inputs_idx] if inputs_idx < inputs.size() else null
 	if (next_action != null):
+		print("next action: " + next_action)
 		inputs_idx = (inputs_idx + 1) % INPUT_Q_SIZE
-		#start of attack
-		if (!attacking):
-			attacking = true
-			#cant move at start of attack
-			locked = true
-			attack_state = ATTACK1
-			anim.play(CONST.PLAYER_ANIM_ATTACK_1)
+		if (!movement.jumping):
+			ground_attack()
+		#mid-jump-attacks, one per jump
 		else:
-			#already attacking, extend combo due to action
-			if (attack_state < ATTACK2):
-				locked = true
-				attack_state += 1
-				anim.queue("attack_" + str(attack_state + 1))
-			else:
-				if (!anim.is_playing()):
-					reset_attack_state()
+			jump_attack()
 	elif(attacking):
 		attacking = anim.is_playing()
 		locked = attacking
-	elif (!attacking):
-		reset_attack_state()
+	elif (!attacking && parent.attacking):
+		print("reset when not attacking anymore")
+		reset_combo_attack_state()
 		anim.play(CONST.PLAYER_ANIM_ATTACK_IDLE)
 		parent.switch_mode(false)
 	
@@ -87,11 +78,48 @@ func _process(delta):
 			print(inputs)
 			print(inputs.size())
 
-
-func reset_attack_state():
-	locked = false
-	attacking = false
-	attack_state = null
+func clear_inputs():
 	inputs.clear()
 	inputs_idx = 0
 	inputs_insert_idx = 0
+	
+func reset_combo_attack_state():
+	locked = false
+	attacking = false
+	combo_attack_state = null
+	clear_inputs()
+	
+func ground_attack():
+	#start of attack
+	if (!attacking):
+		parent.switch_mode(true)
+		attacking = true
+		#cant move at start of attack
+		locked = true
+		combo_attack_state = ATTACK1
+		anim.play(CONST.PLAYER_ANIM_ATTACK_1)
+	else:
+		#already attacking, extend combo due to action
+		if (combo_attack_state < ATTACK2):
+			locked = true
+			combo_attack_state += 1
+			anim.queue("attack_" + str(combo_attack_state + 1))
+		else:
+			if (!anim.is_playing()):
+				print("reset when animation not playing")
+				reset_combo_attack_state()
+				
+func jump_attack():
+	#attack depends on the jump state
+	if (movement.jump_state == movement.JUMP_STATES.ASCEND):
+		#start jump ascend attack
+		if (!attacking):
+			parent.switch_mode(true)
+			attacking = true
+			anim.play(CONST.PLAYER_ANIM_ATTACK_JUMP_ASCEND)
+		#attack already ahppening, ignore input and wait
+		else:
+			attacking = anim.is_playing()
+			if (!attacking):
+				clear_inputs()
+				switch_mode(false)

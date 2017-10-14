@@ -6,9 +6,9 @@ enum JUMP_STATES { WIND_UP = 0, ASCEND = 1, DESCEND = 2 }
 
 #jump constants
 const GRAVITY = Vector2(0.0, 98)
-const JUMP_STRENGTH = 300
+const JUMP_STRENGTH = 250
 const JUMP_WIND_UP = 0.1
-const JUMP_ASCEND_TIME = 0.25
+const JUMP_ASCEND_TIME = 0.45
 
 const MOVESPEED_X_WALK = 100
 const MOVESPEED_Y_WALK = 50
@@ -105,8 +105,9 @@ func _fixed_process(delta):
 		
 		if (jump_state == JUMP_STATES.ASCEND):
 			current_jump_ascend -= delta
-			move_vector.y = -JUMP_STRENGTH
-			if (current_jump_ascend <= 0):
+			move_vector.y = -JUMP_STRENGTH if current_jump_ascend > 0 else GRAVITY.y
+			#move on to descend after attack is finished
+			if (current_jump_ascend <= 0 && !attacks.attacking):
 				current_jump_ascend = 0
 				jump_state = JUMP_STATES.DESCEND
 				move_vector.y = GRAVITY.y

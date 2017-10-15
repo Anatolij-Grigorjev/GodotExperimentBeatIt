@@ -16,6 +16,7 @@ const PLAYER_ANIM_ATTACK_IDLE = "aidle"
 const PLAYER_ANIM_ATTACK_1 = "attack_1"
 const PLAYER_ANIM_ATTACK_2 = "attack_2"
 const PLAYER_ANIM_ATTACK_JUMP_ASCEND = "attack_jump_ascend"
+const PLAYER_ANIM_ATTACK_JUMP_DESCEND = "attack_jump_descend"
 
 #actual animation state names to configure individual animations
 const ANIM_NAME_JUMP_START = "jump_start"

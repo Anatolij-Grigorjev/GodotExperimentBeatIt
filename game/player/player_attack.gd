@@ -18,6 +18,10 @@ onready var anim = get_node("anim")
 onready var ACTIONS = [
 	CONST.INPUT_ACTION_ATTACK
 ]
+onready var JUMP_STATE_TO_ATTACK = {
+	movement.JUMP_STATES.ASCEND: CONST.PLAYER_ANIM_ATTACK_JUMP_ASCEND,
+	movement.JUMP_STATES.DESCEND: CONST.PLAYER_ANIM_ATTACK_JUMP_DESCEND
+}
 
 #is the character locked into an attack and cant move right now
 var locked = false
@@ -91,6 +95,7 @@ func reset_combo_attack_state():
 	
 func ground_attack():
 	#start of attack
+	
 	if (!attacking):
 		parent.switch_mode(true)
 		attacking = true
@@ -111,15 +116,16 @@ func ground_attack():
 				
 func jump_attack():
 	#attack depends on the jump state
-	if (movement.jump_state == movement.JUMP_STATES.ASCEND):
-		#start jump ascend attack
-		if (!attacking):
-			parent.switch_mode(true)
-			attacking = true
-			anim.play(CONST.PLAYER_ANIM_ATTACK_JUMP_ASCEND)
-		#attack already ahppening, ignore input and wait
-		else:
-			attacking = anim.is_playing()
+	for jump_state in JUMP_STATE_TO_ATTACK:
+		if (movement.jump_state == jump_state):
+			#start jump ascend attack
 			if (!attacking):
-				clear_inputs()
-				switch_mode(false)
+				parent.switch_mode(true)
+				attacking = true
+				anim.play(JUMP_STATE_TO_ATTACK[jump_state])
+			#attack already ahppening, ignore input and wait
+			else:
+				attacking = anim.is_playing()
+				if (!attacking):
+					clear_inputs()
+					parent.switch_mode(false)

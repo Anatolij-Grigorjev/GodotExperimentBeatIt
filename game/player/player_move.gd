@@ -64,7 +64,8 @@ func _fixed_process(delta):
 	move_vector = Vector2(0, 0)
 	var frame_action = ""
 	for action in MOVEMENT:
-		if (Input.is_action_pressed(action) && !attacks.locked):
+		#movement not allowed whne locked into attack, except when jumping
+		if (Input.is_action_pressed(action) and (!attacks.locked or jumping)):
 			move_vector += MOVEMENT[action]
 			frame_action = action
 	
@@ -118,6 +119,10 @@ func _fixed_process(delta):
 				move_vector.y = pos.y - jump_ground
 				jump_state = null
 				jumping = false
+				#stop descend attack if it was in progress
+				if (attacks.attacking):
+					attacks.reset_combo_attack_state()
+					parent.switch_mode(false)
 			
 	# resolve movement speed based on character state
 	if (jumping):

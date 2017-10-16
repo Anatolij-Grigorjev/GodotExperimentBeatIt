@@ -45,6 +45,7 @@ func _process(delta):
 	elif (attacking and !attacks.locked):
 		for action in MOVEMENT_COMMANDS:
 			if (Input.is_action_pressed(action)):
+				print("movement action: " + action)
 				switch_mode(false)
 				
 	
@@ -66,6 +67,7 @@ func set_pos_by_max(max_pos):
 	set_pos(pos)
 	
 func switch_mode(to_attacking):
+	print("switch mode to attack: " + str(to_attacking))
 	if (to_attacking):
 		current_extents = attack_extents
 		attacks.show()

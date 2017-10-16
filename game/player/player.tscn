@@ -27,6 +27,16 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 0, 1, 2, 3 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("../collider:transform/pos")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.3, 0.6, 0.9 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -2.69476, -0.509457 ), Vector2( -2.69476, -0.509457 ), Vector2( -2.69476, -0.509457 ), Vector2( -2.69476, -0.509457 ) ]
+}
 
 [sub_resource type="Animation" id=3]
 
@@ -42,6 +52,16 @@ tracks/0/keys = {
 "transitions": FloatArray( 1 ),
 "update": 1,
 "values": [ 18 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../collider:transform/pos")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ Vector2( -2.69476, -0.509457 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -59,6 +79,16 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 19 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("../collider:transform/pos")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ Vector2( -2.69476, -0.509457 ) ]
+}
 
 [sub_resource type="Animation" id=5]
 
@@ -74,6 +104,16 @@ tracks/0/keys = {
 "transitions": FloatArray( 1 ),
 "update": 1,
 "values": [ 17 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../collider:transform/pos")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2.98199, 16.5208 ) ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -91,6 +131,16 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 11, 12 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("../collider:transform/pos")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.09 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 21.6342, 6.78923 ), Vector2( 21.6342, 6.78923 ) ]
+}
 
 [sub_resource type="Animation" id=7]
 
@@ -107,6 +157,16 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 10, 11, 12, 11, 12 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("../collider:transform/pos")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.4 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 21.6342, 6.78923 ), Vector2( 21.6342, 6.78923 ) ]
+}
 
 [sub_resource type="Animation" id=8]
 
@@ -122,6 +182,16 @@ tracks/0/keys = {
 "transitions": FloatArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 4, 5, 6, 7 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../collider:transform/pos")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.6 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2.17104, 1.92344 ), Vector2( 2.17104, 1.92344 ) ]
 }
 
 [sub_resource type="Animation" id=9]
@@ -144,7 +214,7 @@ tracks/0/keys = {
 "times": FloatArray( 0, 0.1, 0.2, 0.3 ),
 "transitions": FloatArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 9.67599, -3.05559 ), Vector2( 45.8337, -14.2594 ), Vector2( 43.7966, -34.1206 ), Vector2( 6.11115, -3.05559 ) ]
+"values": [ Vector2( 9.67599, -3.05559 ), Vector2( 35.6966, -17.0978 ), Vector2( 43.7966, -34.1206 ), Vector2( 6.11115, -3.05559 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("sprites:frame")
@@ -165,6 +235,26 @@ tracks/2/keys = {
 "transitions": FloatArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 72.3871, 7.21461 ), Vector2( 81.448, 22.2735 ), Vector2( 74.5104, 6.89963 ), Vector2( 6.9158, 6.89963 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("sword:transform/pos")
+tracks/3/interp = 1
+tracks/3/imported = false
+tracks/3/keys = {
+"times": FloatArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 3.86565, -0.794327 ), Vector2( 3.86565, -0.794327 ), Vector2( 3.86565, -0.794327 ), Vector2( 3.86565, -0.794327 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../collider:transform/pos")
+tracks/4/interp = 1
+tracks/4/imported = false
+tracks/4/keys = {
+"times": FloatArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 17.1739, -0.914936 ), Vector2( 8.65875, -0.10397 ), Vector2( 18.3903, 1.51796 ), Vector2( 18.3903, 1.51796 ) ]
 }
 
 [sub_resource type="Animation" id=11]
@@ -202,6 +292,26 @@ tracks/2/keys = {
 "transitions": FloatArray( 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 6.9158, 6.89963 ), Vector2( 69.0483, 14.4924 ), Vector2( 81.1296, 44.1779 ), Vector2( 68.0128, 12.0762 ), Vector2( 6.22546, 12.0762 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("sword:transform/pos")
+tracks/3/interp = 1
+tracks/3/imported = false
+tracks/3/keys = {
+"times": FloatArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": FloatArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 3.86565, -0.794327 ), Vector2( 3.86565, -0.794327 ), Vector2( 3.86565, -0.794327 ), Vector2( 3.86565, -0.794327 ), Vector2( 3.86565, -0.794327 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../collider:transform/pos")
+tracks/4/interp = 1
+tracks/4/imported = false
+tracks/4/keys = {
+"times": FloatArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": FloatArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -18.5086, 1.51796 ), Vector2( -2.69476, 0.706989 ), Vector2( -2.69476, 0.706989 ), Vector2( -2.69476, 0.706989 ), Vector2( -16.8866, -1.32042 ) ]
 }
 
 [sub_resource type="Animation" id=12]
@@ -341,13 +451,13 @@ tracks/5/keys = {
 [sub_resource type="RectangleShape2D" id=14]
 
 custom_solver_bias = 0.0
-extents = Vector2( 8.22833, 7.97282 )
+extents = Vector2( 6.9158, 6.89963 )
 
 [node name="player" type="Area2D"]
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 189.504, -1.72591 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 2.17104, 1.92344 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 0 )
 gravity = 98.0
@@ -360,7 +470,6 @@ max_pos = Vector2( 0, 0 )
 
 [node name="player_move" type="Node2D" parent="."]
 
-visibility/visible = false
 script/script = ExtResource( 2 )
 
 [node name="sprites" type="Sprite" parent="player_move"]
@@ -368,7 +477,7 @@ script/script = ExtResource( 2 )
 texture = ExtResource( 3 )
 vframes = 7
 hframes = 10
-frame = 17
+frame = 7
 
 [node name="anim" type="AnimationPlayer" parent="player_move"]
 
@@ -392,6 +501,7 @@ autoplay = ""
 
 [node name="player_attack" type="Node2D" parent="."]
 
+visibility/visible = false
 script/script = ExtResource( 4 )
 
 [node name="sprites" type="Sprite" parent="player_attack"]
@@ -400,7 +510,7 @@ transform/pos = Vector2( 75, -30 )
 texture = ExtResource( 5 )
 vframes = 7
 hframes = 9
-frame = 62
+frame = 3
 
 [node name="anim" type="AnimationPlayer" parent="player_attack"]
 
@@ -419,10 +529,10 @@ autoplay = ""
 
 [node name="sword" type="Area2D" parent="player_attack"]
 
-transform/pos = Vector2( 170.519, -2.41626 )
+transform/pos = Vector2( 3.86565, -0.794327 )
 input/pickable = true
 shapes/0/shape = SubResource( 14 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 6.11115, -3.05559 )
 shapes/0/trigger = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -431,12 +541,14 @@ angular_damp = 1.0
 
 [node name="attack_hit" type="CollisionShape2D" parent="player_attack/sword"]
 
+transform/pos = Vector2( 6.11115, -3.05559 )
 shape = SubResource( 14 )
 trigger = true
 _update_shape_index = 0
 
 [node name="camera" type="Camera2D" parent="."]
 
+transform/pos = Vector2( -8.10965, -11.759 )
 anchor_mode = 1
 rotating = false
 current = true
@@ -456,7 +568,7 @@ drag_margin/bottom = 0.2
 
 [node name="collider" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( 189.504, -1.72591 )
+transform/pos = Vector2( 2.17104, 1.92344 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0

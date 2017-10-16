@@ -145,9 +145,9 @@ func _fixed_process(delta):
 			next_anim = CONST.PLAYER_ANIM_WALK
 		#flip sprite if direction change
 		if (move_vector.x < 0 and frame_action == CONST.INPUT_ACTION_MOVE_LEFT):
-			sprite.set_scale(Vector2(-1.0, 1.0))
+			parent.set_scale(Vector2(-1.0, 1.0))
 		elif (move_vector.x > 0 and frame_action == CONST.INPUT_ACTION_MOVE_RIGHT):
-			sprite.set_scale(Vector2(1.0, 1.0))
+			parent.set_scale(Vector2(1.0, 1.0))
 	else:
 		#only apply idle animation if no other
 		#animation was chosen as past of the logic

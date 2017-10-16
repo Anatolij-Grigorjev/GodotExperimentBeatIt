@@ -83,6 +83,7 @@ func _process(delta):
 			print(inputs.size())
 
 func clear_inputs():
+	print("clearing inputs")
 	inputs.clear()
 	inputs_idx = 0
 	inputs_insert_idx = 0
@@ -122,6 +123,7 @@ func jump_attack():
 			if (!attacking):
 				parent.switch_mode(true)
 				attacking = true
+				locked = true
 				anim.play(JUMP_STATE_TO_ATTACK[jump_state])
 			#attack already ahppening, ignore input and wait
 			else:

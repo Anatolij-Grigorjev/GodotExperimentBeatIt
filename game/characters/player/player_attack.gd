@@ -7,6 +7,10 @@ onready var ATTACK_ANIMATIONS = [
 	CONST.PLAYER_ANIM_ATTACK_1,
 	CONST.PLAYER_ANIM_ATTACK_2
 ]
+onready var ATTACK_EFFECT_Z = {
+	CONST.PLAYER_ANIM_ATTACK_1: 10,
+	CONST.PLAYER_ANIM_ATTACK_2: 7
+}
 const INPUT_Q_SIZE = 15
 #access to main character node
 onready var parent = get_node("../")

@@ -1,10 +1,11 @@
-[gd_scene load_steps=20 format=1]
+[gd_scene load_steps=21 format=1]
 
-[ext_resource path="res://player/player_main.gd" type="Script" id=1]
-[ext_resource path="res://player/player_move.gd" type="Script" id=2]
-[ext_resource path="res://player/sprites_basic.png" type="Texture" id=3]
-[ext_resource path="res://player/player_attack.gd" type="Script" id=4]
-[ext_resource path="res://player/sprites_attack.png" type="Texture" id=5]
+[ext_resource path="res://characters/player/player_main.gd" type="Script" id=1]
+[ext_resource path="res://characters/player/player_move.gd" type="Script" id=2]
+[ext_resource path="res://characters/player/sprites_basic.png" type="Texture" id=3]
+[ext_resource path="res://characters/player/player_attack.gd" type="Script" id=4]
+[ext_resource path="res://characters/player/sprites_attack.png" type="Texture" id=5]
+[ext_resource path="res://characters/player/player_sword.gd" type="Script" id=6]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -453,7 +454,9 @@ tracks/5/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 6.9158, 6.89963 )
 
-[node name="player" type="Area2D"]
+[node name="player" type="Area2D" groups=[
+"characters",
+]]
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
@@ -538,6 +541,7 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
+script/script = ExtResource( 6 )
 
 [node name="attack_hit" type="CollisionShape2D" parent="player_attack/sword"]
 
@@ -572,5 +576,7 @@ transform/pos = Vector2( 2.17104, 1.92344 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
+
+[connection signal="area_enter" from="player_attack/sword" to="player_attack/sword" method="_on_sword_area_enter"]
 
 

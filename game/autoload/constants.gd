@@ -38,4 +38,5 @@ const DOUBLE_TAP_INTERVAL_MS = 100
 #group of objects that are level characters like player or enemies
 #useful to know who gets a dropshadow
 const GROUP_CHARS = "characters"
+const GROUP_ENEMIES = "enemies"
 

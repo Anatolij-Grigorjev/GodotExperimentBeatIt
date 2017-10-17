@@ -1,18 +1,9 @@
-extends Area2D
-#utility functions
-onready var UTILS = get_node("/root/utils")
-onready var CONST = get_node("/root/const")
+extends "../basic_movement.gd"
 
-var current_sprite
 onready var movement = get_node("player_move")
 onready var attacks = get_node("player_attack")
 var move_extents = Vector2()
 var attack_extents = Vector2()
-var current_extents
-
-export var feet_pos = Vector2()
-export var min_pos = Vector2()
-export var max_pos = Vector2()
 
 var moving = true
 var attacking = false
@@ -33,7 +24,7 @@ func _ready():
 	attack_extents = UTILS.get_sprite_extents(attacks.sprite)
 	current_extents = move_extents
 	switch_mode(attacking)
-	set_process(true)
+	._ready()
 
 func _process(delta):
 	
@@ -47,24 +38,9 @@ func _process(delta):
 			if (Input.is_action_pressed(action)):
 				print("movement action: " + action)
 				switch_mode(false)
-				
 	
-	var pos = get_pos()
-	feet_pos = Vector2(pos.x, pos.y + current_extents.y)
-	min_pos = Vector2(pos.x - current_extents.x, pos.y + current_extents.y)
-	max_pos = Vector2(pos.x + current_extents.x, pos.y - current_extents.y)
+	._process(delta)
 
-func set_pos_by_feet(feet_pos):
-	var pos = Vector2(feet_pos.x, feet_pos.y - current_extents.y)
-	set_pos(pos)
-
-func set_pos_by_min(min_pos):
-	var pos = Vector2(min_pos.x + current_extents.x, min_pos.y - current_extents.y)
-	set_pos(pos)
-
-func set_pos_by_max(max_pos):
-	var pos = Vector2(max_pos.x - current_extents.x, max_pos.y + current_extents.y)
-	set_pos(pos)
 	
 func switch_mode(to_attacking):
 	print("switch mode to attack: " + str(to_attacking))

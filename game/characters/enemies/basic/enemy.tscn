@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://characters/enemies/enemy.gd" type="Script" id=1]
+
+[node name="enemy" type="Area2D" groups=[
+"characters",
+"enemies",
+]]
+
+input/pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 1 )
+feet_pos = Vector2( 0, 0 )
+min_pos = Vector2( 0, 0 )
+max_pos = Vector2( 0, 0 )
+
+

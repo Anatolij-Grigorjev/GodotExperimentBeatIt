@@ -14,24 +14,24 @@ func _ready():
 	set_process(true)
 	
 func _process(delta):
-	
-	if (!player.movement.jumping):
-		var feet_pos = player.feet_pos
-		var good_feet_pos = ground.nearest_in_bounds(feet_pos)
-		if (feet_pos != good_feet_pos):
-			player.set_pos_by_feet(good_feet_pos)
-	var good_min = ground.nearest_in_general_bounds(player.min_pos)
-	if (good_min.x > player.min_pos.x):
-		player.set_pos_by_min(good_min)
-	var good_max = ground.nearest_in_general_bounds(player.max_pos)
-	if (good_max.x < player.max_pos.x):
-		player.set_pos_by_max(good_max)
-	
-	if (current_bounds_x != null):
-		if (player.min_pos.x < current_bounds_x.x):
-			player.set_pos_by_min(Vector2(current_bounds_x.x + 1, player.min_pos.y))
-		if (player.max_pos.x > current_bounds_x.y):
-			player.set_pos_by_max(Vector2(current_bounds_x.y - 1, player.max_pos.y))
+	for character in get_tree().get_nodes_in_group(CONST.GROUP_CHARS):
+		if (!character.movement.jumping):
+			var feet_pos = character.feet_pos
+			var good_feet_pos = ground.nearest_in_bounds(feet_pos)
+			if (feet_pos != good_feet_pos):
+				character.set_pos_by_feet(good_feet_pos)
+		var good_min = ground.nearest_in_general_bounds(character.min_pos)
+		if (good_min.x > character.min_pos.x):
+			character.set_pos_by_min(good_min)
+		var good_max = ground.nearest_in_general_bounds(character.max_pos)
+		if (good_max.x < character.max_pos.x):
+			character.set_pos_by_max(good_max)
+		
+		if (current_bounds_x != null):
+			if (character.min_pos.x < current_bounds_x.x):
+				character.set_pos_by_min(Vector2(current_bounds_x.x + 1, character.min_pos.y))
+			if (character.max_pos.x > current_bounds_x.y):
+				characteryer.set_pos_by_max(Vector2(current_bounds_x.y - 1, character.max_pos.y))
 
 func _on_stop_1_area_enter( area ):
 	if (area.get_name() == "player"):

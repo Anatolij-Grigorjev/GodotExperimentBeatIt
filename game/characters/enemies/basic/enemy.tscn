@@ -17,4 +17,14 @@ feet_pos = Vector2( 0, 0 )
 min_pos = Vector2( 0, 0 )
 max_pos = Vector2( 0, 0 )
 
+[node name="anim" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
 

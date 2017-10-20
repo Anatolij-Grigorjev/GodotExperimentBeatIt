@@ -26,4 +26,5 @@ func _on_sword_area_enter( area ):
 		if (parent.feet_pos - ATTACK_EFFECT_Z[current_attack] <= enemy_feet 
 		and enemy_feet <= parent.feet_pos + ATTACK_EFFECT_Z[current_attack]):
 			enemy.getting_hit = true
+			enemy.current_state = enemy.STATES.HURTING
 

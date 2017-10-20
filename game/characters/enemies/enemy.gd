@@ -7,13 +7,16 @@ var current_decision_wait
 var current_state_ctx = {}
 var attacks = []
 var current_anim
+var getting_hit
 
 onready var anim = get_node("anim")
 onready var player = get_tree().get_root().find_node("player")
 
+#main defaults for enemies on things
 export var decision_interval = 2.5 #in seconds
 export var scan_distance = 350 # in pixels, to either side
 export var attack_distance = 50
+export var aggressiveness = 0.75 # in percentiles
 export var movement_speed = Vector2(150, 50)
 
 
@@ -21,6 +24,7 @@ func _ready():
 	current_state = STANDING
 	current_state_ctx = {}
 	current_decision_wait = decision_interval
+	getting_hit = false
 	._ready()
 	
 func _process(delta):
@@ -37,13 +41,7 @@ func _process(delta):
 	._process(delta)
 
 func change_anim():
-	if (current_state == STANDING):
-		current_anim = "idle"
-	elif (current_state == MOVING):
-		current_anim = "walking"
-	elif(current_state == ATTACKING):
-		current_anim = attacks[current_state_ctx.attack]
-	pass	
+	pass
 	
 func change_state(delta):
 	#hurting is an external state thing
@@ -57,13 +55,15 @@ func change_state(delta):
 			if (current_state == STANDING):
 				#scan area for player
 				if (abs(distance.x) < scan_distance):
-					if (abs(distance.x) < attack_distance):
-						current_state = ATTACKING
-						current_state_ctx.direction = distance.normalized()
-						current_state_ctx.attack = randi() % attacks.size()
-					else:
-						current_state = MOVING
-						current_state_ctx.direction = distance.normalized()
+					#player spotted, lets check if we care
+					if (randf() < aggressiveness):
+						if (abs(distance.x) < attack_distance):
+							current_state = ATTACKING
+							current_state_ctx.direction = distance.normalized()
+							current_state_ctx.attack = randi() % attacks.size()
+						else:
+							current_state = MOVING
+							current_state_ctx.direction = distance.normalized()
 				
 				pass
 			elif (current_state == MOVING):
@@ -91,6 +91,4 @@ func take_action(delta):
 			set_scale(Vector2(-1.0, 1.0))
 		elif (current_state_ctx.direction.x > 0):
 			set_scale(Vector2(1.0, 1.0))
-	elif (current_state == ATTACKING):
-		pass
 		

@@ -22,7 +22,6 @@ const PLAYER_ANIM_ATTACK_JUMP_DESCEND = "attack_jump_descend"
 const ANIM_NAME_JUMP_START = "jump_start"
 const ANIM_NAME_JUMP_ASCEND = "jump_ascend"
 
-
 #player input actions, defined in project settings
 const INPUT_ACTION_MOVE_LEFT = "move_left"
 const INPUT_ACTION_MOVE_RIGHT = "move_right"
@@ -40,3 +39,11 @@ const DOUBLE_TAP_INTERVAL_MS = 100
 const GROUP_CHARS = "characters"
 const GROUP_ENEMIES = "enemies"
 
+
+
+#enemy animation names
+const THUG_ANIM_IDLE = "thug_idle"
+const THUG_ANIM_MOVE = "thug_walk"
+const THUG_ANIM_ATTACK_1 = "thug_attack_1"
+const THUG_ANIM_HURTING = "thug_hurting"
+const THUG_ANIM_FALLING = "thug_falling"

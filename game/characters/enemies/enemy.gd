@@ -5,6 +5,7 @@ enum STATES {STANDING, MOVING, ATTACKING, HURTING}
 var current_state
 var current_decision_wait
 var current_state_ctx = {}
+var attacks = []
 var current_anim
 
 onready var anim = get_node("anim")
@@ -36,6 +37,12 @@ func _process(delta):
 	._process(delta)
 
 func change_anim():
+	if (current_state == STANDING):
+		current_anim = "idle"
+	elif (current_state == MOVING):
+		current_anim = "walking"
+	elif(current_state == ATTACKING):
+		current_anim = attacks[current_state_ctx.attack]
 	pass	
 	
 func change_state(delta):
@@ -53,21 +60,23 @@ func change_state(delta):
 					if (abs(distance.x) < attack_distance):
 						current_state = ATTACKING
 						current_state_ctx.direction = distance.normalized()
-						#choose attack here
-						current_state_ctx.attack = 0
+						current_state_ctx.attack = randi() % attacks.size()
 					else:
 						current_state = MOVING
 						current_state_ctx.direction = distance.normalized()
-				current_anim = "idle"
+				
 				pass
 			elif (current_state == MOVING):
+				
 				if (abs(distance.x) < attack_distance):
 					current_state = ATTACKING
 					current_state_ctx.direction = distance.normalized()
-					#choose attack here
-					current_state_ctx.attack = 0
+					current_state_ctx.attack = randi() % attacks.size()
 				pass
 			elif(current_state == ATTACKING):
+				if (anim.get_current_animation() in attacks and !anim.is_playing()):
+					#attack finished, back to standing
+					current_state = STANDING
 				pass
 			else:
 				current_state = STANDING

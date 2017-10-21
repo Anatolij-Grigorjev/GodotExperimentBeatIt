@@ -113,7 +113,7 @@ func ground_attack():
 		if (combo_attack_state < ATTACK2):
 			locked = true
 			combo_attack_state += 1
-			anim.queue("attack_" + str(combo_attack_state + 1))
+			anim.queue("player_attack_" + str(combo_attack_state + 1))
 		else:
 			if (!anim.is_playing()):
 				print("reset when animation not playing")

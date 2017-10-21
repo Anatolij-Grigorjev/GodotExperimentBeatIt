@@ -1,6 +1,99 @@
-[gd_scene load_steps=2 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://characters/enemies/thug/thug.gd" type="Script" id=1]
+[ext_resource path="res://characters/enemies/thug/bandit_sprites.png" type="Texture" id=2]
+
+[sub_resource type="CapsuleShape2D" id=1]
+
+custom_solver_bias = 0.0
+radius = 10.0
+height = 20.0
+
+[sub_resource type="Animation" id=5]
+
+resource/name = "thug_hurting"
+length = 0.7
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.2, 0.5 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 120, 121, 122 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../body:transform/pos")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ Vector2( 11, 9 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+
+resource/name = "thug_idle"
+length = 1.1
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.3, 0.6, 0.9 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../body:transform/pos")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+
+resource/name = "thug_walk"
+length = 1.1
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": FloatArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7, 6, 5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../body:transform/pos")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
 
 [node name="thug" type="Area2D" groups=[
 "enemies",
@@ -8,6 +101,9 @@
 ]]
 
 input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1.39733, 0, 0, 1.41551, 0, 0 )
+shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
@@ -22,14 +118,52 @@ attack_distance = 50
 aggressiveness = 0.75
 movement_speed = Vector2( 150, 50 )
 
-[node name="anim" type="AnimationPlayer" parent="."]
+[node name="movement" type="Node2D" parent="."]
+
+[node name="anim" type="AnimationPlayer" parent="movement"]
 
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
+anims/thug_hurting = SubResource( 5 )
+anims/thug_idle = SubResource( 2 )
+anims/thug_walk = SubResource( 4 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
+
+[node name="sprite" type="Sprite" parent="movement"]
+
+texture = ExtResource( 2 )
+vframes = 14
+hframes = 10
+
+[node name="body" type="CollisionShape2D" parent="."]
+
+transform/scale = Vector2( 1.39733, 1.41551 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="fist" type="Area2D" parent="."]
+
+editor/display_folded = true
+input/pickable = true
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 0.586365, 0, 0, 0.68497, 19.7627, 7.6636 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="attack_hit" type="CollisionShape2D" parent="fist"]
+
+transform/pos = Vector2( 19.7627, 7.6636 )
+transform/scale = Vector2( 0.586365, 0.68497 )
+shape = SubResource( 3 )
+trigger = false
+_update_shape_index = 0
 
 

@@ -15,6 +15,7 @@ height = 59.4577
 
 [sub_resource type="Animation" id=2]
 
+resource/name = "player_idle"
 length = 1.1
 loop = true
 step = 0.1
@@ -29,7 +30,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../collider:transform/pos")
+tracks/1/path = NodePath("../body:transform/pos")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = {
@@ -41,6 +42,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=3]
 
+resource/name = "player_jump_ascend"
 length = 0.4
 loop = false
 step = 0.1
@@ -55,7 +57,7 @@ tracks/0/keys = {
 "values": [ 18 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../collider:transform/pos")
+tracks/1/path = NodePath("../body:transform/pos")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = {
@@ -67,6 +69,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=4]
 
+resource/name = "player_jump_descend"
 length = 1.0
 loop = false
 step = 0.1
@@ -81,7 +84,7 @@ tracks/0/keys = {
 "values": [ 19 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../collider:transform/pos")
+tracks/1/path = NodePath("../body:transform/pos")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = {
@@ -93,6 +96,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=5]
 
+resource/name = "player_jump_start"
 length = 0.1
 loop = false
 step = 0.1
@@ -107,7 +111,7 @@ tracks/0/keys = {
 "values": [ 17 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../collider:transform/pos")
+tracks/1/path = NodePath("../body:transform/pos")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = {
@@ -119,6 +123,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=6]
 
+resource/name = "player_run_continue"
 length = 0.18
 loop = true
 step = 0.09
@@ -133,7 +138,7 @@ tracks/0/keys = {
 "values": [ 11, 12 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../collider:transform/pos")
+tracks/1/path = NodePath("../body:transform/pos")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = {
@@ -145,6 +150,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=7]
 
+resource/name = "player_run_start"
 length = 0.5
 loop = false
 step = 0.1
@@ -159,7 +165,7 @@ tracks/0/keys = {
 "values": [ 10, 11, 12, 11, 12 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../collider:transform/pos")
+tracks/1/path = NodePath("../body:transform/pos")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = {
@@ -171,6 +177,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=8]
 
+resource/name = "player_walk"
 length = 0.7
 loop = true
 step = 0.1
@@ -185,7 +192,7 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../collider:transform/pos")
+tracks/1/path = NodePath("../body:transform/pos")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = {
@@ -197,13 +204,14 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=9]
 
-resource/name = "aidle"
+resource/name = "player_aidle"
 length = 1.0
 loop = false
 step = 0.1
 
 [sub_resource type="Animation" id=10]
 
+resource/name = "player_attack_1"
 length = 0.4
 loop = false
 step = 0.1
@@ -248,7 +256,7 @@ tracks/3/keys = {
 "values": [ Vector2( 3.86565, -0.794327 ), Vector2( 3.86565, -0.794327 ), Vector2( 3.86565, -0.794327 ), Vector2( 3.86565, -0.794327 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("../collider:transform/pos")
+tracks/4/path = NodePath("../body:transform/pos")
 tracks/4/interp = 1
 tracks/4/imported = false
 tracks/4/keys = {
@@ -260,7 +268,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id=11]
 
-resource/name = "attack_2"
+resource/name = "player_attack_2"
 length = 0.5
 loop = false
 step = 0.1
@@ -305,7 +313,7 @@ tracks/3/keys = {
 "values": [ Vector2( 3.86565, -0.794327 ), Vector2( 3.86565, -0.794327 ), Vector2( 3.86565, -0.794327 ), Vector2( 3.86565, -0.794327 ), Vector2( 3.86565, -0.794327 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("../collider:transform/pos")
+tracks/4/path = NodePath("../body:transform/pos")
 tracks/4/interp = 1
 tracks/4/imported = false
 tracks/4/keys = {
@@ -317,7 +325,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id=12]
 
-resource/name = "attack_jump_ascend"
+resource/name = "player_attack_jump_ascend"
 length = 0.6
 loop = false
 step = 0.1
@@ -332,7 +340,7 @@ tracks/0/keys = {
 "values": [ 51, 52, 53, 54, 55, 56 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../collider:transform/pos")
+tracks/1/path = NodePath("../body:transform/pos")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = {
@@ -384,7 +392,7 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id=13]
 
-resource/name = "attack_jump_descend"
+resource/name = "player_attack_jump_descend"
 length = 1.0
 loop = false
 step = 0.1
@@ -399,7 +407,7 @@ tracks/0/keys = {
 "values": [ 57, 58, 59, 60, 61, 62 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../collider:transform/pos")
+tracks/1/path = NodePath("../body:transform/pos")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = {
@@ -460,7 +468,7 @@ extents = Vector2( 6.9158, 6.89963 )
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 2.17104, 1.92344 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -2.69476, -0.509457 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 0 )
 gravity = 98.0
@@ -480,23 +488,23 @@ script/script = ExtResource( 2 )
 texture = ExtResource( 3 )
 vframes = 7
 hframes = 10
-frame = 7
+frame = 19
 
 [node name="anim" type="AnimationPlayer" parent="player_move"]
 
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/idle = SubResource( 2 )
-anims/jump_ascend = SubResource( 3 )
-anims/jump_descend = SubResource( 4 )
-anims/jump_start = SubResource( 5 )
-anims/run_continue = SubResource( 6 )
-anims/run_start = SubResource( 7 )
-anims/walk = SubResource( 8 )
-next/jump_ascend = "jump_descend"
-next/jump_start = "jump_ascend"
-next/run_start = "run_continue"
+anims/player_idle = SubResource( 2 )
+anims/player_jump_ascend = SubResource( 3 )
+anims/player_jump_descend = SubResource( 4 )
+anims/player_jump_start = SubResource( 5 )
+anims/player_run_continue = SubResource( 6 )
+anims/player_run_start = SubResource( 7 )
+anims/player_walk = SubResource( 8 )
+next/player_jump_ascend = "jump_descend"
+next/player_jump_start = "jump_ascend"
+next/player_run_start = "run_continue"
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -520,11 +528,11 @@ frame = 3
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/aidle = SubResource( 9 )
-anims/attack_1 = SubResource( 10 )
-anims/attack_2 = SubResource( 11 )
-anims/attack_jump_ascend = SubResource( 12 )
-anims/attack_jump_descend = SubResource( 13 )
+anims/player_aidle = SubResource( 9 )
+anims/player_attack_1 = SubResource( 10 )
+anims/player_attack_2 = SubResource( 11 )
+anims/player_attack_jump_ascend = SubResource( 12 )
+anims/player_attack_jump_descend = SubResource( 13 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -570,9 +578,9 @@ drag_margin/top = 0.2
 drag_margin/right = 0.2
 drag_margin/bottom = 0.2
 
-[node name="collider" type="CollisionShape2D" parent="."]
+[node name="body" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( 2.17104, 1.92344 )
+transform/pos = Vector2( -2.69476, -0.509457 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0

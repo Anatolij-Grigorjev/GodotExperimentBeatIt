@@ -2,7 +2,7 @@ extends "../basic_movement.gd"
 
 enum STATES {STANDING, MOVING, ATTACKING, HURTING}
 
-var current_state
+export var current_state = STATES.STANDING
 var current_decision_wait
 var current_state_ctx = {}
 var attacks = []

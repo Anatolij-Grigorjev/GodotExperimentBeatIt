@@ -112,6 +112,7 @@ script/script = ExtResource( 1 )
 feet_pos = Vector2( 0, 0 )
 min_pos = Vector2( 0, 0 )
 max_pos = Vector2( 0, 0 )
+current_state = 0
 decision_interval = 2.5
 scan_distance = 350
 attack_distance = 50

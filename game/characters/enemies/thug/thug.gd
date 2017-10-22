@@ -1,7 +1,8 @@
 extends "../enemy.gd"
 
 
-onready var sprite = get_node("sprite")
+onready var sprite = get_node("movement/sprite")
+var movement = {}
 
 func _ready():
 	#init enemy variables
@@ -13,8 +14,9 @@ func _ready():
 	attacks = [
 		CONST.THUG_ANIM_ATTACK_1
 	]
+	movement.jumping = false
 	current_anim = CONST.THUG_ANIM_IDLE
-	
+	anim.play(current_anim)	
 	#init movement variables
 	current_extents = UTILS.get_sprite_extents(sprite)
 	._ready()

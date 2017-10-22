@@ -11,6 +11,7 @@ export var min_pos = Vector2()
 export var max_pos = Vector2()
 
 func _ready():
+	#set initial vars
 	set_process(true)
 
 

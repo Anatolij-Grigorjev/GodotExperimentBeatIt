@@ -9,7 +9,7 @@ var attacks = []
 var current_anim
 var getting_hit
 
-onready var anim = get_node("anim")
+onready var anim = get_node("movement/anim")
 onready var player = get_tree().get_root().find_node("player")
 
 #main defaults for enemies on things

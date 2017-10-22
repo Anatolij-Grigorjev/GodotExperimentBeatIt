@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://stages/level_1/level.gd" type="Script" id=1]
 [ext_resource path="res://stages/level_1/ground.tscn" type="PackedScene" id=2]
-[ext_resource path="res://player/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://characters/player/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://characters/enemies/thug/thug.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -18,14 +19,13 @@ script/script = ExtResource( 1 )
 transform/pos = Vector2( 965.257, 560.153 )
 transform/scale = Vector2( 0.5, 0.5 )
 
-[node name="player" parent="." groups=[
-"characters",
-] instance=ExtResource( 3 )]
+[node name="player" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 79.5247, 429.049 )
 
 [node name="stop_1" type="Area2D" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 531.704, 558.008 )
 transform/scale = Vector2( 8.78127, 5.8756 )
 input/pickable = true
@@ -64,6 +64,11 @@ drag_margin/left = 0.2
 drag_margin/top = 0.2
 drag_margin/right = 0.2
 drag_margin/bottom = 0.2
+
+[node name="thug" parent="." instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 806.12, 667.101 )
+feet_pos = Vector2( 750, 600 )
 
 [connection signal="area_enter" from="stop_1" to="." method="_on_stop_1_area_enter"]
 

@@ -6,7 +6,7 @@ onready var player = get_node("player")
 onready var ground = get_node("ground")
 onready var stop_1 = get_node("stop_1")
 
-var current_bounds_x = null
+var player_current_bounds_x = null
 
 func _ready():
 	var tex_extents = ground.texture_extents
@@ -27,11 +27,11 @@ func _process(delta):
 		if (good_max.x < character.max_pos.x):
 			character.set_pos_by_max(good_max)
 		
-		if (current_bounds_x != null):
-			if (character.min_pos.x < current_bounds_x.x):
-				character.set_pos_by_min(Vector2(current_bounds_x.x + 1, character.min_pos.y))
-			if (character.max_pos.x > current_bounds_x.y):
-				characteryer.set_pos_by_max(Vector2(current_bounds_x.y - 1, character.max_pos.y))
+	if (player_current_bounds_x != null):
+		if (player.min_pos.x < player_current_bounds_x.x):
+			player.set_pos_by_min(Vector2(player_current_bounds_x.x + 1, player.min_pos.y))
+		if (player.max_pos.x > player_current_bounds_x.y):
+			player.set_pos_by_max(Vector2(player_current_bounds_x.y - 1, player.max_pos.y))
 
 func _on_stop_1_area_enter( area ):
 	if (area.get_name() == "player"):
@@ -57,9 +57,9 @@ func set_area_activeness(area, active = true):
 		var area_extents = collider.get_shape().get_extents() * area.get_scale()
 		var scaled_pos_x = collider.get_pos().x * area.get_scale().x
 		#set x bounds using collide extents and position
-		current_bounds_x = Vector2(
+		player_current_bounds_x = Vector2(
 		area.get_pos().x + scaled_pos_x - area_extents.x, 
 		area.get_pos().x + scaled_pos_x + area_extents.x)
 	else:
 		area.get_node("camera").clear_current()
-		current_bounds_x = null
+		player_current_bounds_x = null

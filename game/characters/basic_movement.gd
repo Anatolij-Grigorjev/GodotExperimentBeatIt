@@ -12,7 +12,12 @@ export var max_pos = Vector2()
 
 func _ready():
 	#set initial vars
-	set_process(true)
+	set_process(true)	
+	
+var CIRCLE_COLOR = Color(1, 1, 1)	
+	
+func _draw():
+	draw_circle(feet_pos, 5.0, CIRCLE_COLOR)
 
 
 func _process(delta):
@@ -20,6 +25,8 @@ func _process(delta):
 	feet_pos = Vector2(pos.x, pos.y + current_extents.y)
 	min_pos = Vector2(pos.x - current_extents.x, pos.y + current_extents.y)
 	max_pos = Vector2(pos.x + current_extents.x, pos.y - current_extents.y)
+	#update draw call to feet circle (debug feet pos)
+	update()
 			
 func set_pos_by_feet(feet_pos):
 	var pos = Vector2(feet_pos.x, feet_pos.y - current_extents.y)

@@ -21,7 +21,6 @@ transform/scale = Vector2( 0.5, 0.5 )
 
 [node name="stop_1" type="Area2D" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 531.704, 558.008 )
 transform/scale = Vector2( 8.78127, 5.8756 )
 input/pickable = true
@@ -35,6 +34,7 @@ angular_damp = 1.0
 
 [node name="collider" type="CollisionShape2D" parent="stop_1"]
 
+visibility/visible = false
 transform/pos = Vector2( 26.5341, -1.08842 )
 shape = SubResource( 1 )
 trigger = true

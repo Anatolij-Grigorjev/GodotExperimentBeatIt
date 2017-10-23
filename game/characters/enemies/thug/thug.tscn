@@ -9,7 +9,7 @@ custom_solver_bias = 0.0
 radius = 10.0
 height = 20.0
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=2]
 
 resource/name = "thug_hurting"
 length = 0.7
@@ -36,9 +36,8 @@ tracks/1/keys = {
 "values": [ Vector2( 11, 9 ) ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 
-resource/name = "thug_idle"
 length = 1.1
 loop = true
 step = 0.1
@@ -90,14 +89,14 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=5]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
 [node name="thug" type="Area2D" groups=[
-"enemies",
 "characters",
+"enemies",
 ]]
 
 input/pickable = true
@@ -126,8 +125,8 @@ movement_speed = Vector2( 150, 50 )
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/thug_hurting = SubResource( 5 )
-anims/thug_idle = SubResource( 2 )
+anims/thug_hurting = SubResource( 2 )
+anims/thug_idle = SubResource( 3 )
 anims/thug_walk = SubResource( 4 )
 playback/active = true
 playback/speed = 1.0
@@ -151,7 +150,7 @@ _update_shape_index = 0
 
 editor/display_folded = true
 input/pickable = true
-shapes/0/shape = SubResource( 3 )
+shapes/0/shape = SubResource( 5 )
 shapes/0/transform = Matrix32( 0.586365, 0, 0, 0.68497, 19.7627, 7.6636 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -163,7 +162,7 @@ angular_damp = 1.0
 
 transform/pos = Vector2( 19.7627, 7.6636 )
 transform/scale = Vector2( 0.586365, 0.68497 )
-shape = SubResource( 3 )
+shape = SubResource( 5 )
 trigger = false
 _update_shape_index = 0
 

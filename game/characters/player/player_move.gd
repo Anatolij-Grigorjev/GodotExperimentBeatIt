@@ -5,7 +5,7 @@ onready var CONST = get_node("/root/const")
 enum JUMP_STATES { WIND_UP = 0, ASCEND = 1, DESCEND = 2 }
 
 #jump constants
-const GRAVITY = Vector2(0.0, 98)
+const GRAVITY = Vector2(0.0, 198)
 const JUMP_STRENGTH = 250
 const JUMP_WIND_UP = 0.1
 const JUMP_ASCEND_TIME = 0.45

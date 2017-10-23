@@ -24,11 +24,15 @@ func _on_sword_area_enter( area ):
 		var enemy = area
 		#lower center of enemy to see if they in attack range
 		var enemy_feet = enemy.feet_pos
+		var diff = abs(parent.feet_pos.y - enemy_feet.y)
 		var current_attack = anim.get_current_animation()
-		print(str(current_attack) + "|" + str(parent.get_pos()) + "|" + str(enemy.get_pos()))
+		print(str(current_attack) + "|" + str(parent.feet_pos) + "|" + str(enemy.feet_pos))
 		if (current_attack != CONST.PLAYER_ANIM_ATTACK_IDLE):
-			if (parent.feet_pos.y - ATTACK_EFFECT_Z[current_attack] <= enemy_feet.y 
-			and enemy_feet.y <= parent.feet_pos.y + ATTACK_EFFECT_Z[current_attack]):
+			if (diff < ATTACK_EFFECT_Z[current_attack]):
 				enemy.getting_hit = true
 				enemy.current_state = enemy.STATES.HURTING
+			else:
+				print("attack went wide! Difference: " + 
+				str(diff) + 
+				"|Required: " + str(ATTACK_EFFECT_Z[current_attack]))
 

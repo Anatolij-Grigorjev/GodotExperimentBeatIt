@@ -3,7 +3,8 @@ extends "../basic_movement.gd"
 onready var movement = get_node("player_move")
 onready var attacks = get_node("player_attack")
 var move_extents = Vector2()
-var attack_extents = Vector2()
+var attack_extents_x = Vector2()
+var attack_extents_y = Vector2()
 
 var moving = true
 var attacking = false
@@ -21,8 +22,12 @@ onready var ATTACK_COMMANDS = [
 
 func _ready():
 	move_extents = UTILS.get_sprite_extents(movement.sprite)
-	attack_extents = UTILS.get_sprite_extents(attacks.sprite)
-	current_extents = move_extents
+	var attack_extents = UTILS.get_sprite_extents(attacks.sprite)
+	attack_extents_x = Vector2(attack_extents.x, attack_extents.x)
+	attack_extents_y = Vector2(
+		move_extents.y, 
+		attack_extents.y + (attack_extents.y - move_extents.y)
+	)
 	switch_mode(attacking)
 	._ready()
 
@@ -45,11 +50,11 @@ func _process(delta):
 func switch_mode(to_attacking):
 	print("switch mode to attack: " + str(to_attacking))
 	if (to_attacking):
-		current_extents = attack_extents
+		set_extents(attack_extents_x, attack_extents_y)
 		attacks.show()
 		movement.hide()
 	else: 
-		current_extents = move_extents
+		set_extents(move_extents)
 		attacks.hide()
 		movement.show()
 	attacking = to_attacking

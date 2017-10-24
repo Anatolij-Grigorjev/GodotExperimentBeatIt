@@ -18,7 +18,7 @@ func _ready():
 	current_anim = CONST.THUG_ANIM_IDLE
 	anim.play(current_anim)	
 	#init movement variables
-	current_extents = UTILS.get_sprite_extents(sprite)
+	set_extents(UTILS.get_sprite_extents(sprite))
 	._ready()
 	
 	

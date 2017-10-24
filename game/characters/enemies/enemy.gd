@@ -10,7 +10,7 @@ var current_anim
 var getting_hit
 
 onready var anim = get_node("movement/anim")
-onready var player = get_tree().get_root().find_node("player")
+var player
 
 #main defaults for enemies on things
 export var decision_interval = 2.5 #in seconds
@@ -25,6 +25,7 @@ func _ready():
 	current_state_ctx = {}
 	current_decision_wait = decision_interval
 	getting_hit = false
+	player = get_tree().get_root().find_node("player", true, false)
 	._ready()
 	
 func _process(delta):

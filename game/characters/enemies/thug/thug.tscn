@@ -95,8 +95,8 @@ custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
 [node name="thug" type="Area2D" groups=[
-"characters",
 "enemies",
+"characters",
 ]]
 
 input/pickable = true

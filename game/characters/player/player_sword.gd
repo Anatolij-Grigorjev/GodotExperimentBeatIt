@@ -29,6 +29,7 @@ func _on_sword_area_enter( area ):
 		print(str(current_attack) + "|" + str(parent.feet_pos) + "|" + str(enemy.feet_pos))
 		if (current_attack != CONST.PLAYER_ANIM_ATTACK_IDLE):
 			if (diff < ATTACK_EFFECT_Z[current_attack]):
+				print("attack hit true! Hitting: " + str(enemy))
 				enemy.getting_hit = true
 				enemy.current_state = enemy.STATES.HURTING
 			else:

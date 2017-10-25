@@ -26,6 +26,13 @@ func _process(delta):
 		var good_max = ground.nearest_in_general_bounds(character.max_pos)
 		if (good_max.x < character.max_pos.x):
 			character.set_pos_by_max(good_max)
+		#use plaeyr camera bounds to limit enemy movements as well
+		#but enemies can at most position themselves out of view
+		if (character != player and player_current_bounds_x != null):
+			if (character.max_pos.x < player_current_bounds_x.x):
+				character.set_pos_by_max(Vector2(player_current_bounds_x.x + 1, character.max_pos.y))
+			if (character.min_pos.x > player_current_bounds_x.y):
+				character.set_pos_by_min(Vector2(player_current_bounds_x.y - 1, character.min_pos.y))
 		
 	if (player_current_bounds_x != null):
 		if (player.min_pos.x < player_current_bounds_x.x):

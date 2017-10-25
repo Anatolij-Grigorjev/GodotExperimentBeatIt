@@ -101,7 +101,7 @@ extents = Vector2( 10, 10 )
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1.39733, 0, 0, 1.41551, 0, 0 )
+shapes/0/transform = Matrix32( 1.39733, 0, 0, 1.41551, 11, 9 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -138,9 +138,11 @@ autoplay = ""
 texture = ExtResource( 2 )
 vframes = 14
 hframes = 10
+frame = 120
 
 [node name="body" type="CollisionShape2D" parent="."]
 
+transform/pos = Vector2( 11, 9 )
 transform/scale = Vector2( 1.39733, 1.41551 )
 shape = SubResource( 1 )
 trigger = false

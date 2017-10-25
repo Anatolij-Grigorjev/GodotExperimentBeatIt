@@ -6,11 +6,11 @@ var movement = {}
 
 func _ready():
 	#init enemy variables
-	decision_interval = 2.5 
+	decision_interval = 1.1 
 	scan_distance = 300 
 	attack_distance = 50
 	aggressiveness = 0.70 
-	movement_speed = Vector2(175, 50)
+	movement_speed = Vector2(150, 50)
 	attacks = [
 		CONST.THUG_ANIM_ATTACK_1
 	]

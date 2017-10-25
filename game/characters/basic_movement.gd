@@ -14,6 +14,7 @@ export var max_pos = Vector2()
 
 func _ready():
 	#set initial vars
+	set_z_as_relative(false)
 	set_process(true)	
 	
 const CIRCLE_COLOR_FEET = Color(1, 0, 1)	

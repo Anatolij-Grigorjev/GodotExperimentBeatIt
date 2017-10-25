@@ -22,6 +22,9 @@ func _on_sword_area_enter( area ):
 	#handle an enemy getting hit
 	if (area.is_in_group(CONST.GROUP_ENEMIES)):
 		var enemy = area
+		#cant his an enemy twice while they are being hit
+		if (enemy.getting_hit):
+			return
 		#lower center of enemy to see if they in attack range
 		var enemy_feet = enemy.feet_pos
 		var diff = abs(parent.feet_pos.y - enemy_feet.y)
@@ -31,6 +34,7 @@ func _on_sword_area_enter( area ):
 			if (diff < ATTACK_EFFECT_Z[current_attack]):
 				print("attack hit true! Hitting: " + str(enemy))
 				enemy.getting_hit = true
+				enemy.hit_frames = 5 
 				enemy.current_state = enemy.STATES.HURTING
 			else:
 				print("attack went wide! Difference: " + 

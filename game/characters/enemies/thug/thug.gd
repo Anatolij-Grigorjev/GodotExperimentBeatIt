@@ -6,7 +6,7 @@ var movement = {}
 
 func _ready():
 	#init enemy variables
-	decision_interval = 1.1 
+	decision_interval = 0.5 
 	scan_distance = 300 
 	attack_distance = 50
 	aggressiveness = 0.70 
@@ -21,6 +21,9 @@ func _ready():
 	set_extents(UTILS.get_sprite_extents(sprite))
 	._ready()
 	
+func _draw():
+	if (getting_hit):
+		draw_circle(Vector2(0,0), 10.0, Color(1, 1, 1))
 	
 func change_anim():
 	if (current_state == STANDING):

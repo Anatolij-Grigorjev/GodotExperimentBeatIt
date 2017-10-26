@@ -73,7 +73,7 @@ func change_state(delta):
 				if (abs(distance.x) < attack_distance):
 					set_random_attack_state(distance)
 					#lost enemy
-				elif (abs(distance.x) > sacn_distance):
+				elif (abs(distance.x) > scan_distance):
 					current_state = STANDING
 					current_state_ctx = {}
 			elif(current_state == ATTACKING):

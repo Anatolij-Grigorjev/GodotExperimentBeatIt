@@ -22,7 +22,7 @@ func _on_sword_area_enter( area ):
 	#handle an enemy getting hit
 	if (area.is_in_group(CONST.GROUP_ENEMIES)):
 		var enemy = area
-		#cant his an enemy twice while they are being hit
+		#cant hit an enemy twice while they are being hit
 		if (enemy.getting_hit):
 			return
 		#lower center of enemy to see if they in attack range

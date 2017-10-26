@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://characters/enemies/thug/thug.gd" type="Script" id=1]
 [ext_resource path="res://characters/enemies/thug/bandit_sprites.png" type="Texture" id=2]
@@ -8,6 +8,63 @@
 custom_solver_bias = 0.0
 radius = 10.0
 height = 20.0
+
+[sub_resource type="Animation" id=6]
+
+resource/name = "thug_attack_1"
+length = 0.5
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.2, 0.4 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 11, 12 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../fist:transform/pos")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.2, 0.4 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -12.9932, -4.64042 ), Vector2( 26.7887, 1.28061 ), Vector2( -1.15114, 4.61118 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../fist/attack_hit:transform/pos")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0, 0.2, 0.4 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2.12911, 0.981397 ), Vector2( -5.80621, -0.842025 ), Vector2( -5.99124, -5.28279 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../body:transform/pos")
+tracks/3/interp = 1
+tracks/3/imported = false
+tracks/3/keys = {
+"times": FloatArray( 0, 0.2, 0.4 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.234222, 6.58698 ), Vector2( 11.1511, 6.21692 ), Vector2( -0.505905, 4.18157 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../fist/attack_hit:shape:extents")
+tracks/4/interp = 1
+tracks/4/imported = false
+tracks/4/keys = {
+"times": FloatArray( 0, 0.2, 0.4 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 10, 10 ), Vector2( 24.9383, 10 ), Vector2( 10.5345, 10 ) ]
+}
 
 [sub_resource type="Animation" id=2]
 
@@ -92,7 +149,7 @@ tracks/1/keys = {
 [sub_resource type="RectangleShape2D" id=5]
 
 custom_solver_bias = 0.0
-extents = Vector2( 10, 10 )
+extents = Vector2( 10.5345, 10 )
 
 [node name="thug" type="Area2D" groups=[
 "enemies",
@@ -101,7 +158,7 @@ extents = Vector2( 10, 10 )
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1.39733, 0, 0, 1.41551, 11, 9 )
+shapes/0/transform = Matrix32( 1.39733, 0, 0, 1.41551, -0.505905, 4.18157 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -125,6 +182,7 @@ movement_speed = Vector2( 150, 50 )
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
+anims/thug_attack_1 = SubResource( 6 )
 anims/thug_hurting = SubResource( 2 )
 anims/thug_idle = SubResource( 3 )
 anims/thug_walk = SubResource( 4 )
@@ -138,11 +196,11 @@ autoplay = ""
 texture = ExtResource( 2 )
 vframes = 14
 hframes = 10
-frame = 120
+frame = 12
 
 [node name="body" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( 11, 9 )
+transform/pos = Vector2( -0.505905, 4.18157 )
 transform/scale = Vector2( 1.39733, 1.41551 )
 shape = SubResource( 1 )
 trigger = false
@@ -150,10 +208,10 @@ _update_shape_index = 0
 
 [node name="fist" type="Area2D" parent="."]
 
-editor/display_folded = true
+transform/pos = Vector2( -1.15114, 4.61118 )
 input/pickable = true
 shapes/0/shape = SubResource( 5 )
-shapes/0/transform = Matrix32( 0.586365, 0, 0, 0.68497, 19.7627, 7.6636 )
+shapes/0/transform = Matrix32( 0.796457, 0, 0, 0.68497, -5.99124, -5.28279 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -162,8 +220,8 @@ angular_damp = 1.0
 
 [node name="attack_hit" type="CollisionShape2D" parent="fist"]
 
-transform/pos = Vector2( 19.7627, 7.6636 )
-transform/scale = Vector2( 0.586365, 0.68497 )
+transform/pos = Vector2( -5.99124, -5.28279 )
+transform/scale = Vector2( 0.796457, 0.68497 )
 shape = SubResource( 5 )
 trigger = false
 _update_shape_index = 0

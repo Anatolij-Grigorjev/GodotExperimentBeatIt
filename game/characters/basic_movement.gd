@@ -20,11 +20,14 @@ func _ready():
 const CIRCLE_COLOR_FEET = Color(1, 0, 1)	
 const CIRCLE_COLOR_MIN = Color(0, 1, 0)
 const CIRCLE_COLOR_MAX = Color(1, 0, 0)
-	
+onready var FONT_DEBUG_INFO = preload("res://debug_font.fnt")
+
+
 func _draw():
 	draw_circle(feet_pos - get_pos(), 10.0, CIRCLE_COLOR_FEET)
 	draw_circle(min_pos - get_pos(), 10.0, CIRCLE_COLOR_MIN)
 	draw_circle(max_pos - get_pos(), 10.0, CIRCLE_COLOR_MAX)
+	draw_string(FONT_DEBUG_INFO, Vector2(0, -current_extents_y.y),  str(get_z()))
 
 func _process(delta):
 	var pos = get_pos()

@@ -9,7 +9,7 @@ custom_solver_bias = 0.0
 radius = 10.0
 height = 20.0
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=2]
 
 resource/name = "thug_attack_1"
 length = 0.5
@@ -66,9 +66,8 @@ tracks/4/keys = {
 "values": [ Vector2( 10, 10 ), Vector2( 24.9383, 10 ), Vector2( 10.5345, 10 ) ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 
-resource/name = "thug_hurting"
 length = 0.7
 loop = false
 step = 0.1
@@ -93,7 +92,7 @@ tracks/1/keys = {
 "values": [ Vector2( 11, 9 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 
 length = 1.1
 loop = true
@@ -119,9 +118,8 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 
-resource/name = "thug_walk"
 length = 1.1
 loop = true
 step = 0.1
@@ -146,7 +144,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=6]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10.5345, 10 )
@@ -182,10 +180,10 @@ movement_speed = Vector2( 150, 50 )
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/thug_attack_1 = SubResource( 6 )
-anims/thug_hurting = SubResource( 2 )
-anims/thug_idle = SubResource( 3 )
-anims/thug_walk = SubResource( 4 )
+anims/thug_attack_1 = SubResource( 2 )
+anims/thug_hurting = SubResource( 3 )
+anims/thug_idle = SubResource( 4 )
+anims/thug_walk = SubResource( 5 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -210,7 +208,7 @@ _update_shape_index = 0
 
 transform/pos = Vector2( -1.15114, 4.61118 )
 input/pickable = true
-shapes/0/shape = SubResource( 5 )
+shapes/0/shape = SubResource( 6 )
 shapes/0/transform = Matrix32( 0.796457, 0, 0, 0.68497, -5.99124, -5.28279 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -222,7 +220,7 @@ angular_damp = 1.0
 
 transform/pos = Vector2( -5.99124, -5.28279 )
 transform/scale = Vector2( 0.796457, 0.68497 )
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 trigger = false
 _update_shape_index = 0
 

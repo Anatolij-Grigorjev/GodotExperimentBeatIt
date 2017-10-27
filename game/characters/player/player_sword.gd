@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends Area2D
 
 #quick access to constnats
 onready var CONST = get_node("/root/const")
@@ -18,10 +18,10 @@ func _ready():
 	pass
 
 
-func process_sword_hit( area ):
+func _on_sword_body_enter( body ):
 	#handle an enemy getting hit
-	if (area.is_in_group(CONST.GROUP_ENEMIES)):
-		var enemy = area
+	if (body.is_in_group(CONST.GROUP_ENEMIES)):
+		var enemy = body
 		#cant hit an enemy twice while they are being hit
 		if (enemy.getting_hit):
 			return
@@ -40,4 +40,3 @@ func process_sword_hit( area ):
 				print("attack went wide! Difference: " + 
 				str(diff) + 
 				"|Required: " + str(ATTACK_EFFECT_Z[current_attack]))
-

@@ -149,19 +149,18 @@ tracks/1/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 10.5345, 10 )
 
-[node name="thug" type="Area2D" groups=[
-"enemies",
+[node name="thug" type="KinematicBody2D" groups=[
 "characters",
+"enemies",
 ]]
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1.39733, 0, 0, 1.41551, -0.505905, 4.18157 )
+shapes/0/transform = Matrix32( 1.39733, 0, 0, 1.41551, 0, 0 )
 shapes/0/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
 script/script = ExtResource( 1 )
 feet_pos = Vector2( 0, 0 )
 min_pos = Vector2( 0, 0 )
@@ -194,11 +193,9 @@ autoplay = ""
 texture = ExtResource( 2 )
 vframes = 14
 hframes = 10
-frame = 12
 
 [node name="body" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( -0.505905, 4.18157 )
 transform/scale = Vector2( 1.39733, 1.41551 )
 shape = SubResource( 1 )
 trigger = false
@@ -224,6 +221,8 @@ shape = SubResource( 6 )
 trigger = false
 _update_shape_index = 0
 
-[connection signal="body_enter" from="." to="." method="_on_thug_body_enter"]
+[node name="feet" type="Position2D" parent="."]
+
+transform/pos = Vector2( 0, 40 )
 
 

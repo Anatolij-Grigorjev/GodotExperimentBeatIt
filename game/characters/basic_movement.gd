@@ -11,9 +11,11 @@ var current_extents_y
 export var feet_pos = Vector2()
 export var min_pos = Vector2()
 export var max_pos = Vector2()
+onready var feet_node = get_node("feet")
 
 func _ready():
 	#set initial vars
+	feet_pos = feet_node.get_global_pos()
 	set_z_as_relative(false)
 	set_process(true)	
 	
@@ -24,14 +26,14 @@ onready var FONT_DEBUG_INFO = preload("res://debug_font.fnt")
 
 
 func _draw():
-	draw_circle(feet_pos - get_pos(), 10.0, CIRCLE_COLOR_FEET)
+	draw_circle(feet_node.get_pos(), 10.0, CIRCLE_COLOR_FEET)
 	draw_circle(min_pos - get_pos(), 10.0, CIRCLE_COLOR_MIN)
 	draw_circle(max_pos - get_pos(), 10.0, CIRCLE_COLOR_MAX)
 	draw_string(FONT_DEBUG_INFO, Vector2(0, -current_extents_y.y),  str(get_z()))
 
 func _process(delta):
 	var pos = get_pos()
-	feet_pos = Vector2(pos.x, pos.y + current_extents_y.x)
+	feet_pos = feet_node.get_global_pos()
 	min_pos = Vector2(pos.x - current_extents_x.x, pos.y + current_extents_y.x)
 	max_pos = Vector2(pos.x + current_extents_x.y, pos.y - current_extents_y.y)
 	#update draw call to feet circle (debug feet pos)

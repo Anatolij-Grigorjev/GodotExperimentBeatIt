@@ -223,7 +223,7 @@ tracks/0/keys = {
 "times": FloatArray( 0, 0.1, 0.2, 0.3 ),
 "transitions": FloatArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 9.67599, -3.05559 ), Vector2( 35.6966, -17.0978 ), Vector2( 43.7966, -34.1206 ), Vector2( 6.11115, -3.05559 ) ]
+"values": [ Vector2( -58.4885, 5.32074 ), Vector2( 35.452, 28.8158 ), Vector2( 32.5025, -27.3838 ), Vector2( 6.11115, -3.05559 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("sprites:frame")
@@ -243,7 +243,7 @@ tracks/2/keys = {
 "times": FloatArray( 0, 0.1, 0.2, 0.3 ),
 "transitions": FloatArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 72.3871, 7.21461 ), Vector2( 81.448, 22.2735 ), Vector2( 74.5104, 6.89963 ), Vector2( 6.9158, 6.89963 ) ]
+"values": [ Vector2( 74.8241, 20 ), Vector2( 78.3877, 30.667 ), Vector2( 51.1917, 6.89963 ), Vector2( 6.9158, 6.89963 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("sword:transform/pos")
@@ -253,7 +253,7 @@ tracks/3/keys = {
 "times": FloatArray( 0, 0.1, 0.2, 0.3 ),
 "transitions": FloatArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 3.86565, -0.794327 ), Vector2( 3.86565, -0.794327 ), Vector2( 3.86565, -0.794327 ), Vector2( 3.86565, -0.794327 ) ]
+"values": [ Vector2( 52.337, -3.80766 ), Vector2( 24.8513, -28.301 ), Vector2( 37.8657, -26.7943 ), Vector2( 3.86565, -0.794327 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("../body:transform/pos")
@@ -480,20 +480,19 @@ tracks/5/keys = {
 [sub_resource type="RectangleShape2D" id=14]
 
 custom_solver_bias = 0.0
-extents = Vector2( 8.22833, 7.97282 )
+extents = Vector2( 6.9158, 6.89963 )
 
-[node name="player" type="Area2D" groups=[
+[node name="player" type="KinematicBody2D" groups=[
 "characters",
 ]]
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 69.1367, -16.0509 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 18.3903, 1.51796 )
 shapes/0/trigger = false
-gravity_vec = Vector2( 0, 0 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
 script/script = ExtResource( 1 )
 feet_pos = Vector2( 0, 0 )
 min_pos = Vector2( 0, 0 )
@@ -509,7 +508,6 @@ script/script = ExtResource( 2 )
 texture = ExtResource( 3 )
 vframes = 7
 hframes = 10
-frame = 4
 
 [node name="anim" type="AnimationPlayer" parent="player_move"]
 
@@ -541,7 +539,7 @@ transform/pos = Vector2( 75, -30 )
 texture = ExtResource( 5 )
 vframes = 7
 hframes = 9
-frame = 62
+frame = 3
 
 [node name="anim" type="AnimationPlayer" parent="player_attack"]
 
@@ -558,25 +556,26 @@ playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
 
-[node name="sword" type="StaticBody2D" parent="player_attack" groups=[
+[node name="sword" type="Area2D" parent="player_attack" groups=[
 "player_sword",
 ]]
 
-transform/pos = Vector2( 47.0309, -1.10604 )
+transform/pos = Vector2( 3.86565, -0.794327 )
+transform/scale = Vector2( 0.531249, 0.296875 )
 input/pickable = true
 shapes/0/shape = SubResource( 14 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/transform = Matrix32( 1.93673, 0, 0, 2.34503, 6.11115, -3.05559 )
 shapes/0/trigger = true
-collision/layers = 1
-collision/mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
 script/script = ExtResource( 6 )
 
 [node name="attack_hit" type="CollisionShape2D" parent="player_attack/sword"]
 
+transform/pos = Vector2( 6.11115, -3.05559 )
+transform/scale = Vector2( 1.93673, 2.34503 )
 shape = SubResource( 14 )
 trigger = true
 _update_shape_index = 0
@@ -603,9 +602,15 @@ drag_margin/bottom = 0.2
 
 [node name="body" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( 69.1367, -16.0509 )
+transform/pos = Vector2( 18.3903, 1.51796 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
+
+[node name="feet" type="Position2D" parent="."]
+
+transform/pos = Vector2( 0, 50 )
+
+[connection signal="body_enter" from="player_attack/sword" to="player_attack/sword" method="_on_sword_body_enter"]
 
 

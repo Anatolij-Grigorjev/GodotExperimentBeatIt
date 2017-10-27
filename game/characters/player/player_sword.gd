@@ -1,12 +1,12 @@
-extends Area2D
+extends StaticBody2D
 
 #quick access to constnats
 onready var CONST = get_node("/root/const")
 onready var ATTACK_EFFECT_Z = {
-	CONST.PLAYER_ANIM_ATTACK_1: 25,
-	CONST.PLAYER_ANIM_ATTACK_2: 20,
-	CONST.PLAYER_ANIM_ATTACK_JUMP_ASCEND: 30,
- 	CONST.PLAYER_ANIM_ATTACK_JUMP_DESCEND: 35
+	CONST.PLAYER_ANIM_ATTACK_1: 3,
+	CONST.PLAYER_ANIM_ATTACK_2: 2,
+	CONST.PLAYER_ANIM_ATTACK_JUMP_ASCEND: 4,
+ 	CONST.PLAYER_ANIM_ATTACK_JUMP_DESCEND: 5
 }
 #access to main character node
 onready var parent = get_node("../../")
@@ -18,7 +18,7 @@ func _ready():
 	pass
 
 
-func _on_sword_area_enter( area ):
+func process_sword_hit( area ):
 	#handle an enemy getting hit
 	if (area.is_in_group(CONST.GROUP_ENEMIES)):
 		var enemy = area
@@ -26,10 +26,10 @@ func _on_sword_area_enter( area ):
 		if (enemy.getting_hit):
 			return
 		#lower center of enemy to see if they in attack range
-		var enemy_feet = enemy.feet_pos
-		var diff = abs(parent.feet_pos.y - enemy_feet.y)
+		var enemy_z = enemy.get_z()
+		var diff = abs(parent.get_z() - enemy_z)
 		var current_attack = anim.get_current_animation()
-		print(str(current_attack) + "|" + str(parent.feet_pos) + "|" + str(enemy.feet_pos))
+		print(str(current_attack) + "|" + str(parent.get_z()) + "|" + str(enemy_z))
 		if (current_attack != CONST.PLAYER_ANIM_ATTACK_IDLE):
 			if (diff < ATTACK_EFFECT_Z[current_attack]):
 				print("attack hit true! Hitting: " + str(enemy))

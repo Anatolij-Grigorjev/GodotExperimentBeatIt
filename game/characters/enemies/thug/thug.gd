@@ -40,3 +40,7 @@ func take_action(delta):
 	
 	
 	.take_action(delta)
+
+func _on_thug_body_enter( body ):
+	if (body.is_in_group(CONST.GROUP_PLAYER_SWORD)):
+		body.process_sword_hit(self)

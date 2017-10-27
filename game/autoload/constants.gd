@@ -38,7 +38,7 @@ const DOUBLE_TAP_INTERVAL_MS = 100
 #useful to know who gets a dropshadow
 const GROUP_CHARS = "characters"
 const GROUP_ENEMIES = "enemies"
-
+const GROUP_PLAYER_SWORD = "player_sword"
 
 
 #enemy animation names

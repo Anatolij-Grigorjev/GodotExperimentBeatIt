@@ -558,17 +558,21 @@ playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
 
-[node name="sword" type="Area2D" parent="player_attack"]
+[node name="sword" type="StaticBody2D" parent="player_attack" groups=[
+"player_sword",
+]]
 
 transform/pos = Vector2( 47.0309, -1.10604 )
 input/pickable = true
 shapes/0/shape = SubResource( 14 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
 script/script = ExtResource( 6 )
 
 [node name="attack_hit" type="CollisionShape2D" parent="player_attack/sword"]
@@ -603,7 +607,5 @@ transform/pos = Vector2( 69.1367, -16.0509 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
-
-[connection signal="area_enter" from="player_attack/sword" to="player_attack/sword" method="_on_sword_area_enter"]
 
 

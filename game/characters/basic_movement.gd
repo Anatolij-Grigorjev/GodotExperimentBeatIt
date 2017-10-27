@@ -3,7 +3,7 @@ extends Node
 #utility functions
 onready var UTILS = get_node("/root/utils")
 onready var CONST = get_node("/root/const")
-const Z_REDUCTION_COEF = -0.2
+const Z_REDUCTION_COEF = 0.2
 
 var current_extents_x
 var current_extents_y

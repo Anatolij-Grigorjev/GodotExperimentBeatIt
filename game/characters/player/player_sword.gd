@@ -9,8 +9,8 @@ onready var ATTACK_EFFECT_Z = {
  	CONST.PLAYER_ANIM_ATTACK_JUMP_DESCEND: 5
 }
 #access to main character node
-onready var parent = get_node("../../")
-onready var anim = get_node("../anim")
+onready var parent = get_node("../")
+onready var anim = get_node("../player_attack/anim")
 
 func _ready():
 	# Called every time the node is added to the scene.

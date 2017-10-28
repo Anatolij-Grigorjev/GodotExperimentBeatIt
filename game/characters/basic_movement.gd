@@ -7,6 +7,8 @@ const Z_REDUCTION_COEF = 0.2
 
 var current_extents_x
 var current_extents_y
+var can_jump = false
+var ignore_z = false
 
 export var feet_pos = Vector2()
 export var min_pos = Vector2()
@@ -17,6 +19,7 @@ func _ready():
 	#set initial vars
 	feet_pos = feet_node.get_global_pos()
 	set_z_as_relative(false)
+	can_jump = has_method("jumping")
 	set_process(true)	
 	
 const CIRCLE_COLOR_FEET = Color(1, 0, 1)	
@@ -37,7 +40,9 @@ func _process(delta):
 	min_pos = Vector2(pos.x - current_extents_x.x, pos.y + current_extents_y.x)
 	max_pos = Vector2(pos.x + current_extents_x.y, pos.y - current_extents_y.y)
 	#update draw call to feet circle (debug feet pos)
-	set_z(Z_REDUCTION_COEF * feet_pos.y)
+	ignore_z = can_jump and jumping()
+	if (not ignore_z):
+		set_z(Z_REDUCTION_COEF * feet_pos.y)
 	update()
 			
 func set_pos_by_feet(feet_pos):

@@ -46,6 +46,8 @@ func _process(delta):
 	
 	._process(delta)
 
+func jumping():
+	return movement.jumping
 	
 func switch_mode(to_attacking):
 	print("switch mode to attack: " + str(to_attacking))

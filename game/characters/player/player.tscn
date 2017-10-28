@@ -1,11 +1,12 @@
-[gd_scene load_steps=21 format=1]
+[gd_scene load_steps=22 format=1]
 
 [ext_resource path="res://characters/player/player_main.gd" type="Script" id=1]
 [ext_resource path="res://characters/player/player_move.gd" type="Script" id=2]
 [ext_resource path="res://characters/player/sprites_basic.png" type="Texture" id=3]
 [ext_resource path="res://characters/player/player_attack.gd" type="Script" id=4]
 [ext_resource path="res://characters/player/sprites_attack.png" type="Texture" id=5]
-[ext_resource path="res://characters/player/player_sword.gd" type="Script" id=6]
+[ext_resource path="res://characters/player/player_sword_hitboxes.gd" type="Script" id=6]
+[ext_resource path="res://characters/player/attacks/attack_1.gd" type="Script" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -208,21 +209,11 @@ resource/name = "player_aidle"
 length = 1.0
 loop = false
 step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("../sword:visibility/visible")
-tracks/0/interp = 1
-tracks/0/imported = false
-tracks/0/keys = {
-"times": FloatArray( 0 ),
-"transitions": FloatArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
 
 [sub_resource type="Animation" id=10]
 
 resource/name = "player_attack_1"
-length = 0.4
+length = 1.1
 loop = false
 step = 0.1
 tracks/0/type = "value"
@@ -230,7 +221,7 @@ tracks/0/path = NodePath("sprites:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
-"times": FloatArray( 0, 0.1, 0.2, 0.3 ),
+"times": FloatArray( 0, 0.1, 1, 1.1 ),
 "transitions": FloatArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 2, 3 ]
@@ -240,70 +231,25 @@ tracks/1/path = NodePath("../body:transform/pos")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = {
-"times": FloatArray( 0, 0.1, 0.2, 0.3 ),
+"times": FloatArray( 0, 0.1, 1, 1.1 ),
 "transitions": FloatArray( 1, 1, 1, 1 ),
-"update": 0,
+"update": 1,
 "values": [ Vector2( 17.1739, -0.914936 ), Vector2( 8.65875, -0.10397 ), Vector2( 18.3903, 1.51796 ), Vector2( 18.3903, 1.51796 ) ]
 }
-tracks/2/type = "value"
-tracks/2/path = NodePath("../sword:visibility/visible")
+tracks/2/type = "method"
+tracks/2/path = NodePath("../sword_hitboxes")
 tracks/2/interp = 1
 tracks/2/imported = false
 tracks/2/keys = {
-"times": FloatArray( 0, 0.3 ),
+"times": FloatArray( 0.1, 1 ),
 "transitions": FloatArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("../sword:transform/pos")
-tracks/3/interp = 1
-tracks/3/imported = false
-tracks/3/keys = {
-"times": FloatArray( 0, 0.1, 0.2 ),
-"transitions": FloatArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 12.8599, -5.02285 ), Vector2( 43.0896, -18.4339 ), Vector2( 51.6239, -32.6762 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("../sword/collider:transform/scale")
-tracks/4/interp = 1
-tracks/4/imported = false
-tracks/4/keys = {
-"times": FloatArray( 0, 0.1, 0.2 ),
-"transitions": FloatArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ) ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("../sword/collider:transform/pos")
-tracks/5/interp = 1
-tracks/5/imported = false
-tracks/5/keys = {
-"times": FloatArray( 0, 0.1, 0.2 ),
-"transitions": FloatArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1.2887, 3.65711 ), Vector2( 0, 0 ), Vector2( 0, 0 ) ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("../sword/collider:shape:extents")
-tracks/6/interp = 1
-tracks/6/imported = false
-tracks/6/keys = {
-"times": FloatArray( 0, 0.1, 0.2 ),
-"transitions": FloatArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 28.3487, 32 ), Vector2( 31.2, 31.0177 ), Vector2( 31.1256, 31.0177 ) ]
-}
-tracks/7/type = "value"
-tracks/7/path = NodePath("../sword:transform/scale")
-tracks/7/interp = 1
-tracks/7/imported = false
-tracks/7/keys = {
-"times": FloatArray( 0, 0.1, 0.2 ),
-"transitions": FloatArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 2.27054, 0.266697 ), Vector2( 2.43837, 0.701033 ), Vector2( 2.08024, 0.262193 ) ]
+"values": [ {
+"args": [ 0 ],
+"method": "doing_attack"
+}, {
+"args": [ 0, false ],
+"method": "doing_attack"
+} ]
 }
 
 [sub_resource type="Animation" id=11]
@@ -390,7 +336,7 @@ tracks/1/keys = {
 [sub_resource type="RectangleShape2D" id=14]
 
 custom_solver_bias = 0.0
-extents = Vector2( 31.1256, 31.0177 )
+extents = Vector2( 75.2739, 22.5218 )
 
 [node name="player" type="KinematicBody2D" groups=[
 "characters",
@@ -398,7 +344,7 @@ extents = Vector2( 31.1256, 31.0177 )
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 18.3903, 1.51796 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 8.65875, -0.10397 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -410,6 +356,7 @@ max_pos = Vector2( 0, 0 )
 
 [node name="player_move" type="Node2D" parent="."]
 
+editor/display_folded = true
 visibility/visible = false
 script/script = ExtResource( 2 )
 
@@ -441,6 +388,7 @@ autoplay = ""
 
 [node name="player_attack" type="Node2D" parent="."]
 
+editor/display_folded = true
 script/script = ExtResource( 4 )
 
 [node name="sprites" type="Sprite" parent="player_attack"]
@@ -449,7 +397,7 @@ transform/pos = Vector2( 75, -30 )
 texture = ExtResource( 5 )
 vframes = 7
 hframes = 9
-frame = 3
+frame = 1
 
 [node name="anim" type="AnimationPlayer" parent="player_attack"]
 
@@ -488,8 +436,7 @@ drag_margin/bottom = 0.2
 
 [node name="body" type="CollisionShape2D" parent="."]
 
-visibility/visible = false
-transform/pos = Vector2( 18.3903, 1.51796 )
+transform/pos = Vector2( 8.65875, -0.10397 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
@@ -498,27 +445,33 @@ _update_shape_index = 0
 
 transform/pos = Vector2( 0, 50 )
 
-[node name="sword" type="Area2D" parent="."]
+[node name="sword_hitboxes" type="Node2D" parent="."]
 
-visibility/visible = false
-transform/pos = Vector2( 51.6239, -32.6762 )
-transform/scale = Vector2( 2.08024, 0.262193 )
+script/script = ExtResource( 6 )
+
+[node name="attack_1" type="Area2D" parent="sword_hitboxes"]
+
+editor/display_folded = true
+transform/pos = Vector2( 1.32037, -20.2458 )
 input/pickable = true
 shapes/0/shape = SubResource( 14 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 42.2522, 1.76051 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
-script/script = ExtResource( 6 )
+script/script = ExtResource( 7 )
 
-[node name="collider" type="CollisionShape2D" parent="sword"]
+[node name="collision" type="CollisionShape2D" parent="sword_hitboxes/attack_1"]
 
+transform/pos = Vector2( 42.2522, 1.76051 )
 shape = SubResource( 14 )
 trigger = false
 _update_shape_index = 0
 
-[connection signal="body_enter" from="sword" to="sword" method="_on_sword_body_enter"]
+[connection signal="body_enter" from="sword_hitboxes/attack_1" to="sword_hitboxes/attack_1" method="body_enter"]
+
+[connection signal="body_exit" from="sword_hitboxes/attack_1" to="sword_hitboxes/attack_1" method="body_exit"]
 
 

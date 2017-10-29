@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=1]
+[gd_scene load_steps=24 format=1]
 
 [ext_resource path="res://characters/player/player_main.gd" type="Script" id=1]
 [ext_resource path="res://characters/player/player_move.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://characters/player/sprites_attack.png" type="Texture" id=5]
 [ext_resource path="res://characters/player/player_sword_hitboxes.gd" type="Script" id=6]
 [ext_resource path="res://characters/player/attacks/attack_1.gd" type="Script" id=7]
+[ext_resource path="res://characters/player/attacks/attack_2.gd" type="Script" id=8]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -37,7 +38,7 @@ tracks/1/imported = false
 tracks/1/keys = {
 "times": FloatArray( 0, 0.3, 0.6, 0.9 ),
 "transitions": FloatArray( 1, 1, 1, 1 ),
-"update": 0,
+"update": 1,
 "values": [ Vector2( -2.69476, -0.509457 ), Vector2( -2.69476, -0.509457 ), Vector2( -2.69476, -0.509457 ), Vector2( -2.69476, -0.509457 ) ]
 }
 
@@ -213,7 +214,7 @@ step = 0.1
 [sub_resource type="Animation" id=10]
 
 resource/name = "player_attack_1"
-length = 1.1
+length = 0.4
 loop = false
 step = 0.1
 tracks/0/type = "value"
@@ -221,7 +222,7 @@ tracks/0/path = NodePath("sprites:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
-"times": FloatArray( 0, 0.1, 1, 1.1 ),
+"times": FloatArray( 0, 0.1, 0.2, 0.3 ),
 "transitions": FloatArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 2, 3 ]
@@ -231,7 +232,7 @@ tracks/1/path = NodePath("../body:transform/pos")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = {
-"times": FloatArray( 0, 0.1, 1, 1.1 ),
+"times": FloatArray( 0, 0.1, 0.2, 0.3 ),
 "transitions": FloatArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ Vector2( 17.1739, -0.914936 ), Vector2( 8.65875, -0.10397 ), Vector2( 18.3903, 1.51796 ), Vector2( 18.3903, 1.51796 ) ]
@@ -241,7 +242,7 @@ tracks/2/path = NodePath("../sword_hitboxes")
 tracks/2/interp = 1
 tracks/2/imported = false
 tracks/2/keys = {
-"times": FloatArray( 0.1, 1 ),
+"times": FloatArray( 0.1, 0.2 ),
 "transitions": FloatArray( 1, 1 ),
 "values": [ {
 "args": [ 0 ],
@@ -275,8 +276,23 @@ tracks/1/imported = false
 tracks/1/keys = {
 "times": FloatArray( 0, 0.1, 0.2, 0.3, 0.4 ),
 "transitions": FloatArray( 1, 1, 1, 1, 1 ),
-"update": 0,
+"update": 1,
 "values": [ Vector2( -18.5086, 1.51796 ), Vector2( -2.69476, 0.706989 ), Vector2( -2.69476, 0.706989 ), Vector2( -2.69476, 0.706989 ), Vector2( -16.8866, -1.32042 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("../sword_hitboxes")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0.2, 0.3 ),
+"transitions": FloatArray( 1, 1 ),
+"values": [ {
+"args": [ 1 ],
+"method": "doing_attack"
+}, {
+"args": [ 1, false ],
+"method": "doing_attack"
+} ]
 }
 
 [sub_resource type="Animation" id=12]
@@ -338,13 +354,18 @@ tracks/1/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 75.2739, 22.5218 )
 
+[sub_resource type="RectangleShape2D" id=15]
+
+custom_solver_bias = 0.0
+extents = Vector2( 73.9535, 43.6479 )
+
 [node name="player" type="KinematicBody2D" groups=[
 "characters",
 ]]
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 8.65875, -0.10397 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -2.69476, -0.509457 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -356,8 +377,6 @@ max_pos = Vector2( 0, 0 )
 
 [node name="player_move" type="Node2D" parent="."]
 
-editor/display_folded = true
-visibility/visible = false
 script/script = ExtResource( 2 )
 
 [node name="sprites" type="Sprite" parent="player_move"]
@@ -388,7 +407,7 @@ autoplay = ""
 
 [node name="player_attack" type="Node2D" parent="."]
 
-editor/display_folded = true
+visibility/visible = false
 script/script = ExtResource( 4 )
 
 [node name="sprites" type="Sprite" parent="player_attack"]
@@ -397,7 +416,7 @@ transform/pos = Vector2( 75, -30 )
 texture = ExtResource( 5 )
 vframes = 7
 hframes = 9
-frame = 1
+frame = 4
 
 [node name="anim" type="AnimationPlayer" parent="player_attack"]
 
@@ -436,7 +455,7 @@ drag_margin/bottom = 0.2
 
 [node name="body" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( 8.65875, -0.10397 )
+transform/pos = Vector2( -2.69476, -0.509457 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
@@ -445,13 +464,21 @@ _update_shape_index = 0
 
 transform/pos = Vector2( 0, 50 )
 
+[node name="min_pos" type="Position2D" parent="."]
+
+transform/pos = Vector2( -60, 50 )
+
+[node name="max_pos" type="Position2D" parent="."]
+
+transform/pos = Vector2( 60, -50 )
+
 [node name="sword_hitboxes" type="Node2D" parent="."]
 
+editor/display_folded = true
 script/script = ExtResource( 6 )
 
 [node name="attack_1" type="Area2D" parent="sword_hitboxes"]
 
-editor/display_folded = true
 transform/pos = Vector2( 1.32037, -20.2458 )
 input/pickable = true
 shapes/0/shape = SubResource( 14 )
@@ -470,8 +497,31 @@ shape = SubResource( 14 )
 trigger = false
 _update_shape_index = 0
 
+[node name="attack_2" type="Area2D" parent="sword_hitboxes"]
+
+input/pickable = true
+shapes/0/shape = SubResource( 15 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 49.7343, -24.207 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 8 )
+
+[node name="collision" type="CollisionShape2D" parent="sword_hitboxes/attack_2"]
+
+transform/pos = Vector2( 49.7343, -24.207 )
+shape = SubResource( 15 )
+trigger = false
+_update_shape_index = 0
+
 [connection signal="body_enter" from="sword_hitboxes/attack_1" to="sword_hitboxes/attack_1" method="body_enter"]
 
 [connection signal="body_exit" from="sword_hitboxes/attack_1" to="sword_hitboxes/attack_1" method="body_exit"]
+
+[connection signal="body_enter" from="sword_hitboxes/attack_2" to="sword_hitboxes/attack_2" method="body_enter"]
+
+[connection signal="body_exit" from="sword_hitboxes/attack_2" to="sword_hitboxes/attack_2" method="body_exit"]
 
 

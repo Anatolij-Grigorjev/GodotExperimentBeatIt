@@ -16,14 +16,13 @@ func _ready():
 	]
 	movement.jumping = false
 	current_anim = CONST.THUG_ANIM_IDLE
-	anim.play(current_anim)	
-	#init movement variables
-	set_extents(UTILS.get_sprite_extents(sprite))
+	anim.play(current_anim)
 	._ready()
 	
 func _draw():
 	if (getting_hit):
-		draw_circle(Vector2(0,0), 10.0, Color(1, 1, 1))
+		draw_circle(Vector2(0,0), 50.0, Color(1, 1, 1))
+	._draw()
 	
 func change_anim():
 	if (current_state == STANDING):

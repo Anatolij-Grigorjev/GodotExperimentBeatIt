@@ -3,7 +3,8 @@ extends Node2D
 #quick access to constnats
 onready var CONST = get_node("/root/const")
 onready var attacks_hitboxes = [
-	get_node("attack_1")
+	get_node("attack_1"),
+	get_node("attack_2")
 ]
 
 #access to main character node
@@ -19,7 +20,7 @@ func _process (delta):
 		if (attack_node.active):
 			attack_node.process_bodies()
 	
-func do_attack( body, attack_name, attack_z, hit_frames = 5 ):
+func do_attack( body, attack_name, attack_z, hit_lock = 0.2 ):
 	#handle an enemy getting hit
 	if (body.is_in_group(CONST.GROUP_ENEMIES)):
 		var enemy = body
@@ -34,7 +35,7 @@ func do_attack( body, attack_name, attack_z, hit_frames = 5 ):
 		if (diff < attack_z):
 			print("attack hit true! Hitting: " + str(enemy))
 			enemy.getting_hit = true
-			enemy.hit_frames = 5 
+			enemy.hit_lock = hit_lock 
 			enemy.current_state = enemy.STATES.HURTING
 		else:
 			print("attack went wide! Difference: " + 

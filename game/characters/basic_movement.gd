@@ -4,41 +4,43 @@ extends Node
 onready var UTILS = get_node("/root/utils")
 onready var CONST = get_node("/root/const")
 const Z_REDUCTION_COEF = 0.2
-
-var current_extents_x
-var current_extents_y
-var can_jump = false
-var ignore_z = false
-
-export var feet_pos = Vector2()
-export var min_pos = Vector2()
-export var max_pos = Vector2()
-onready var feet_node = get_node("feet")
-
-func _ready():
-	#set initial vars
-	feet_pos = feet_node.get_global_pos()
-	set_z_as_relative(false)
-	can_jump = has_method("jumping")
-	set_process(true)	
-	
 const CIRCLE_COLOR_FEET = Color(1, 0, 1)	
 const CIRCLE_COLOR_MIN = Color(0, 1, 0)
 const CIRCLE_COLOR_MAX = Color(1, 0, 0)
 onready var FONT_DEBUG_INFO = preload("res://debug_font.fnt")
 
 
+var can_jump = false
+var ignore_z = false
+export var feet_pos = Vector2()
+export var min_pos = Vector2()
+export var max_pos = Vector2()
+onready var feet_node = get_node("feet")
+onready var min_pos_node = get_node("min_pos")
+onready var max_pos_node = get_node("max_pos")
+
+func _ready():
+	#set initial vars
+	set_positions()
+	set_z_as_relative(false)
+	can_jump = has_method("jumping")
+	set_process(true)	
+	
+func set_positions():
+	feet_pos = feet_node.get_global_pos()
+	min_pos = min_pos_node.get_global_pos()
+	max_pos = max_pos_node.get_global_pos()
+
+
+
 func _draw():
 	draw_circle(feet_node.get_pos(), 10.0, CIRCLE_COLOR_FEET)
-	draw_circle(min_pos - get_pos(), 10.0, CIRCLE_COLOR_MIN)
-	draw_circle(max_pos - get_pos(), 10.0, CIRCLE_COLOR_MAX)
-	draw_string(FONT_DEBUG_INFO, Vector2(0, -current_extents_y.y),  str(get_z()))
+	draw_circle(min_pos_node.get_pos(), 10.0, CIRCLE_COLOR_MIN)
+	draw_circle(max_pos_node.get_pos(), 10.0, CIRCLE_COLOR_MAX)
+	draw_string(FONT_DEBUG_INFO, Vector2(0, max_pos_node.get_pos().y),  str(get_z()))
 
 func _process(delta):
-	var pos = get_pos()
-	feet_pos = feet_node.get_global_pos()
-	min_pos = Vector2(pos.x - current_extents_x.x, pos.y + current_extents_y.x)
-	max_pos = Vector2(pos.x + current_extents_x.y, pos.y - current_extents_y.y)
+	set_positions()
 	#update draw call to feet circle (debug feet pos)
 	ignore_z = can_jump and jumping()
 	if (not ignore_z):
@@ -46,21 +48,15 @@ func _process(delta):
 	update()
 			
 func set_pos_by_feet(feet_pos):
-	var pos = Vector2(feet_pos.x, feet_pos.y - current_extents_y.x)
+	var pos = Vector2(feet_pos.x, feet_pos.y - feet_node.get_pos().y)
 	set_pos(pos)
 
 func set_pos_by_min(min_pos):
-	var pos = Vector2(min_pos.x + current_extents_x.x, min_pos.y - current_extents_y.x)
+	var min_pos_local = min_pos_node.get_pos()
+	var pos = Vector2(min_pos.x + min_pos_local.x, min_pos.y - min_pos_local.y)
 	set_pos(pos)
 
 func set_pos_by_max(max_pos):
-	var pos = Vector2(max_pos.x - current_extents_x.y, max_pos.y + current_extents_y.y)
+	var max_pos_local = max_pos_node.get_pos()
+	var pos = Vector2(max_pos.x - max_pos_local.x, max_pos.y + max_pos_local.y)
 	set_pos(pos)
-	
-func set_extents(extents_x, extents_y = null):
-	if (extents_y == null):
-		current_extents_x = Vector2(extents_x.x, extents_x.x)
-		current_extents_y = Vector2(extents_x.y, extents_x.y)
-	else:
-		current_extents_x = extents_x
-		current_extents_y = extents_y

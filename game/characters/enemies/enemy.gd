@@ -8,9 +8,9 @@ var current_state_ctx = {}
 var attacks = []
 var current_anim
 var getting_hit
-#amount of frames enemy is actively getting hit
+#amount of time enemy is actively getting hit
 #immune to further hits while this is happening
-var hit_frames
+var hit_lock
 
 onready var anim = get_node("movement/anim")
 var player
@@ -85,9 +85,9 @@ func change_state(delta):
 				current_state = STANDING
 			current_decision_wait = decision_interval
 	else:
-		getting_hit = hit_frames > 0
+		getting_hit = hit_lock > 0
 		if (getting_hit):
-			hit_frames -= 1
+			hit_lock -= delta
 		#currently hurting
 		if (!getting_hit and !anim.is_playing()):
 			#finished hurting and not being hurt no more,

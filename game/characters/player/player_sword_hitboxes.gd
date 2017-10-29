@@ -35,6 +35,7 @@ func do_attack( body, attack_name, attack_z, hit_lock = 0.2 ):
 		if (diff < attack_z):
 			print("attack hit true! Hitting: " + str(enemy))
 			enemy.getting_hit = true
+			enemy.just_hit = true
 			enemy.hit_lock = hit_lock 
 			enemy.current_state = enemy.STATES.HURTING
 		else:

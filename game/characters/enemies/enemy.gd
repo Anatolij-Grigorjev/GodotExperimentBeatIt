@@ -11,6 +11,9 @@ var getting_hit
 #amount of time enemy is actively getting hit
 #immune to further hits while this is happening
 var hit_lock
+#flag to check if the enemy just got hit on the previous frame
+#gets consumed on next update
+var just_hit = false
 
 onready var anim = get_node("movement/anim")
 var player
@@ -28,6 +31,7 @@ func _ready():
 	current_state_ctx = {}
 	current_decision_wait = decision_interval
 	getting_hit = false
+	just_hit = false
 	player = get_tree().get_root().find_node("player", true, false)
 	._ready()
 	
@@ -41,6 +45,8 @@ func _process(delta):
 		if (current_anim != anim.get_current_animation()):
 			anim.play(current_anim)
 	
+	if (just_hit):
+		just_hit = false
 	#process movement limitations on level
 	._process(delta)
 

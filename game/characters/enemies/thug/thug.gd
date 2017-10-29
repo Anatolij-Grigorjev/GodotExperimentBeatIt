@@ -33,7 +33,12 @@ func change_anim():
 		current_anim = attacks[current_state_ctx.attack]
 	elif (current_state == HURTING):
 		current_anim = CONST.THUG_ANIM_HURTING
-		
+		#thug was already hurting, lets restart hte animation
+		if (anim.is_playing() and 
+		anim.get_current_animation() == current_anim and
+		just_hit):
+			anim.play(current_anim)
+
 func take_action(delta):
 	#custom thug attack actions
 	

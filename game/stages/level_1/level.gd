@@ -40,19 +40,18 @@ func _process(delta):
 		if (player.max_pos.x > player_current_bounds_x.y):
 			player.set_pos_by_max(Vector2(player_current_bounds_x.y - 1, player.max_pos.y))
 
-func _on_stop_1_area_enter( area ):
-	if (area.get_name() == "player"):
+func _on_stop_1_body_enter( body ):
+	if (body.get_name() == "player"):
 		#time to stop player camera and do overhead one
-		area.get_node("camera").clear_current()
+		body.get_node("camera").clear_current()
 		set_area_activeness(stop_1, true)
-		pass # replace with function body
 
 
-func _on_stop_1_area_exit( area ):
-	if (area.get_name() == "player"):
+func _on_stop_1_body_exit( body ):
+	if (body.get_name() == "player"):
 		#time to stop overhead camera and do player one
 		set_area_activeness(stop_1, false)
-		area.get_node("camera").make_current()
+		body.get_node("camera").make_current()
 		#remove this stop later since its been dealt with
 		stop_1.queue_free()
 
@@ -60,13 +59,10 @@ func _on_stop_1_area_exit( area ):
 func set_area_activeness(area, active = true):
 	if (active):
 		area.get_node("camera").make_current()
-		var collider = area.get_node("collider")
-		var area_extents = collider.get_shape().get_extents() * area.get_scale()
-		var scaled_pos_x = collider.get_pos().x * area.get_scale().x
-		#set x bounds using collide extents and position
-		player_current_bounds_x = Vector2(
-		area.get_pos().x + scaled_pos_x - area_extents.x, 
-		area.get_pos().x + scaled_pos_x + area_extents.x)
+		var min_pos = area.get_node("min_stop_pos").get_global_pos()
+		var max_pos = area.get_node("max_stop_pos").get_global_pos()
+		#set x bounds for characters using prebaked positions
+		player_current_bounds_x = Vector2(min_pos.x, max_pos.x)
 	else:
 		area.get_node("camera").clear_current()
 		player_current_bounds_x = null

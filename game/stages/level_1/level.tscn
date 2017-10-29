@@ -36,7 +36,6 @@ angular_damp = 1.0
 
 [node name="collider" type="CollisionShape2D" parent="stop_1"]
 
-visibility/visible = false
 transform/pos = Vector2( 26.5341, -1.08842 )
 shape = SubResource( 1 )
 trigger = true
@@ -44,8 +43,6 @@ _update_shape_index = 0
 
 [node name="camera" type="Camera2D" parent="stop_1"]
 
-transform/pos = Vector2( -31.8925, -69.7032 )
-transform/scale = Vector2( 0.516031, 0.717342 )
 anchor_mode = 0
 rotating = false
 current = false
@@ -63,6 +60,14 @@ drag_margin/top = 0.2
 drag_margin/right = 0.2
 drag_margin/bottom = 0.2
 
+[node name="min_stop_pos" type="Position2D" parent="stop_1"]
+
+transform/pos = Vector2( -32, 0 )
+
+[node name="max_stop_pos" type="Position2D" parent="stop_1"]
+
+transform/pos = Vector2( 85, 0 )
+
 [node name="thug" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 806.12, 667.101 )
@@ -72,8 +77,8 @@ feet_pos = Vector2( 750, 600 )
 
 transform/pos = Vector2( 79.5247, 429.049 )
 
-[connection signal="area_enter" from="stop_1" to="." method="_on_stop_1_area_enter"]
+[connection signal="body_enter" from="stop_1" to="." method="_on_stop_1_body_enter"]
 
-[connection signal="area_exit" from="stop_1" to="." method="_on_stop_1_area_exit"]
+[connection signal="body_exit" from="stop_1" to="." method="_on_stop_1_body_exit"]
 
 

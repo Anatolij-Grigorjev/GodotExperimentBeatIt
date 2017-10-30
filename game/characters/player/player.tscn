@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=1]
+[gd_scene load_steps=23 format=1]
 
 [ext_resource path="res://characters/player/player_main.gd" type="Script" id=1]
 [ext_resource path="res://characters/player/player_move.gd" type="Script" id=2]
@@ -6,8 +6,7 @@
 [ext_resource path="res://characters/player/player_attack.gd" type="Script" id=4]
 [ext_resource path="res://characters/player/sprites_attack.png" type="Texture" id=5]
 [ext_resource path="res://characters/player/player_sword_hitboxes.gd" type="Script" id=6]
-[ext_resource path="res://characters/player/attacks/attack_1.gd" type="Script" id=7]
-[ext_resource path="res://characters/player/attacks/attack_2.gd" type="Script" id=8]
+[ext_resource path="res://characters/player/attacks/body_cache_attack.gd" type="Script" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -474,11 +473,11 @@ transform/pos = Vector2( 60, -50 )
 
 [node name="sword_hitboxes" type="Node2D" parent="."]
 
-editor/display_folded = true
 script/script = ExtResource( 6 )
 
 [node name="attack_1" type="Area2D" parent="sword_hitboxes"]
 
+editor/display_folded = true
 transform/pos = Vector2( 1.32037, -20.2458 )
 input/pickable = true
 shapes/0/shape = SubResource( 14 )
@@ -499,6 +498,7 @@ _update_shape_index = 0
 
 [node name="attack_2" type="Area2D" parent="sword_hitboxes"]
 
+editor/display_folded = true
 input/pickable = true
 shapes/0/shape = SubResource( 15 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 49.7343, -24.207 )
@@ -507,7 +507,7 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
-script/script = ExtResource( 8 )
+script/script = ExtResource( 7 )
 
 [node name="collision" type="CollisionShape2D" parent="sword_hitboxes/attack_2"]
 

@@ -11,9 +11,25 @@ onready var attacks_hitboxes = [
 onready var parent = get_node("../")
 
 func _ready():
+	#load attacks data from attacks.INI file
+	config_attacks()
 	reset_attacks()
 	set_process(true)
-	pass
+
+
+func config_attacks():
+	var attacks_config = ConfigFile.new()
+	var err = attacks_config.load("attacks/attacks/ini")
+	#only do this if loaded attacks OK
+	if err == OK:
+		var attack_names = attacks_config.get_sections()
+		for attack_name in attack_names:
+			var attack_node = get_node(attack_name)
+			attack_node.attack_name = attack_name
+			attack_node.attack_z = attacks_config.get_value(attack_name, "attack_z")
+			attack_node.hit_lock = attacks_config.get_value(attack_name, "hit_lock")
+	else:
+		print("problem opening attacks.ini!")
 	
 func _process (delta):
 	for attack_node in attacks_hitboxes:

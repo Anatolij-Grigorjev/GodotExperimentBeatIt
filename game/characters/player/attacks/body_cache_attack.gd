@@ -13,6 +13,11 @@ var hit_lock = 0.2
 
 func _ready():
 	pass
+	
+func dump():
+	print("attack_name: " + str(attack_name))
+	print("attack_z: " + str(attack_z))
+	print("hit_lock: " + str(hit_lock))
 
 func body_enter( body ):
 	if (body == player):

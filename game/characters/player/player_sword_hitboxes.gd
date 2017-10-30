@@ -19,7 +19,7 @@ func _ready():
 
 func config_attacks():
 	var attacks_config = ConfigFile.new()
-	var err = attacks_config.load("attacks/attacks/ini")
+	var err = attacks_config.load("res://characters/player/attacks/attacks.ini")
 	#only do this if loaded attacks OK
 	if err == OK:
 		var attack_names = attacks_config.get_sections()
@@ -28,8 +28,9 @@ func config_attacks():
 			attack_node.attack_name = attack_name
 			attack_node.attack_z = attacks_config.get_value(attack_name, "attack_z")
 			attack_node.hit_lock = attacks_config.get_value(attack_name, "hit_lock")
+			attack_node.dump()
 	else:
-		print("problem opening attacks.ini!")
+		print("problem opening attacks.ini: " + str(err))
 	
 func _process (delta):
 	for attack_node in attacks_hitboxes:

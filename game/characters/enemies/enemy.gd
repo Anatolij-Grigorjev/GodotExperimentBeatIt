@@ -115,4 +115,10 @@ func set_random_attack_state(distance):
 	current_state = ATTACKING
 	current_state_ctx.direction = distance.normalized()
 	current_state_ctx.attack = randi() % attacks.size()
+	
+func get_hit(hit_lock):
+	getting_hit = true
+	just_hit = true
+	self.hit_lock = hit_lock 
+	current_state = STATES.HURTING
 		

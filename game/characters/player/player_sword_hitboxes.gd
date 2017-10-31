@@ -19,7 +19,7 @@ func _ready():
 
 func config_attacks():
 	var attacks_config = ConfigFile.new()
-	var err = attacks_config.load("res://characters/player/attacks/attacks.ini")
+	var err = attacks_config.load(CONST.PLAYER_ATTACKS_CONFIG_FILE_PATH)
 	#only do this if loaded attacks OK
 	if err == OK:
 		var attack_names = attacks_config.get_sections()
@@ -51,10 +51,7 @@ func do_attack( body, attack_name, attack_z, hit_lock = 0.2 ):
 		print(str(current_attack) + "|" + str(parent.get_z()) + "|" + str(enemy_z))
 		if (diff < attack_z):
 			print("attack hit true! Hitting: " + str(enemy))
-			enemy.getting_hit = true
-			enemy.just_hit = true
-			enemy.hit_lock = hit_lock 
-			enemy.current_state = enemy.STATES.HURTING
+			enemy.get_hit(hit_lock)
 		else:
 			print("attack went wide! Difference: " + 
 			str(diff) + "|Required: " + str(attack_z))

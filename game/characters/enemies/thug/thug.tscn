@@ -174,8 +174,6 @@ movement_speed = Vector2( 150, 50 )
 
 [node name="movement" type="Node2D" parent="."]
 
-editor/display_folded = true
-
 [node name="anim" type="AnimationPlayer" parent="movement"]
 
 playback/process_mode = 1

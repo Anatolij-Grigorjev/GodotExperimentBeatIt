@@ -6,6 +6,7 @@
 #to use
 extends Node
 
+const PLAYER_ATTACKS_CONFIG_FILE_PATH = "res://characters/player/attacks/attacks.ini"
 #player animations names
 const PLAYER_ANIM_IDLE = "player_idle"
 const PLAYER_ANIM_WALK = "player_walk"

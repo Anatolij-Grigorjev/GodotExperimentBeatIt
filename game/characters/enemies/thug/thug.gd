@@ -19,6 +19,10 @@ func _ready():
 	anim.play(current_anim)
 	._ready()
 	
+func _process(delta):
+	._process(delta)
+	
+	
 func _draw():
 	if (getting_hit):
 		draw_circle(Vector2(0,0), 50.0, Color(1, 1, 1))
@@ -41,6 +45,7 @@ func change_anim():
 
 func take_action(delta):
 	#custom thug attack actions
-	
-	
 	.take_action(delta)
+	
+func get_hit(hit_lock):
+	.get_hit(hit_lock)

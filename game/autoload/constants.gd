@@ -23,6 +23,9 @@ const PLAYER_ANIM_ATTACK_JUMP_DESCEND = "player_attack_jump_descend"
 const ANIM_NAME_JUMP_START = "player_jump_start"
 const ANIM_NAME_JUMP_ASCEND = "player_jump_ascend"
 
+#common animation to receive hit
+const ANIM_HIT= "hit_spark"
+
 #player input actions, defined in project settings
 const INPUT_ACTION_MOVE_LEFT = "move_left"
 const INPUT_ACTION_MOVE_RIGHT = "move_right"

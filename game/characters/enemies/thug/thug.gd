@@ -3,6 +3,7 @@ extends "../enemy.gd"
 
 onready var sprite = get_node("movement/sprite")
 var movement = {}
+onready var hit_anim = get_node("hit_effect/hit_anim")
 
 func _ready():
 	#init enemy variables
@@ -24,8 +25,6 @@ func _process(delta):
 	
 	
 func _draw():
-	if (getting_hit):
-		draw_circle(Vector2(0,0), 50.0, Color(1, 1, 1))
 	._draw()
 	
 func change_anim():
@@ -49,3 +48,5 @@ func take_action(delta):
 	
 func get_hit(hit_lock):
 	.get_hit(hit_lock)
+	hit_anim.play(CONST.ANIM_HIT)
+	

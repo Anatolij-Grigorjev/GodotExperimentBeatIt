@@ -6,7 +6,10 @@
 #to use
 extends Node
 
+const VECTOR2_ZERO = Vector2(0, 0)
+
 const PLAYER_ATTACKS_CONFIG_FILE_PATH = "res://characters/player/attacks/attacks.ini"
+const HIT_EFFECTS_FOLDER_PATH = "res://characters/hit_effects/"
 #player animations names
 const PLAYER_ANIM_IDLE = "player_idle"
 const PLAYER_ANIM_WALK = "player_walk"
@@ -50,4 +53,5 @@ const THUG_ANIM_IDLE = "thug_idle"
 const THUG_ANIM_MOVE = "thug_walk"
 const THUG_ANIM_ATTACK_1 = "thug_attack_1"
 const THUG_ANIM_HURTING = "thug_hurting"
-const THUG_ANIM_FALLING = "thug_falling"
+const THUG_ANIM_FALLING_FWD = "thug_falling_forward"
+const THUNG_ANIM_FALLING_BCK = "thug_falling_backward"

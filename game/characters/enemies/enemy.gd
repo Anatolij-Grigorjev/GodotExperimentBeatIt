@@ -1,6 +1,6 @@
 extends "../basic_movement.gd"
 
-enum STATES {STANDING, MOVING, ATTACKING, HURTING}
+enum STATES {STANDING, MOVING, ATTACKING, HURTING, FALLING}
 
 export var current_state = STATES.STANDING
 var current_decision_wait
@@ -116,9 +116,20 @@ func set_random_attack_state(distance):
 	current_state_ctx.direction = distance.normalized()
 	current_state_ctx.attack = randi() % attacks.size()
 	
-func get_hit(hit_lock):
+func get_hit(attack_info):
 	getting_hit = true
 	just_hit = true
-	self.hit_lock = hit_lock 
-	current_state = STATES.HURTING
-		
+	hit_lock = attack_info.hit_lock 
+	if (attack_info.disloge_vector != CONST.VECTOR2_ZERO):
+		if (current_state == STATES.HURTING):
+			#was already hurting when this attack hit, 
+			#fly back with full force
+			move_and_slide(attack_info.disloge_vector)
+			ignore_z = true
+			current_state = STATES.FALLING
+			current_state_ctx.fall_direction = sign(attack_info.disloge_vector)
+		else:
+			#was not yet hurt when attack hit, 
+			#push back half idstance and start hurting
+			move_and_slide(Vector2(attack_info.disloge_vector.x / 2, 0))
+			current_state = STATES.HURTING

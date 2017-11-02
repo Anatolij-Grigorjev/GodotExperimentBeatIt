@@ -7,17 +7,23 @@ onready var player = get_node("../../")
 
 #dictionary for quicker access by id
 var area_bodies = {}
-var attack_name = "<?>"
-var attack_z = 0
-var hit_lock = 0.2
+
+var attack_info = {
+	#name of attack
+	attack_name = "<?>",
+	#width of attack effectivness on the field
+	attack_z = 0,
+	#how long does hte post-attack invulnerability last on enemy
+	hit_lock = 0.2,
+	#force vector to fall enemy when hit by attack
+	disloge_vector = Vector2(0,0)
+}
 
 func _ready():
 	pass
 	
 func dump():
-	print("attack_name: " + str(attack_name))
-	print("attack_z: " + str(attack_z))
-	print("hit_lock: " + str(hit_lock))
+	print(attack_info)
 
 func body_enter( body ):
 	if (body == player):
@@ -33,4 +39,4 @@ func process_bodies():
 	if (not active):
 		return
 	for named_body in area_bodies:
-		parent.do_attack(area_bodies[named_body], attack_name, attack_z, hit_lock)
+		parent.do_attack(area_bodies[named_body], attack_info)

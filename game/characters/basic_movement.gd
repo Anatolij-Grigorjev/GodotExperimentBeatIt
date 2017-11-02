@@ -1,4 +1,4 @@
-extends Node
+extends KinematicBody2D
 
 #utility functions
 onready var UTILS = get_node("/root/utils")
@@ -41,8 +41,11 @@ func _draw():
 
 func _process(delta):
 	set_positions()
-	#update draw call to feet circle (debug feet pos)
-	ignore_z = can_jump and jumping()
+	
+	#ignroe changes to z position while a jumping character jumps, 
+	#but can also be set via other means
+	if (can_jump):
+		ignore_z = jumping()
 	if (not ignore_z):
 		set_z(Z_REDUCTION_COEF * feet_pos.y)
 	update()

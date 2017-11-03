@@ -72,6 +72,7 @@ transform/pos = Vector2( 85, 0 )
 
 transform/pos = Vector2( 806.12, 667.101 )
 feet_pos = Vector2( 750, 600 )
+current_state = null
 
 [node name="player" parent="." instance=ExtResource( 4 )]
 

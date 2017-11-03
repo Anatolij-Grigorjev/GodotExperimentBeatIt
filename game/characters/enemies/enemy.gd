@@ -1,8 +1,6 @@
 extends "../basic_movement.gd"
 
-enum STATES {STANDING, MOVING, ATTACKING, HURTING, FALLING}
-
-export var current_state = STATES.STANDING
+export(int) var current_state = STANDING
 var current_decision_wait
 var current_state_ctx = {}
 var attacks = []
@@ -70,11 +68,11 @@ func change_state(delta):
 						if (abs(distance.x) < attack_distance):
 							set_random_attack_state(distance)
 						else:
-							current_state = MOVING
+							current_state = WALKING
 							current_state_ctx.direction = distance.normalized()
 				
 				pass
-			elif (current_state == MOVING):
+			elif (current_state == WALKING):
 				
 				if (abs(distance.x) < attack_distance):
 					set_random_attack_state(distance)
@@ -104,7 +102,7 @@ func change_state(delta):
 			
 func take_action(delta):
 	#take action based on elected state
-	if (current_state == MOVING):
+	if (current_state == WALKING):
 		set_pos(get_pos() + (current_state_ctx.direction * movement_speed * delta))
 		if (current_state_ctx.direction.x < 0):
 			set_scale(Vector2(-1.0, 1.0))
@@ -121,15 +119,15 @@ func get_hit(attack_info):
 	just_hit = true
 	hit_lock = attack_info.hit_lock 
 	if (attack_info.disloge_vector != CONST.VECTOR2_ZERO):
-		if (current_state == STATES.HURTING):
+		if (current_state == HURTING):
 			#was already hurting when this attack hit, 
 			#fly back with full force
 			move_and_slide(attack_info.disloge_vector)
 			ignore_z = true
-			current_state = STATES.FALLING
+			current_state = FALLING
 			current_state_ctx.fall_direction = sign(attack_info.disloge_vector)
 		else:
 			#was not yet hurt when attack hit, 
 			#push back half idstance and start hurting
 			move_and_slide(Vector2(attack_info.disloge_vector.x / 2, 0))
-			current_state = STATES.HURTING
+			current_state = HURTING

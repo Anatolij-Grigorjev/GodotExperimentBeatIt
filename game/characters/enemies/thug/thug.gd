@@ -30,7 +30,7 @@ func _draw():
 func change_anim():
 	if (current_state == STANDING):
 		current_anim = CONST.THUG_ANIM_IDLE
-	elif (current_state == MOVING):
+	elif (current_state == WALKING):
 		current_anim = CONST.THUG_ANIM_MOVE
 	elif (current_state == ATTACKING):
 		current_anim = attacks[current_state_ctx.attack]

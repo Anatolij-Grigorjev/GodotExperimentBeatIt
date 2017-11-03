@@ -9,6 +9,7 @@ const CIRCLE_COLOR_MIN = Color(0, 1, 0)
 const CIRCLE_COLOR_MAX = Color(1, 0, 0)
 onready var FONT_DEBUG_INFO = preload("res://debug_font.fnt")
 
+enum CHARACTER_STATES {STANDING, WALKING, RUNNING, ATTACKING, JUMPING, HURTING, FALLING}
 
 var can_jump = false
 var ignore_z = false

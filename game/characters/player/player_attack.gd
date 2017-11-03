@@ -7,17 +7,14 @@ onready var ATTACK_ANIMATIONS = [
 	CONST.PLAYER_ANIM_ATTACK_1,
 	CONST.PLAYER_ANIM_ATTACK_2
 ]
-onready var ATTACK_EFFECT_Z = {
-	CONST.PLAYER_ANIM_ATTACK_1: 10,
-	CONST.PLAYER_ANIM_ATTACK_2: 7
-}
+
 const INPUT_Q_SIZE = 15
 #access to main character node
 onready var parent = get_node("../")
 #access to movement, to know what attack to switch to
 onready var movement = get_node("../player_move")
-onready var sprite = get_node("sprites")
-onready var anim = get_node("anim")
+onready var sprite = get_node("../sprites")
+onready var anim = get_node("../anim")
 
 onready var ACTIONS = [
 	CONST.INPUT_ACTION_ATTACK
@@ -46,7 +43,6 @@ func _ready():
 	pressing = {
 		CONST.INPUT_ACTION_ATTACK: false
 	}
-	anim.play(CONST.PLAYER_ANIM_ATTACK_IDLE)
 	inputs = []
 	inputs_idx = 0
 	inputs_insert_idx = 0
@@ -66,11 +62,9 @@ func _process(delta):
 	elif(attacking):
 		attacking = anim.is_playing()
 		locked = attacking
-	elif (!attacking && parent.attacking):
+	elif (!attacking):
 		print("reset when not attacking anymore")
 		reset_combo_attack_state()
-		anim.play(CONST.PLAYER_ANIM_ATTACK_IDLE)
-		parent.switch_mode(false)
 	
 	
 	#gather inputs for next frame
@@ -102,7 +96,6 @@ func ground_attack():
 	#start of attack
 	
 	if (!attacking):
-		parent.switch_mode(true)
 		attacking = true
 		#cant move at start of attack
 		locked = true
@@ -125,7 +118,6 @@ func jump_attack():
 		if (movement.jump_state == jump_state):
 			#start jump ascend attack
 			if (!attacking):
-				parent.switch_mode(true)
 				attacking = true
 				locked = true
 				anim.play(JUMP_STATE_TO_ATTACK[jump_state])
@@ -134,4 +126,3 @@ func jump_attack():
 				attacking = anim.is_playing()
 				if (!attacking):
 					clear_inputs()
-					parent.switch_mode(false)

@@ -31,8 +31,6 @@ func set_positions():
 	min_pos = min_pos_node.get_global_pos()
 	max_pos = max_pos_node.get_global_pos()
 
-
-
 func _draw():
 	draw_circle(feet_node.get_pos(), 10.0, CIRCLE_COLOR_FEET)
 	draw_circle(min_pos_node.get_pos(), 10.0, CIRCLE_COLOR_MIN)
@@ -42,14 +40,16 @@ func _draw():
 func _process(delta):
 	set_positions()
 	
-	#ignroe changes to z position while a jumping character jumps, 
+	#ignore changes to z position while a jumping character jumps, 
 	#but can also be set via other means
 	if (can_jump):
 		ignore_z = jumping()
 	if (not ignore_z):
 		set_z(Z_REDUCTION_COEF * feet_pos.y)
+	#do update for draw calls
 	update()
-			
+
+
 func set_pos_by_feet(feet_pos):
 	var pos = Vector2(feet_pos.x, feet_pos.y - feet_node.get_pos().y)
 	set_pos(pos)

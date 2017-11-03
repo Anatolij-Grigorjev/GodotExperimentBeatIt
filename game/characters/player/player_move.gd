@@ -9,16 +9,11 @@ const GRAVITY = Vector2(0.0, 198)
 const JUMP_STRENGTH = 250
 const JUMP_WIND_UP = 0.1
 const JUMP_ASCEND_TIME = 0.45
-
-const MOVESPEED_X_WALK = 100
-const MOVESPEED_Y_WALK = 50
-const MOVESPEED_X_RUN = 175
-const MOVESPEED_Y_RUN = 80
 const MOVESPEED_X_JUMP = 75
 
-var WALK_SPEED = Vector2(MOVESPEED_X_WALK, MOVESPEED_Y_WALK)
-var RUN_SPEED = Vector2(MOVESPEED_X_RUN, MOVESPEED_Y_RUN)
-#movmeent directions dictionary for looped movement processing
+var WALK_SPEED = Vector2(100, 50)
+var RUN_SPEED = Vector2(175, 80)
+#movement directions dictionary for looped movement processing
 onready var MOVEMENT = {
 	CONST.INPUT_ACTION_MOVE_LEFT: Vector2(-1.0, 0.0), 
 	CONST.INPUT_ACTION_MOVE_RIGHT: Vector2(1.0, 0.0), 
@@ -29,8 +24,8 @@ onready var parent = get_node("../")
 #access to attacks, to know when to lock
 onready var attacks = get_node("../player_attack")
 #quick access to animator
-onready var anim = get_node("anim")
-onready var sprite = get_node("sprites")
+onready var anim = get_node("../anim")
+onready var sprite = get_node("../sprites")
 
 var curr_anim = ""
 var move_vector = Vector2(0, 0)
@@ -52,11 +47,11 @@ var last_frame_action = ""
 
 func _ready():
 	#setup jump length based on animations
-	anim.get_animation(CONST.ANIM_NAME_JUMP_START).set_length(JUMP_WIND_UP)
-	anim.get_animation(CONST.ANIM_NAME_JUMP_ASCEND).set_length(JUMP_ASCEND_TIME)
-	set_fixed_process(true)
+	anim.get_animation(CONST.PLAYER_ANIM_JUMP_START).set_length(JUMP_WIND_UP)
+	anim.get_animation(CONST.PLAYER_ANIM_JUMP_AIR).set_length(JUMP_ASCEND_TIME)
+	set_process(true)
 
-func _fixed_process(delta):
+func _process(delta):
 	
 	#initial frame logic
 	var next_anim = null
@@ -64,7 +59,7 @@ func _fixed_process(delta):
 	move_vector = Vector2(0, 0)
 	var frame_action = ""
 	for action in MOVEMENT:
-		#movement not allowed whne locked into attack, except when jumping
+		#movement not allowed when locked into attack, except when jumping
 		if (Input.is_action_pressed(action) and (!attacks.locked or jumping)):
 			move_vector += MOVEMENT[action]
 			frame_action = action
@@ -122,7 +117,6 @@ func _fixed_process(delta):
 				#stop descend attack if it was in progress
 				if (attacks.attacking):
 					attacks.reset_combo_attack_state()
-					parent.switch_mode(false)
 			
 	# resolve movement speed based on character state
 	if (jumping):
@@ -140,7 +134,7 @@ func _fixed_process(delta):
 		if (jumping):
 			next_anim = CONST.PLAYER_ANIM_JUMP_START
 		elif (running):
-			next_anim = CONST.PLAYER_ANIM_RUN_START
+			next_anim = CONST.PLAYER_ANIM_RUN
 		else:
 			next_anim = CONST.PLAYER_ANIM_WALK
 		#flip sprite if direction change

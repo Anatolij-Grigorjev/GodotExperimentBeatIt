@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=1]
 
-[ext_resource path="res://stages/level_1/stage.png" type="Texture" id=1]
+[ext_resource path="res://stages/bg_pieces/city_ground.png" type="Texture" id=1]
 [ext_resource path="res://stages/bounds_checker.gd" type="Script" id=2]
 
 [node name="ground" type="Sprite"]

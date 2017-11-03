@@ -13,18 +13,15 @@ const HIT_EFFECTS_FOLDER_PATH = "res://characters/hit_effects/"
 #player animations names
 const PLAYER_ANIM_IDLE = "player_idle"
 const PLAYER_ANIM_WALK = "player_walk"
-const PLAYER_ANIM_RUN_START = "player_run_start"
+const PLAYER_ANIM_RUN = "player_run"
 const PLAYER_ANIM_JUMP_START = "player_jump_start"
+const PLAYER_ANIM_JUMP_AIR = "player_jump_air"
 #attack animations
-const PLAYER_ANIM_ATTACK_IDLE = "player_aidle"
 const PLAYER_ANIM_ATTACK_1 = "player_attack_1"
 const PLAYER_ANIM_ATTACK_2 = "player_attack_2"
 const PLAYER_ANIM_ATTACK_JUMP_ASCEND = "player_attack_jump_ascend"
 const PLAYER_ANIM_ATTACK_JUMP_DESCEND = "player_attack_jump_descend"
 
-#actual animation state names to configure individual animations
-const ANIM_NAME_JUMP_START = "player_jump_start"
-const ANIM_NAME_JUMP_ASCEND = "player_jump_ascend"
 
 #common animation to receive hit
 const ANIM_HIT= "hit_spark"

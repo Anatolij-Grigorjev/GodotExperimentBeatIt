@@ -4,7 +4,9 @@ extends Node2D
 onready var CONST = get_node("/root/const")
 onready var attacks_hitboxes = [
 	get_node("attack_1"),
-	get_node("attack_2")
+	get_node("attack_2"),
+	get_node("attack_jump_asc"),
+	get_node("attack_jump_desc")
 ]
 
 const ATTACK_PROPERTIES = [

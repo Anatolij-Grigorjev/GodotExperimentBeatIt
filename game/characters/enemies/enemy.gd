@@ -1,6 +1,5 @@
 extends "../basic_movement.gd"
 
-export(int) var current_state = STANDING
 var current_decision_wait
 var current_state_ctx = {}
 var attacks = []
@@ -13,7 +12,7 @@ var hit_lock
 #gets consumed on next update
 var just_hit = false
 
-onready var anim = get_node("movement/anim")
+onready var anim = get_node("anim")
 var player
 
 #main defaults for enemies on things

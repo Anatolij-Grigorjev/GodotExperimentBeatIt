@@ -16,7 +16,7 @@ length = 0.5
 loop = false
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("sprite:frame")
+tracks/0/path = NodePath("../sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
@@ -72,7 +72,7 @@ length = 0.7
 loop = false
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("sprite:frame")
+tracks/0/path = NodePath("../sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
@@ -98,7 +98,7 @@ length = 1.1
 loop = true
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("sprite:frame")
+tracks/0/path = NodePath("../sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
@@ -124,7 +124,7 @@ length = 1.1
 loop = true
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("sprite:frame")
+tracks/0/path = NodePath("../sprite:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
@@ -150,8 +150,8 @@ custom_solver_bias = 0.0
 extents = Vector2( 10.5345, 10 )
 
 [node name="thug" type="KinematicBody2D" groups=[
-"characters",
 "enemies",
+"characters",
 ]]
 
 input/pickable = true
@@ -162,21 +162,17 @@ collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
+current_state = null
 feet_pos = Vector2( 0, 0 )
 min_pos = Vector2( 0, 0 )
 max_pos = Vector2( 0, 0 )
-current_state = 0
 decision_interval = 2.5
 scan_distance = 350
 attack_distance = 50
 aggressiveness = 0.75
 movement_speed = Vector2( 150, 50 )
 
-[node name="movement" type="Node2D" parent="."]
-
-editor/display_folded = true
-
-[node name="anim" type="AnimationPlayer" parent="movement"]
+[node name="anim" type="AnimationPlayer" parent="."]
 
 playback/process_mode = 1
 playback/default_blend_time = 0.0
@@ -190,12 +186,17 @@ playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
 
-[node name="sprite" type="Sprite" parent="movement"]
+[node name="sprite" type="Sprite" parent="."]
 
+transform/pos = Vector2( 1, 0 )
 texture = ExtResource( 2 )
 vframes = 14
 hframes = 10
 frame = 120
+
+[node name="movement" type="Node2D" parent="."]
+
+transform/pos = Vector2( 1, 0 )
 
 [node name="body" type="CollisionShape2D" parent="."]
 

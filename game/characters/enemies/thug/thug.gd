@@ -1,7 +1,7 @@
 extends "../enemy.gd"
 
 
-onready var sprite = get_node("movement/sprite")
+onready var sprite = get_node("sprite")
 var movement = {}
 onready var hit_effect = preload("res://characters/hit_effects/hit_effect_regular.tscn")
 

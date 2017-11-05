@@ -3,13 +3,22 @@ extends KinematicBody2D
 #utility functions
 onready var UTILS = get_node("/root/utils")
 onready var CONST = get_node("/root/const")
-const Z_REDUCTION_COEF = 0.2
+const Z_REDUCTION_COEF = 0.5
 const CIRCLE_COLOR_FEET = Color(1, 0, 1)	
 const CIRCLE_COLOR_MIN = Color(0, 1, 0)
 const CIRCLE_COLOR_MAX = Color(1, 0, 0)
 onready var FONT_DEBUG_INFO = preload("res://debug_font.fnt")
 
 enum BODY_STATES {STANDING, WALKING, RUNNING, ATTACKING, JUMPING, HURTING, FALLING}
+const STATES_STRINGS = {
+	0: "STANDING",
+	1: "WALKING",
+	2: "RUNNING",
+	3: "ATTACKING",
+	4: "JUMPING",
+	5: "HURTING",
+	6: "FALLING"
+}
 
 export(int) var current_state = STANDING
 
@@ -39,6 +48,7 @@ func _draw():
 	draw_circle(min_pos_node.get_pos(), 10.0, CIRCLE_COLOR_MIN)
 	draw_circle(max_pos_node.get_pos(), 10.0, CIRCLE_COLOR_MAX)
 	draw_string(FONT_DEBUG_INFO, Vector2(0, max_pos_node.get_pos().y),  str(get_z()))
+	draw_string(FONT_DEBUG_INFO, Vector2(-25, max_pos_node.get_pos().y - 25), STATES_STRINGS[current_state])
 
 func _process(delta):
 	set_positions()

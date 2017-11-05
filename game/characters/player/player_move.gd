@@ -56,13 +56,14 @@ func _process(delta):
 	var pos = parent.get_pos()
 	move_vector = Vector2(0, 0)
 	var frame_action = ""
-	for action in MOVEMENT:
-		#movement not allowed when locked into attack, except when parent.JUMPING
-		if (Input.is_action_pressed(action) and (!attacks.locked or jump_state != null)):
-			move_vector += MOVEMENT[action]
-			frame_action = action
+	if (!attacks.locked or jump_state != null):
+		for action in MOVEMENT:
+			#movement not allowed when locked into attack, except when parent.JUMPING
+			if (Input.is_action_pressed(action)):
+				move_vector += MOVEMENT[action]
+				frame_action = action
 	
-	if (jump_state == null):
+	if (jump_state == null and !attacks.locked):
 		#resolve parent.RUNNING state
 		if (parent.current_state == parent.RUNNING):
 			#control different when already parent.RUNNING
@@ -115,24 +116,27 @@ func _process(delta):
 				if (parent.current_state == parent.ATTACKING):
 					attacks.reset_combo_attack_state()
 			
-	# resolve movement speed based on character state
-	if (jump_state != null):
-		move_vector.x *= MOVESPEED_X_JUMP
-	elif (parent.current_state == parent.RUNNING):
-		move_vector *= RUN_SPEED
-	else:
-		move_vector *= WALK_SPEED
 		
-	#integrate new position
-	parent.set_pos(pos + (move_vector * delta))
-	
-	#setup movement animation
 	if (move_vector.length_squared() != 0):
+		# resolve movement speed based on character state
+		if (jump_state != null):
+			move_vector.x *= MOVESPEED_X_JUMP
+		elif (parent.current_state == parent.RUNNING):
+			move_vector *= RUN_SPEED
+		else:
+			parent.current_state = parent.WALKING
+			move_vector *= WALK_SPEED
+			
+		#integrate new position
+		parent.set_pos(pos + (move_vector * delta))
+	
+		#setup movement animation
 		if (parent.current_state == parent.JUMPING):
-			parent.next_anim = CONST.PLAYER_ANIM_JUMP_START
+#			parent.next_anim = CONST.PLAYER_ANIM_JUMP_START
+			pass
 		elif (parent.current_state == parent.RUNNING):
 			parent.next_anim = CONST.PLAYER_ANIM_RUN
-		else:
+		elif (parent.current_state == parent.WALKING):
 			parent.next_anim = CONST.PLAYER_ANIM_WALK
 		#flip sprite if direction change
 		if (move_vector.x < 0 and frame_action == CONST.INPUT_ACTION_MOVE_LEFT):
@@ -141,11 +145,17 @@ func _process(delta):
 			parent.set_scale(Vector2(1.0, 1.0))
 	else:
 		#only apply idle animation if no other
-		#animation was chosen as past of the logic
-		if (parent.current_state == parent.STANDING):
+		#animation was chosen as part of the logic
+		if (parent.current_state != parent.ATTACKING and !attacks.locked and jump_state == null):
+			parent.current_state = parent.STANDING
 			parent.next_anim = CONST.PLAYER_ANIM_IDLE
 	
+	#clear animation state if attacking
+	if (parent.current_state == parent.ATTACKING and attacks.locked):
+		parent.next_anim = null
+	
 	#set up for next frame
+	
 	
 	#if there was move input in last frame, lets record action release
 	if (!last_frame_action.empty() and frame_action.empty()):

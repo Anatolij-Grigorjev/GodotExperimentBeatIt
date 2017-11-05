@@ -95,7 +95,7 @@ func ground_attack():
 		#cant move at start of attack
 		locked = true
 		combo_attack_state = ATTACK1
-		parent.anim.play(CONST.PLAYER_ANIM_ATTACK_1)
+		parent.next_anim = CONST.PLAYER_ANIM_ATTACK_1
 	else:
 		#already attacking, extend combo due to action
 		if (combo_attack_state < ATTACK2):
@@ -103,7 +103,7 @@ func ground_attack():
 			combo_attack_state += 1
 			parent.anim.queue("player_attack_" + str(combo_attack_state + 1))
 		else:
-			if (!parent.anim.is_playing()):
+			if (!parent.anim.is_playing() and parent.curr_anim in ATTACK_ANIMATIONS):
 				print("reset when animation not playing")
 				reset_combo_attack_state()
 				
@@ -115,7 +115,7 @@ func jump_attack():
 			if (parent.current_state != parent.ATTACKING):
 				parent.current_state = parent.ATTACKING
 				locked = true
-				parent.anim.play(JUMP_STATE_TO_ATTACK[jump_state])
+				parent.next_anim = (JUMP_STATE_TO_ATTACK[jump_state])
 			#attack already ahppening, ignore input and wait
 			else:
 				if (!parent.anim.is_playing()):

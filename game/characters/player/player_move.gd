@@ -108,7 +108,9 @@ func _process(delta):
 				move_vector.y = GRAVITY.y
 				
 		if (jump_state == JUMP_STATES.DESCEND):
-			move_vector.y = GRAVITY.y
+			move_vector.y = GRAVITY.y 
+			if (parent.current_state == parent.ATTACKING):
+				move_vector.y /= 2
 			if (pos.y >= jump_ground):
 				move_vector.y = pos.y - jump_ground
 				jump_state = null

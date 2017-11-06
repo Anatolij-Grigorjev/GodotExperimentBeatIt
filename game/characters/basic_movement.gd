@@ -9,7 +9,11 @@ const CIRCLE_COLOR_MIN = Color(0, 1, 0)
 const CIRCLE_COLOR_MAX = Color(1, 0, 0)
 onready var FONT_DEBUG_INFO = preload("res://debug_font.fnt")
 
-enum BODY_STATES {STANDING, WALKING, RUNNING, ATTACKING, JUMPING, HURTING, FALLING}
+enum BODY_STATES {
+STANDING, WALKING, RUNNING, 
+ATTACKING, JUMPING, HURTING, 
+FALLING, CATCHING, CAUGHT
+}
 const STATES_STRINGS = {
 	0: "STANDING",
 	1: "WALKING",
@@ -17,7 +21,9 @@ const STATES_STRINGS = {
 	3: "ATTACKING",
 	4: "JUMPING",
 	5: "HURTING",
-	6: "FALLING"
+	6: "FALLING",
+	7: "CATCHING",
+	8: "CAUGHT"
 }
 
 export(int) var current_state = STANDING

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=1]
+[gd_scene load_steps=22 format=1]
 
 [ext_resource path="res://characters/player/player_main.gd" type="Script" id=1]
 [ext_resource path="res://characters/player/player_sprites.png" type="Texture" id=2]
@@ -13,7 +13,7 @@ custom_solver_bias = 0.0
 radius = 18.1143
 height = 59.4577
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=2]
 
 resource/name = "player_attack_1"
 length = 0.4
@@ -65,7 +65,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=3]
 
 resource/name = "player_attack_2"
 length = 0.4
@@ -117,7 +117,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id=4]
 
 resource/name = "player_attack_jump_ascend"
 length = 0.4
@@ -169,7 +169,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=21]
+[sub_resource type="Animation" id=5]
 
 resource/name = "player_attack_jump_descend"
 length = 0.6
@@ -221,9 +221,8 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=6]
 
-resource/name = "player_idle"
 length = 1.1
 loop = true
 step = 0.1
@@ -258,9 +257,8 @@ tracks/2/keys = {
 "values": [ Vector2( 0.75, 0.75 ), Vector2( 0.75, 0.75 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=7]
 
-resource/name = "player_jump_air"
 length = 0.4
 loop = false
 step = 0.1
@@ -295,9 +293,8 @@ tracks/2/keys = {
 "values": [ Vector2( 0.7, 0.7 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=8]
 
-resource/name = "player_jump_start"
 length = 0.1
 loop = false
 step = 0.05
@@ -332,9 +329,8 @@ tracks/2/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=9]
 
-resource/name = "player_run"
 length = 0.8
 loop = true
 step = 0.1
@@ -369,9 +365,8 @@ tracks/2/keys = {
 "values": [ Vector2( 0.75, 0.75 ), Vector2( 0.75, 0.75 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=10]
 
-resource/name = "player_walk"
 length = 0.9
 loop = true
 step = 0.1
@@ -396,22 +391,27 @@ tracks/1/keys = {
 "values": [ Vector2( -3, 1 ), Vector2( -3, 1 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=14]
+[sub_resource type="RectangleShape2D" id=15]
+
+custom_solver_bias = 0.0
+extents = Vector2( 19, 55 )
+
+[sub_resource type="RectangleShape2D" id=11]
 
 custom_solver_bias = 0.0
 extents = Vector2( 40.1468, 7.30758 )
 
-[sub_resource type="RectangleShape2D" id=15]
+[sub_resource type="RectangleShape2D" id=12]
 
 custom_solver_bias = 0.0
 extents = Vector2( 14.1805, 7.73714 )
 
-[sub_resource type="RectangleShape2D" id=19]
+[sub_resource type="RectangleShape2D" id=13]
 
 custom_solver_bias = 0.0
 extents = Vector2( 17.7387, 27.5229 )
 
-[sub_resource type="RectangleShape2D" id=20]
+[sub_resource type="RectangleShape2D" id=14]
 
 custom_solver_bias = 0.0
 extents = Vector2( 32.5941, 12.4987 )
@@ -422,7 +422,7 @@ extents = Vector2( 32.5941, 12.4987 )
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 0.7, 0, 0, 0.7, -3, -5 )
+shapes/0/transform = Matrix32( 0.75, 0, 0, 0.75, -2.69476, -0.509457 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -438,22 +438,21 @@ max_pos = Vector2( 0, 0 )
 texture = ExtResource( 2 )
 vframes = 18
 hframes = 10
-frame = 62
 
 [node name="anim" type="AnimationPlayer" parent="."]
 
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/player_attack_1 = SubResource( 16 )
-anims/player_attack_2 = SubResource( 17 )
-anims/player_attack_jump_ascend = SubResource( 18 )
-anims/player_attack_jump_descend = SubResource( 21 )
-anims/player_idle = SubResource( 2 )
-anims/player_jump_air = SubResource( 3 )
-anims/player_jump_start = SubResource( 5 )
-anims/player_run = SubResource( 6 )
-anims/player_walk = SubResource( 8 )
+anims/player_attack_1 = SubResource( 2 )
+anims/player_attack_2 = SubResource( 3 )
+anims/player_attack_jump_ascend = SubResource( 4 )
+anims/player_attack_jump_descend = SubResource( 5 )
+anims/player_idle = SubResource( 6 )
+anims/player_jump_air = SubResource( 7 )
+anims/player_jump_start = SubResource( 8 )
+anims/player_run = SubResource( 9 )
+anims/player_walk = SubResource( 10 )
 next/player_jump_start = "player_jump_air"
 playback/active = true
 playback/speed = 1.0
@@ -470,7 +469,6 @@ script/script = ExtResource( 4 )
 
 [node name="camera" type="Camera2D" parent="."]
 
-transform/pos = Vector2( -8.10965, -11.759 )
 anchor_mode = 1
 rotating = false
 current = true
@@ -491,9 +489,28 @@ drag_margin/bottom = 0.2
 [node name="body" type="CollisionShape2D" parent="."]
 
 visibility/visible = false
-transform/pos = Vector2( -3, -5 )
-transform/scale = Vector2( 0.7, 0.7 )
+transform/pos = Vector2( -2.69476, -0.509457 )
+transform/scale = Vector2( 0.75, 0.75 )
 shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="catch_point" type="Area2D" parent="."]
+
+transform/scale = Vector2( 0.548853, 0.589701 )
+input/pickable = true
+shapes/0/shape = SubResource( 15 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 9.5 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="collision" type="CollisionShape2D" parent="catch_point"]
+
+transform/pos = Vector2( 0, 9.5 )
+shape = SubResource( 15 )
 trigger = false
 _update_shape_index = 0
 
@@ -511,6 +528,7 @@ transform/pos = Vector2( 40, -40 )
 
 [node name="attack_hitboxes" type="Node2D" parent="."]
 
+editor/display_folded = true
 visibility/visible = false
 script/script = ExtResource( 5 )
 
@@ -519,7 +537,7 @@ script/script = ExtResource( 5 )
 editor/display_folded = true
 transform/pos = Vector2( 1.32037, -20.2458 )
 input/pickable = true
-shapes/0/shape = SubResource( 14 )
+shapes/0/shape = SubResource( 11 )
 shapes/0/transform = Matrix32( 0.400713, 0, 0, 1, 13.5877, 21.9719 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -532,7 +550,7 @@ script/script = ExtResource( 6 )
 
 transform/pos = Vector2( 13.5877, 21.9719 )
 transform/scale = Vector2( 0.400713, 1 )
-shape = SubResource( 14 )
+shape = SubResource( 11 )
 trigger = false
 _update_shape_index = 0
 
@@ -540,7 +558,7 @@ _update_shape_index = 0
 
 editor/display_folded = true
 input/pickable = true
-shapes/0/shape = SubResource( 15 )
+shapes/0/shape = SubResource( 12 )
 shapes/0/transform = Matrix32( 1.13361, 0, 0, 1, 15.7991, 3.91318 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -553,7 +571,7 @@ script/script = ExtResource( 6 )
 
 transform/pos = Vector2( 15.7991, 3.91318 )
 transform/scale = Vector2( 1.13361, 1 )
-shape = SubResource( 15 )
+shape = SubResource( 12 )
 trigger = false
 _update_shape_index = 0
 
@@ -561,7 +579,7 @@ _update_shape_index = 0
 
 editor/display_folded = true
 input/pickable = true
-shapes/0/shape = SubResource( 19 )
+shapes/0/shape = SubResource( 13 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 5.57077, 4.89554 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -573,14 +591,15 @@ script/script = ExtResource( 6 )
 [node name="collision" type="CollisionShape2D" parent="attack_hitboxes/attack_jump_asc"]
 
 transform/pos = Vector2( 5.57077, 4.89554 )
-shape = SubResource( 19 )
+shape = SubResource( 13 )
 trigger = false
 _update_shape_index = 0
 
 [node name="attack_jump_desc" type="Area2D" parent="attack_hitboxes"]
 
+editor/display_folded = true
 input/pickable = true
-shapes/0/shape = SubResource( 20 )
+shapes/0/shape = SubResource( 14 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 6.75245, 5.23316 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -592,7 +611,7 @@ script/script = ExtResource( 6 )
 [node name="collision" type="CollisionShape2D" parent="attack_hitboxes/attack_jump_desc"]
 
 transform/pos = Vector2( 6.75245, 5.23316 )
-shape = SubResource( 20 )
+shape = SubResource( 14 )
 trigger = false
 _update_shape_index = 0
 

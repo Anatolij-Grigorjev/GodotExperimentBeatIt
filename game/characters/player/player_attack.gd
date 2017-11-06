@@ -52,7 +52,7 @@ func _process(delta):
 	if (next_action != null):
 		print("next action: " + next_action)
 		inputs_idx = (inputs_idx + 1) % INPUT_Q_SIZE
-		if (!parent.current_state == parent.JUMPING):
+		if (movement.jump_state == null):
 			ground_attack()
 		#mid-jump-attacks, one per jump
 		else:
@@ -89,7 +89,7 @@ func reset_combo_attack_state():
 	clear_inputs()
 	
 func ground_attack():
-	if (parent.current_state != parent.ATTACKING):
+	if (combo_attack_state == null):
 		#not attacking yet, so first combo hit
 		parent.current_state = parent.ATTACKING
 		#cant move at start of attack

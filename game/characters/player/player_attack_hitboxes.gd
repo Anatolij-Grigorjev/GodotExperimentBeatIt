@@ -16,6 +16,7 @@ const ATTACK_PROPERTIES = [
 ]
 #access to main character node
 onready var parent = get_node("../")
+onready var attacks = get_node("../player_attack")
 
 func _ready():
 	#load attacks data from attacks.INI file

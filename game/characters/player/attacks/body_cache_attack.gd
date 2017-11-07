@@ -11,6 +11,8 @@ var area_bodies = {}
 var attack_info = {
 	#name of attack
 	attack_name = "<?>",
+	#index of attack in combo sequence
+	combo_idx = 99,
 	#width of attack effectivness on the field
 	attack_z = 0,
 	#how long does hte post-attack invulnerability last on enemy

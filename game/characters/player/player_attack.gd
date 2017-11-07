@@ -3,6 +3,11 @@ extends Node2D
 onready var CONST = get_node("/root/const")
 
 enum COMBO_ATTACKS {ATTACK1 = 0, ATTACK2 = 1, ATTACK3 = 2, ATTACK4 = 3}
+#last allowed combo attack without hitting
+const LAST_NON_COMBO = ATTACK2
+#last attack in complete combo
+const LAST_COMBO = ATTACK4
+
 onready var ATTACK_ANIMATIONS = [
 	CONST.PLAYER_ANIM_ATTACK_1,
 	CONST.PLAYER_ANIM_ATTACK_2,
@@ -32,7 +37,14 @@ var hitting = false
 #attack inputs collected for next frame
 var pressing = {}
 var combo_attack_state
+#array of attack inputs, gathered as the player 
+#keeps releasing things from the ACTIONS array, 
+#others are ignored
 var inputs = []
+#array of hit states of combo attacks. 
+#if a combo didnt connect at some attack index, 
+#then it should stop happening
+var attack_hits = []
 var inputs_idx
 var inputs_insert_idx
 
@@ -41,7 +53,8 @@ func _ready():
 	pressing = {
 		CONST.INPUT_ACTION_ATTACK: false
 	}
-	inputs = []
+	for attack in COMBO_ATTACKS:
+		attack_hits.append(false)
 	inputs_idx = 0
 	inputs_insert_idx = 0
 	set_process(true)
@@ -79,6 +92,8 @@ func _process(delta):
 func clear_inputs():
 	print("clearing inputs")
 	inputs.clear()
+	for idx in range(attack_hits.size()):
+		attack_hits[idx] = false
 	inputs_idx = 0
 	inputs_insert_idx = 0
 	
@@ -93,19 +108,33 @@ func ground_attack():
 		#not attacking yet, so first combo hit
 		parent.current_state = parent.ATTACKING
 		#cant move at start of attack
-		locked = true
-		combo_attack_state = ATTACK1
-		parent.next_anim = CONST.PLAYER_ANIM_ATTACK_1
+		start_combo()
 	else:
 		#already attacking, extend combo due to action
-		if (combo_attack_state < ATTACK2):
-			locked = true
-			combo_attack_state += 1
-			parent.anim.queue("player_attack_" + str(combo_attack_state + 1))
+		if (combo_attack_state < LAST_NON_COMBO):
+			continue_combo()
+		#landed hits later in combo, extend it further
+		elif (combo_attack_state < LAST_COMBO 
+		and attack_hits[combo_attack_state]):
+			continue_combo()
 		else:
 			if (!parent.anim.is_playing() and parent.curr_anim in ATTACK_ANIMATIONS):
 				print("reset when animation not playing")
 				reset_combo_attack_state()
+				
+func start_combo():
+	queue_combo_move(ATTACK1, CONST.PLAYER_ANIM_ATTACK_1)
+				
+func continue_combo():
+	queue_combo_move(
+	combo_attack_state + 1,
+	"player_attack_" + str(combo_attack_state + 1)
+	)
+
+func queue_combo_move(new_attack_state, new_anim):
+	locked = true
+	combo_attack_state = new_attack_state
+	parent.next_anim = new_anim
 				
 func jump_attack():
 	#attack depends on the jump state

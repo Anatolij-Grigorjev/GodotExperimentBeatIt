@@ -391,27 +391,27 @@ tracks/1/keys = {
 "values": [ Vector2( -3, 1 ), Vector2( -3, 1 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=15]
+[sub_resource type="RectangleShape2D" id=11]
 
 custom_solver_bias = 0.0
 extents = Vector2( 19, 55 )
 
-[sub_resource type="RectangleShape2D" id=11]
+[sub_resource type="RectangleShape2D" id=12]
 
 custom_solver_bias = 0.0
 extents = Vector2( 40.1468, 7.30758 )
 
-[sub_resource type="RectangleShape2D" id=12]
+[sub_resource type="RectangleShape2D" id=13]
 
 custom_solver_bias = 0.0
 extents = Vector2( 14.1805, 7.73714 )
 
-[sub_resource type="RectangleShape2D" id=13]
+[sub_resource type="RectangleShape2D" id=14]
 
 custom_solver_bias = 0.0
 extents = Vector2( 17.7387, 27.5229 )
 
-[sub_resource type="RectangleShape2D" id=14]
+[sub_resource type="RectangleShape2D" id=15]
 
 custom_solver_bias = 0.0
 extents = Vector2( 32.5941, 12.4987 )
@@ -499,7 +499,7 @@ _update_shape_index = 0
 
 transform/scale = Vector2( 0.548853, 0.589701 )
 input/pickable = true
-shapes/0/shape = SubResource( 15 )
+shapes/0/shape = SubResource( 11 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 9.5 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -510,7 +510,7 @@ angular_damp = 1.0
 [node name="collision" type="CollisionShape2D" parent="catch_point"]
 
 transform/pos = Vector2( 0, 9.5 )
-shape = SubResource( 15 )
+shape = SubResource( 11 )
 trigger = false
 _update_shape_index = 0
 
@@ -537,7 +537,7 @@ script/script = ExtResource( 5 )
 editor/display_folded = true
 transform/pos = Vector2( 1.32037, -20.2458 )
 input/pickable = true
-shapes/0/shape = SubResource( 11 )
+shapes/0/shape = SubResource( 12 )
 shapes/0/transform = Matrix32( 0.400713, 0, 0, 1, 13.5877, 21.9719 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -550,7 +550,7 @@ script/script = ExtResource( 6 )
 
 transform/pos = Vector2( 13.5877, 21.9719 )
 transform/scale = Vector2( 0.400713, 1 )
-shape = SubResource( 11 )
+shape = SubResource( 12 )
 trigger = false
 _update_shape_index = 0
 
@@ -558,7 +558,7 @@ _update_shape_index = 0
 
 editor/display_folded = true
 input/pickable = true
-shapes/0/shape = SubResource( 12 )
+shapes/0/shape = SubResource( 13 )
 shapes/0/transform = Matrix32( 1.13361, 0, 0, 1, 15.7991, 3.91318 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -571,7 +571,7 @@ script/script = ExtResource( 6 )
 
 transform/pos = Vector2( 15.7991, 3.91318 )
 transform/scale = Vector2( 1.13361, 1 )
-shape = SubResource( 12 )
+shape = SubResource( 13 )
 trigger = false
 _update_shape_index = 0
 
@@ -579,7 +579,7 @@ _update_shape_index = 0
 
 editor/display_folded = true
 input/pickable = true
-shapes/0/shape = SubResource( 13 )
+shapes/0/shape = SubResource( 14 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 5.57077, 4.89554 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -591,7 +591,7 @@ script/script = ExtResource( 6 )
 [node name="collision" type="CollisionShape2D" parent="attack_hitboxes/attack_jump_asc"]
 
 transform/pos = Vector2( 5.57077, 4.89554 )
-shape = SubResource( 13 )
+shape = SubResource( 14 )
 trigger = false
 _update_shape_index = 0
 
@@ -599,7 +599,7 @@ _update_shape_index = 0
 
 editor/display_folded = true
 input/pickable = true
-shapes/0/shape = SubResource( 14 )
+shapes/0/shape = SubResource( 15 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 6.75245, 5.23316 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -611,7 +611,7 @@ script/script = ExtResource( 6 )
 [node name="collision" type="CollisionShape2D" parent="attack_hitboxes/attack_jump_desc"]
 
 transform/pos = Vector2( 6.75245, 5.23316 )
-shape = SubResource( 14 )
+shape = SubResource( 15 )
 trigger = false
 _update_shape_index = 0
 

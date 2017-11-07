@@ -5,6 +5,8 @@ onready var CONST = get_node("/root/const")
 onready var attacks_hitboxes = [
 	get_node("attack_1"),
 	get_node("attack_2"),
+	get_node("attack_3"),
+	get_node("attack_4"),
 	get_node("attack_jump_asc"),
 	get_node("attack_jump_desc")
 ]
@@ -52,6 +54,10 @@ func do_attack( body, attack_info ):
 	#handle an enemy getting hit
 	if (body.is_in_group(CONST.GROUP_ENEMIES)):
 		var enemy = body
+		#touched enemt bofdy with combo, therefore registers as 
+		#hit to continue combo regardless of damage done
+		if (attack_info.combo_idx <= attacks.LAST_COMBO):
+			attacks.attack_hits[attack_info.combo_idx] = true
 		#cant hit an enemy twice while they are being hit
 		if (enemy.getting_hit):
 			return
@@ -70,6 +76,8 @@ func do_attack( body, attack_info ):
 func doing_attack(idx, doing = true):
 	var attack = attacks_hitboxes[idx]
 	attack.active = doing
+	if (attack.active and idx <= attacks.LAST_COMBO):
+		attacks.attack_hits[idx] = false
 
 func reset_attacks():
 	for attack_node in attacks_hitboxes:

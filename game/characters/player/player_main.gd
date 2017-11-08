@@ -7,6 +7,8 @@ onready var attacks = get_node("player_attack")
 var curr_anim
 var next_anim
 
+var caught_enemy
+
 #nodes to perform additional processing when parent is ready
 #normally children are inited before parent
 onready var init_nodes = [

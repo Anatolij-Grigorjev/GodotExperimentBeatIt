@@ -15,7 +15,7 @@ var attack_info = {
 	combo_idx = 99,
 	#width of attack effectivness on the field
 	attack_z = 0,
-	#how long does hte post-attack invulnerability last on enemy
+	#how long does the post-attack invulnerability last on enemy
 	hit_lock = 0.2,
 	#force vector to fall enemy when hit by attack
 	disloge_vector = Vector2(0,0)

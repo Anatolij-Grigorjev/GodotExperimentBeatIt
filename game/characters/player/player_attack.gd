@@ -22,7 +22,11 @@ onready var parent = get_node("../")
 onready var movement = get_node("../player_move")
 
 onready var ACTIONS = [
-	CONST.INPUT_ACTION_ATTACK
+	CONST.INPUT_ACTION_ATTACK,
+	CONST.INPUT_ACTION_MOVE_LEFT,
+	CONST.INPUT_ACTION_MOVE_RIGHT,
+	CONST.INPUT_ACTION_MOVE_UP,
+	CONST.INPUT_ACTION_MOVE_DOWN
 ]
 onready var JUMP_STATE_TO_ATTACK = {
 	movement.JUMP_STATES.ASCEND: CONST.PLAYER_ANIM_ATTACK_JUMP_ASCEND,
@@ -50,9 +54,9 @@ var inputs_insert_idx
 
 func _ready():
 	combo_attack_state = null
-	pressing = {
-		CONST.INPUT_ACTION_ATTACK: false
-	}
+	pressing = {}
+	for action in ACTIONS:
+		pressing[action] = false
 	for attack in COMBO_ATTACKS:
 		attack_hits.append(false)
 	inputs_idx = 0
@@ -62,7 +66,8 @@ func _ready():
 func _process(delta):
 	
 	var next_action = inputs[inputs_idx] if inputs_idx < inputs.size() else null
-	if (next_action != null):
+	#movement inputs for attack are ignored (for now)
+	if (next_action != null and !next_action.begins_with("move")):
 		print("next action: " + next_action)
 		inputs_idx = (inputs_idx + 1) % INPUT_Q_SIZE
 		if (movement.jump_state == null):

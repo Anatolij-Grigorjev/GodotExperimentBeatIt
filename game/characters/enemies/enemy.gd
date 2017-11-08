@@ -51,43 +51,8 @@ func change_anim():
 	pass
 	
 func change_state(delta):
-	#hurting is an external state thing
-	if (current_state != HURTING):
-		#make deiscions
-		current_decision_wait -= delta
-		if (current_decision_wait < 0):
-			#make decision,
-			#due to upper if, unlikely to be HURTING here
-			var distance = player.get_pos() - get_pos()
-			if (current_state == STANDING):
-				#scan area for player
-				if (abs(distance.x) < scan_distance):
-					#player spotted, lets check if we care
-					if (randf() < aggressiveness):
-						if (abs(distance.x) < attack_distance):
-							set_random_attack_state(distance)
-						else:
-							current_state = WALKING
-							current_state_ctx.direction = distance.normalized()
-				
-				pass
-			elif (current_state == WALKING):
-				
-				if (abs(distance.x) < attack_distance):
-					set_random_attack_state(distance)
-					#lost enemy
-				elif (abs(distance.x) > scan_distance):
-					current_state = STANDING
-					current_state_ctx = {}
-			elif(current_state == ATTACKING):
-				if (anim.get_current_animation() in attacks and !anim.is_playing()):
-					#attack finished, back to standing
-					current_state = STANDING
-				pass
-			else:
-				current_state = STANDING
-			current_decision_wait = decision_interval
-	else:
+	#some states are not meant to make decisions
+	if (current_state == HURTIN):
 		getting_hit = hit_lock > 0
 		if (getting_hit):
 			hit_lock -= delta
@@ -98,6 +63,43 @@ func change_state(delta):
 			#make another decision on the next frame
 			current_state = STANDING
 			current_decision_wait = 0
+		return
+	if (current_state == CAUGHT):
+		return
+	#make deiscions
+	current_decision_wait -= delta
+	if (current_decision_wait < 0):
+		#make decision,
+		#due to upper if, unlikely to be HURTING here
+		var distance = player.get_pos() - get_pos()
+		if (current_state == STANDING):
+			#scan area for player
+			if (abs(distance.x) < scan_distance):
+				#player spotted, lets check if we care
+				if (randf() < aggressiveness):
+					if (abs(distance.x) < attack_distance):
+						set_random_attack_state(distance)
+					else:
+						current_state = WALKING
+						current_state_ctx.direction = distance.normalized()
+			
+			pass
+		elif (current_state == WALKING):
+			
+			if (abs(distance.x) < attack_distance):
+				set_random_attack_state(distance)
+				#lost enemy
+			elif (abs(distance.x) > scan_distance):
+				current_state = STANDING
+				current_state_ctx = {}
+		elif(current_state == ATTACKING):
+			if (anim.get_current_animation() in attacks and !anim.is_playing()):
+				#attack finished, back to standing
+				current_state = STANDING
+			pass
+		else:
+			current_state = STANDING
+		current_decision_wait = decision_interval
 			
 func take_action(delta):
 	#take action based on elected state

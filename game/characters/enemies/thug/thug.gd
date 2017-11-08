@@ -41,6 +41,9 @@ func change_anim():
 		anim.get_current_animation() == current_anim and
 		just_hit):
 			anim.play(current_anim)
+	elif (current_state == CAUGHT):
+		current_anim = CONST.THUG_ANIM_CAUGHT
+		
 	elif (current_state == FALLING):
 		if current_state_ctx.fall_direction > 0:
 			current_anim = CONST.THUG_ANIM_FALLING_FWD 
@@ -51,7 +54,8 @@ func take_action(delta):
 	#custom thug attack actions
 	.take_action(delta)
 	
-func get_hit(hit_lock):
-	.get_hit(hit_lock)
-	hit_effect.instance()
+func get_hit(attack_info):
+	.get_hit(attack_info)
+	#attack effect based on attack type
+	#hit_effect.instance()
 	

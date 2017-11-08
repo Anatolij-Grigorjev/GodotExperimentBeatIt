@@ -1,11 +1,12 @@
-[gd_scene load_steps=24 format=1]
+[gd_scene load_steps=25 format=1]
 
 [ext_resource path="res://characters/player/player_main.gd" type="Script" id=1]
 [ext_resource path="res://characters/player/player_sprites.png" type="Texture" id=2]
 [ext_resource path="res://characters/player/player_move.gd" type="Script" id=3]
 [ext_resource path="res://characters/player/player_attack.gd" type="Script" id=4]
-[ext_resource path="res://characters/player/player_attack_hitboxes.gd" type="Script" id=5]
-[ext_resource path="res://characters/player/attacks/body_cache_attack.gd" type="Script" id=6]
+[ext_resource path="res://characters/player/catch_point.gd" type="Script" id=5]
+[ext_resource path="res://characters/player/player_attack_hitboxes.gd" type="Script" id=6]
+[ext_resource path="res://characters/player/attacks/body_cache_attack.gd" type="Script" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -611,6 +612,7 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
+script/script = ExtResource( 5 )
 
 [node name="collision" type="CollisionShape2D" parent="catch_point"]
 
@@ -634,7 +636,7 @@ transform/pos = Vector2( 40, -40 )
 [node name="attack_hitboxes" type="Node2D" parent="."]
 
 visibility/visible = false
-script/script = ExtResource( 5 )
+script/script = ExtResource( 6 )
 
 [node name="attack_1" type="Area2D" parent="attack_hitboxes"]
 
@@ -648,7 +650,7 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
-script/script = ExtResource( 6 )
+script/script = ExtResource( 7 )
 
 [node name="collision" type="CollisionShape2D" parent="attack_hitboxes/attack_1"]
 
@@ -669,7 +671,7 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
-script/script = ExtResource( 6 )
+script/script = ExtResource( 7 )
 
 [node name="collision" type="CollisionShape2D" parent="attack_hitboxes/attack_2"]
 
@@ -691,7 +693,7 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
-script/script = ExtResource( 6 )
+script/script = ExtResource( 7 )
 
 [node name="collision" type="CollisionShape2D" parent="attack_hitboxes/attack_3"]
 
@@ -713,7 +715,7 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
-script/script = ExtResource( 6 )
+script/script = ExtResource( 7 )
 
 [node name="collision" type="CollisionShape2D" parent="attack_hitboxes/attack_4"]
 
@@ -734,7 +736,7 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
-script/script = ExtResource( 6 )
+script/script = ExtResource( 7 )
 
 [node name="collision" type="CollisionShape2D" parent="attack_hitboxes/attack_jump_asc"]
 
@@ -754,7 +756,7 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
-script/script = ExtResource( 6 )
+script/script = ExtResource( 7 )
 
 [node name="collision" type="CollisionShape2D" parent="attack_hitboxes/attack_jump_desc"]
 
@@ -762,6 +764,8 @@ transform/pos = Vector2( 6.75245, 5.23316 )
 shape = SubResource( 17 )
 trigger = false
 _update_shape_index = 0
+
+[connection signal="body_enter" from="catch_point" to="catch_point" method="_on_catch_point_body_enter"]
 
 [connection signal="body_enter" from="attack_hitboxes/attack_1" to="attack_hitboxes/attack_1" method="body_enter"]
 

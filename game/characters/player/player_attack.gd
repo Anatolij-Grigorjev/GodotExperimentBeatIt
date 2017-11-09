@@ -9,7 +9,7 @@ ATTACK3 = 2,
 ATTACK4 = 3
 }
 #last allowed combo attack without hitting
-const LAST_NON_COMBO = ATTACK2
+const LAST_NON_COMBO = ATTACK4
 #last attack in complete combo
 const LAST_COMBO = ATTACK4
 

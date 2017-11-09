@@ -121,7 +121,7 @@ tracks/3/keys = {
 [sub_resource type="Animation" id=4]
 
 resource/name = "player_attack_3"
-length = 0.4
+length = 0.3
 loop = false
 step = 0.1
 tracks/0/type = "value"
@@ -129,17 +129,17 @@ tracks/0/path = NodePath("sprites:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
-"times": FloatArray( 0, 0.1, 0.3, 0.4 ),
-"transitions": FloatArray( 1, 1, 1, 1 ),
+"times": FloatArray( 0, 0.1, 0.3 ),
+"transitions": FloatArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 10, 11, 12, 13 ]
+"values": [ 29, 39, 49 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("body:transform/scale")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = {
-"times": FloatArray( 0, 0.4 ),
+"times": FloatArray( 0, 0.3 ),
 "transitions": FloatArray( 1, 1 ),
 "update": 1,
 "values": [ Vector2( 0.75, 0.75 ), Vector2( 0.75, 0.75 ) ]
@@ -149,10 +149,10 @@ tracks/2/path = NodePath("body:transform/pos")
 tracks/2/interp = 1
 tracks/2/imported = false
 tracks/2/keys = {
-"times": FloatArray( 0, 0.1, 0.3, 0.4 ),
-"transitions": FloatArray( 1, 1, 1, 1 ),
+"times": FloatArray( 0, 0.1, 0.3 ),
+"transitions": FloatArray( 1, 1, 1 ),
 "update": 1,
-"values": [ Vector2( -2, 2 ), Vector2( -10, 3 ), Vector2( -10, 3 ), Vector2( 2, 2 ) ]
+"values": [ Vector2( -2, 2 ), Vector2( -2, 3 ), Vector2( 0.5, 3 ) ]
 }
 tracks/3/type = "method"
 tracks/3/path = NodePath("attack_hitboxes")
@@ -162,10 +162,10 @@ tracks/3/keys = {
 "times": FloatArray( 0.1, 0.3 ),
 "transitions": FloatArray( 1, 1 ),
 "values": [ {
-"args": [ 0 ],
+"args": [ 2 ],
 "method": "doing_attack"
 }, {
-"args": [ 0, false ],
+"args": [ 2, false ],
 "method": "doing_attack"
 } ]
 }
@@ -173,7 +173,7 @@ tracks/3/keys = {
 [sub_resource type="Animation" id=5]
 
 resource/name = "player_attack_4"
-length = 0.4
+length = 0.6
 loop = false
 step = 0.1
 tracks/0/type = "value"
@@ -181,43 +181,43 @@ tracks/0/path = NodePath("sprites:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
-"times": FloatArray( 0, 0.1, 0.3, 0.4 ),
-"transitions": FloatArray( 1, 1, 1, 1 ),
+"times": FloatArray( 0, 0.1, 0.2, 0.3, 0.5, 0.6 ),
+"transitions": FloatArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 10, 11, 12, 13 ]
+"values": [ 132, 133, 134, 135, 136, 137 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("body:transform/scale")
+tracks/1/path = NodePath("body:transform/pos")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = {
-"times": FloatArray( 0, 0.4 ),
-"transitions": FloatArray( 1, 1 ),
+"times": FloatArray( 0, 0.1, 0.2, 0.3, 0.5, 0.6 ),
+"transitions": FloatArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ Vector2( 0.75, 0.75 ), Vector2( 0.75, 0.75 ) ]
+"values": [ Vector2( -3.8, -3 ), Vector2( 0.59, -4.8 ), Vector2( -3.5, -5 ), Vector2( -15, -8 ), Vector2( -15, -8 ), Vector2( -4.3, -6.6 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("body:transform/pos")
+tracks/2/path = NodePath("body:transform/scale")
 tracks/2/interp = 1
 tracks/2/imported = false
 tracks/2/keys = {
-"times": FloatArray( 0, 0.1, 0.3, 0.4 ),
-"transitions": FloatArray( 1, 1, 1, 1 ),
+"times": FloatArray( 0, 0.1, 0.2, 0.3, 0.5, 0.6 ),
+"transitions": FloatArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ Vector2( -2, 2 ), Vector2( -10, 3 ), Vector2( -10, 3 ), Vector2( 2, 2 ) ]
+"values": [ Vector2( 0.62, 0.62 ), Vector2( 0.65, 0.65 ), Vector2( 0.58, 0.58 ), Vector2( 0.58, 0.58 ), Vector2( 0.58, 0.58 ), Vector2( 0.58, 0.58 ) ]
 }
 tracks/3/type = "method"
 tracks/3/path = NodePath("attack_hitboxes")
 tracks/3/interp = 1
 tracks/3/imported = false
 tracks/3/keys = {
-"times": FloatArray( 0.1, 0.3 ),
+"times": FloatArray( 0.3, 0.6 ),
 "transitions": FloatArray( 1, 1 ),
 "values": [ {
-"args": [ 0 ],
+"args": [ 3 ],
 "method": "doing_attack"
 }, {
-"args": [ 0, false ],
+"args": [ 3, false ],
 "method": "doing_attack"
 } ]
 }
@@ -502,22 +502,22 @@ extents = Vector2( 19, 55 )
 [sub_resource type="RectangleShape2D" id=14]
 
 custom_solver_bias = 0.0
-extents = Vector2( 40.1468, 7.30758 )
+extents = Vector2( 19.2052, 15.6667 )
 
 [sub_resource type="RectangleShape2D" id=15]
 
 custom_solver_bias = 0.0
 extents = Vector2( 14.1805, 7.73714 )
 
-[sub_resource type="RectangleShape2D" id=16]
-
-custom_solver_bias = 0.0
-extents = Vector2( 17.7387, 27.5229 )
-
 [sub_resource type="RectangleShape2D" id=17]
 
 custom_solver_bias = 0.0
 extents = Vector2( 32.5941, 12.4987 )
+
+[sub_resource type="RectangleShape2D" id=16]
+
+custom_solver_bias = 0.0
+extents = Vector2( 17.7387, 27.5229 )
 
 [node name="player" type="KinematicBody2D" groups=[
 "characters",
@@ -541,7 +541,7 @@ max_pos = Vector2( 0, 0 )
 texture = ExtResource( 2 )
 vframes = 18
 hframes = 10
-frame = 13
+frame = 17
 
 [node name="anim" type="AnimationPlayer" parent="."]
 
@@ -604,6 +604,7 @@ _update_shape_index = 0
 [node name="catch_collider" type="Area2D" parent="."]
 
 editor/display_folded = true
+visibility/visible = false
 transform/scale = Vector2( 0.548853, 0.589701 )
 input/pickable = true
 shapes/0/shape = SubResource( 13 )
@@ -640,17 +641,15 @@ transform/pos = Vector2( 40, -40 )
 
 [node name="attack_hitboxes" type="Node2D" parent="."]
 
-editor/display_folded = true
-visibility/visible = false
 script/script = ExtResource( 6 )
 
 [node name="attack_1" type="Area2D" parent="attack_hitboxes"]
 
-editor/display_folded = true
+visibility/visible = false
 transform/pos = Vector2( 1.32037, -20.2458 )
 input/pickable = true
 shapes/0/shape = SubResource( 14 )
-shapes/0/transform = Matrix32( 0.400713, 0, 0, 1, 13.5877, 21.9719 )
+shapes/0/transform = Matrix32( 0.705838, 0, 0, 0.674804, 10.4297, 21.5496 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -660,15 +659,15 @@ script/script = ExtResource( 7 )
 
 [node name="collision" type="CollisionShape2D" parent="attack_hitboxes/attack_1"]
 
-transform/pos = Vector2( 13.5877, 21.9719 )
-transform/scale = Vector2( 0.400713, 1 )
+transform/pos = Vector2( 10.4297, 21.5496 )
+transform/scale = Vector2( 0.705838, 0.674804 )
 shape = SubResource( 14 )
 trigger = false
 _update_shape_index = 0
 
 [node name="attack_2" type="Area2D" parent="attack_hitboxes"]
 
-editor/display_folded = true
+visibility/visible = false
 input/pickable = true
 shapes/0/shape = SubResource( 15 )
 shapes/0/transform = Matrix32( 1.13361, 0, 0, 1, 15.7991, 3.91318 )
@@ -689,11 +688,11 @@ _update_shape_index = 0
 
 [node name="attack_3" type="Area2D" parent="attack_hitboxes"]
 
-editor/display_folded = true
-transform/pos = Vector2( 1.32037, -20.2458 )
+visibility/visible = false
+transform/pos = Vector2( 3.21516, -22.1406 )
 input/pickable = true
 shapes/0/shape = SubResource( 14 )
-shapes/0/transform = Matrix32( 0.400713, 0, 0, 1, 13.5877, 21.9719 )
+shapes/0/transform = Matrix32( 0.400713, 0, 0, 1, 11.8652, 4.22975 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -703,7 +702,7 @@ script/script = ExtResource( 7 )
 
 [node name="collision" type="CollisionShape2D" parent="attack_hitboxes/attack_3"]
 
-transform/pos = Vector2( 13.5877, 21.9719 )
+transform/pos = Vector2( 11.8652, 4.22975 )
 transform/scale = Vector2( 0.400713, 1 )
 shape = SubResource( 14 )
 trigger = false
@@ -711,11 +710,11 @@ _update_shape_index = 0
 
 [node name="attack_4" type="Area2D" parent="attack_hitboxes"]
 
-editor/display_folded = true
+visibility/visible = false
 transform/pos = Vector2( 1.32037, -20.2458 )
 input/pickable = true
-shapes/0/shape = SubResource( 14 )
-shapes/0/transform = Matrix32( 0.400713, 0, 0, 1, 13.5877, 21.9719 )
+shapes/0/shape = SubResource( 17 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 5.43208, 25.479 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -725,15 +724,15 @@ script/script = ExtResource( 7 )
 
 [node name="collision" type="CollisionShape2D" parent="attack_hitboxes/attack_4"]
 
-transform/pos = Vector2( 13.5877, 21.9719 )
-transform/scale = Vector2( 0.400713, 1 )
-shape = SubResource( 14 )
+transform/pos = Vector2( 5.43208, 25.479 )
+shape = SubResource( 17 )
 trigger = false
 _update_shape_index = 0
 
 [node name="attack_jump_asc" type="Area2D" parent="attack_hitboxes"]
 
 editor/display_folded = true
+visibility/visible = false
 input/pickable = true
 shapes/0/shape = SubResource( 16 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 5.57077, 4.89554 )
@@ -753,7 +752,7 @@ _update_shape_index = 0
 
 [node name="attack_jump_desc" type="Area2D" parent="attack_hitboxes"]
 
-editor/display_folded = true
+visibility/visible = false
 input/pickable = true
 shapes/0/shape = SubResource( 17 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 6.75245, 5.23316 )

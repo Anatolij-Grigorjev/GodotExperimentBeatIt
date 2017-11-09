@@ -2,7 +2,12 @@ extends Node2D
 #quick access to constnats
 onready var CONST = get_node("/root/const")
 
-enum COMBO_ATTACKS {ATTACK1 = 0, ATTACK2 = 1, ATTACK3 = 2, ATTACK4 = 3}
+enum COMBO_ATTACKS {
+ATTACK1 = 0, 
+ATTACK2 = 1, 
+ATTACK3 = 2, 
+ATTACK4 = 3
+}
 #last allowed combo attack without hitting
 const LAST_NON_COMBO = ATTACK2
 #last attack in complete combo
@@ -11,6 +16,8 @@ const LAST_COMBO = ATTACK4
 onready var ATTACK_ANIMATIONS = [
 	CONST.PLAYER_ANIM_ATTACK_1,
 	CONST.PLAYER_ANIM_ATTACK_2,
+	CONST.PLAYER_ANIM_ATTACK_3,
+	CONST.PLAYER_ANIM_ATTACK_4,
 	CONST.PLAYER_ANIM_ATTACK_JUMP_ASCEND,
 	CONST.PLAYER_ANIM_ATTACK_JUMP_DESCEND
 ]

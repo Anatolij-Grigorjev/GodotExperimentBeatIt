@@ -130,7 +130,11 @@ func _process(delta):
 			move_vector *= WALK_SPEED
 			
 		#integrate new position
-		parent.set_pos(pos + (move_vector * delta))
+		var new_pos = pos + (move_vector * delta)
+		parent.set_pos(new_pos)
+		#also add posirion to caugh enemy
+		if (parent.caught_enemy != null):
+			parent.caught_enemy.set_pos(new_pos)
 	
 		#setup movement animation
 		if (parent.current_state == parent.JUMPING):

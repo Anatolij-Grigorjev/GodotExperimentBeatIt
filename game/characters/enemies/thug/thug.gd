@@ -43,7 +43,10 @@ func change_anim():
 			anim.play(current_anim)
 	elif (current_state == CAUGHT):
 		current_anim = CONST.THUG_ANIM_CAUGHT
-		
+	
+	elif (current_state == CAUGHT_HURTING):
+		current_anim = CONST.THUNG_ANIM_CAUGHT_HURT
+	
 	elif (current_state == FALLING):
 		if current_state_ctx.fall_direction > 0:
 			current_anim = CONST.THUG_ANIM_FALLING_FWD 

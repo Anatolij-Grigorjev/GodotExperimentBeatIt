@@ -601,8 +601,9 @@ shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
-[node name="catch_point" type="Area2D" parent="."]
+[node name="catch_collider" type="Area2D" parent="."]
 
+editor/display_folded = true
 transform/scale = Vector2( 0.548853, 0.589701 )
 input/pickable = true
 shapes/0/shape = SubResource( 13 )
@@ -614,12 +615,16 @@ linear_damp = 0.1
 angular_damp = 1.0
 script/script = ExtResource( 5 )
 
-[node name="collision" type="CollisionShape2D" parent="catch_point"]
+[node name="collision" type="CollisionShape2D" parent="catch_collider"]
 
 transform/pos = Vector2( 0, 9.5 )
 shape = SubResource( 13 )
 trigger = false
 _update_shape_index = 0
+
+[node name="catch_point" type="Position2D" parent="."]
+
+transform/pos = Vector2( 23, 0 )
 
 [node name="feet" type="Position2D" parent="."]
 
@@ -635,6 +640,7 @@ transform/pos = Vector2( 40, -40 )
 
 [node name="attack_hitboxes" type="Node2D" parent="."]
 
+editor/display_folded = true
 visibility/visible = false
 script/script = ExtResource( 6 )
 
@@ -765,7 +771,7 @@ shape = SubResource( 17 )
 trigger = false
 _update_shape_index = 0
 
-[connection signal="body_enter" from="catch_point" to="catch_point" method="_on_catch_point_body_enter"]
+[connection signal="body_enter" from="catch_collider" to="catch_collider" method="_on_catch_point_body_enter"]
 
 [connection signal="body_enter" from="attack_hitboxes/attack_1" to="attack_hitboxes/attack_1" method="body_enter"]
 

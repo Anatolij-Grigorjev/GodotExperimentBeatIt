@@ -3,6 +3,7 @@ extends "../basic_movement.gd"
 onready var anim = get_node("anim")
 onready var movement = get_node("player_move")
 onready var attacks = get_node("player_attack")
+onready var catch_point = get_node("catch_point")
 
 var curr_anim
 var next_anim

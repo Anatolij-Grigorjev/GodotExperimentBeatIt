@@ -12,7 +12,7 @@ onready var FONT_DEBUG_INFO = preload("res://debug_font.fnt")
 enum BODY_STATES {
 STANDING, WALKING, RUNNING, 
 ATTACKING, JUMPING, HURTING, 
-FALLING, CATCHING, CAUGHT
+FALLING, CATCHING, CAUGHT_HURTING
 }
 const STATES_STRINGS = {
 	0: "STANDING",
@@ -23,7 +23,8 @@ const STATES_STRINGS = {
 	5: "HURTING",
 	6: "FALLING",
 	7: "CATCHING",
-	8: "CAUGHT"
+	8: "CAUGHT",
+	9: "CAUGHT_HURTING"
 }
 
 export(int) var current_state = STANDING

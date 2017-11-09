@@ -10,12 +10,6 @@ onready var attacks_hitboxes = [
 	get_node("attack_jump_asc"),
 	get_node("attack_jump_desc")
 ]
-
-const ATTACK_PROPERTIES = [
-	"attack_z", 
-	"hit_lock", 
-	"disloge_vector"
-]
 #access to main character node
 onready var parent = get_node("../")
 onready var attacks = get_node("../player_attack")
@@ -36,7 +30,7 @@ func config_attacks():
 		for attack_name in attack_names:
 			var attack_node = get_node(attack_name)
 			attack_node.attack_info.attack_name = attack_name
-			for prop in ATTACK_PROPERTIES:		
+			for prop in attacks_config.get_section_keys(attack_name):		
 				attack_node.attack_info[prop] = attacks_config.get_value(
 				attack_name, 
 				prop, 
@@ -54,7 +48,7 @@ func do_attack( body, attack_info ):
 	#handle an enemy getting hit
 	if (body.is_in_group(CONST.GROUP_ENEMIES)):
 		var enemy = body
-		#touched enemt bofdy with combo, therefore registers as 
+		#touched enemt body with combo, therefore registers as 
 		#hit to continue combo regardless of damage done
 		if (attack_info.combo_idx <= attacks.LAST_COMBO):
 			attacks.attack_hits[attack_info.combo_idx] = true

@@ -11,6 +11,12 @@ func _ready():
 
 
 func _on_catch_point_body_enter( body ):
+	#collision with own body
+	if ( body == parent ):
+		return
+	#already holding somebody, cant hold 2 guys at once
+	if ( parent.caught_enemy != null ):
+		return
 	#only try to catch enemies
 	if ( !body.is_in_group(CONST.GROUP_ENEMIES) ):
 		return
@@ -23,3 +29,5 @@ func _on_catch_point_body_enter( body ):
 	#set the porper states
 	body.current_state = parent.CAUGHT
 	parent.current_state = parent.CATCHING
+	parent.caught_enemy = body
+	body.set_global_pos(parent.catch_point.get_global_pos())

@@ -5,8 +5,15 @@ var active = false
 onready var parent = get_node("../")
 onready var player = get_node("../../")
 
-#dictionary for quicker access by id
+#dictionary instead of list for quicker access by id
 var area_bodies = {}
+
+enum ATTACK_TYPES {
+	GROUND_ATTACK = 0,
+	JUMP_ATTACK = 1,
+	CATCH_ATTACK = 2,
+	THROW_ATTACK = 3
+}
 
 var attack_info = {
 	#name of attack
@@ -18,7 +25,10 @@ var attack_info = {
 	#how long does the post-attack invulnerability last on enemy
 	hit_lock = 0.2,
 	#force vector to fall enemy when hit by attack
-	disloge_vector = Vector2(0,0)
+	disloge_vector = Vector2(0,0),
+	#attack type, determines hit effect 
+	#and other enemy specific things
+	attack_type = GROUND_ATTACK
 }
 
 func _ready():

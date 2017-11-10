@@ -67,9 +67,7 @@ func _process(delta):
 		
 	#gather inputs for frame
 	for action in ACTIONS:
-		if (Input.is_action_pressed(action)):
-			if (!pressing[action]):
-				pressing[action] = true
+		pressing[action] = Input.is_action_pressed(action)
 
 	#if we are attacking, 
 	#lets ignore input while the animation plays out
@@ -110,10 +108,11 @@ func ground_attack():
 		start_combo()
 	else:
 		#already attacking, extend combo due to action
-		if (combo_attack_state < LAST_NON_COMBO):
+		if (last_combo_attack <= LAST_NON_COMBO):
+			print("continue combo from point " + str(last_combo_attack))
 			continue_combo()
 		#landed hits later in combo, extend it further
-		elif (combo_attack_state < LAST_COMBO and hitting):
+		elif (last_combo_attack <= LAST_COMBO and hitting):
 			continue_combo()
 		else:
 			if (!parent.anim.is_playing() and parent.curr_anim in ATTACK_ANIMATIONS):
@@ -125,8 +124,8 @@ func start_combo():
 				
 func continue_combo():
 	queue_combo_move(
-	combo_attack_state + 1,
-	"player_attack_" + str(combo_attack_state + 1)
+	last_combo_attack + 1,
+	"player_attack_" + str(last_combo_attack + 1)
 	)
 
 func queue_combo_move(new_attack_state, new_anim):

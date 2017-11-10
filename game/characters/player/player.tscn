@@ -509,12 +509,12 @@ extents = Vector2( 19.2052, 15.6667 )
 custom_solver_bias = 0.0
 extents = Vector2( 14.1805, 7.73714 )
 
-[sub_resource type="RectangleShape2D" id=17]
+[sub_resource type="RectangleShape2D" id=16]
 
 custom_solver_bias = 0.0
 extents = Vector2( 32.5941, 12.4987 )
 
-[sub_resource type="RectangleShape2D" id=16]
+[sub_resource type="RectangleShape2D" id=17]
 
 custom_solver_bias = 0.0
 extents = Vector2( 17.7387, 27.5229 )
@@ -713,7 +713,7 @@ _update_shape_index = 0
 visibility/visible = false
 transform/pos = Vector2( 1.32037, -20.2458 )
 input/pickable = true
-shapes/0/shape = SubResource( 17 )
+shapes/0/shape = SubResource( 16 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 5.43208, 25.479 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -725,7 +725,7 @@ script/script = ExtResource( 7 )
 [node name="collision" type="CollisionShape2D" parent="attack_hitboxes/attack_4"]
 
 transform/pos = Vector2( 5.43208, 25.479 )
-shape = SubResource( 17 )
+shape = SubResource( 16 )
 trigger = false
 _update_shape_index = 0
 
@@ -734,7 +734,7 @@ _update_shape_index = 0
 editor/display_folded = true
 visibility/visible = false
 input/pickable = true
-shapes/0/shape = SubResource( 16 )
+shapes/0/shape = SubResource( 17 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 5.57077, 4.89554 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -746,7 +746,7 @@ script/script = ExtResource( 7 )
 [node name="collision" type="CollisionShape2D" parent="attack_hitboxes/attack_jump_asc"]
 
 transform/pos = Vector2( 5.57077, 4.89554 )
-shape = SubResource( 16 )
+shape = SubResource( 17 )
 trigger = false
 _update_shape_index = 0
 
@@ -754,7 +754,7 @@ _update_shape_index = 0
 
 visibility/visible = false
 input/pickable = true
-shapes/0/shape = SubResource( 17 )
+shapes/0/shape = SubResource( 16 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 6.75245, 5.23316 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -766,7 +766,7 @@ script/script = ExtResource( 7 )
 [node name="collision" type="CollisionShape2D" parent="attack_hitboxes/attack_jump_desc"]
 
 transform/pos = Vector2( 6.75245, 5.23316 )
-shape = SubResource( 17 )
+shape = SubResource( 16 )
 trigger = false
 _update_shape_index = 0
 

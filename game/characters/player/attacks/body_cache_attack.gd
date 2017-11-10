@@ -18,8 +18,6 @@ enum ATTACK_TYPES {
 var attack_info = {
 	#name of attack
 	attack_name = "<?>",
-	#index of attack in combo sequence
-	combo_idx = 99,
 	#width of attack effectivness on the field
 	attack_z = 0,
 	#how long does the post-attack invulnerability last on enemy

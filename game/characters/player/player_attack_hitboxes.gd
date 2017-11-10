@@ -50,8 +50,7 @@ func do_attack( body, attack_info ):
 		var enemy = body
 		#touched enemt body with combo, therefore registers as 
 		#hit to continue combo regardless of damage done
-		if (attack_info.combo_idx <= attacks.LAST_COMBO):
-			attacks.attack_hits[attack_info.combo_idx] = true
+		attacks.hitting = true
 		#cant hit an enemy twice while they are being hit
 		if (enemy.getting_hit):
 			return
@@ -70,8 +69,11 @@ func do_attack( body, attack_info ):
 func doing_attack(idx, doing = true):
 	var attack = attacks_hitboxes[idx]
 	attack.active = doing
-	if (attack.active and idx <= attacks.LAST_COMBO):
-		attacks.attack_hits[idx] = false
+	#initialize possibility of combo hit connecting
+	#this is later changed in actual hit processing
+	#and then reset at combo end
+	if (attack.active):
+		attacks.hitting = false
 
 func reset_attacks():
 	for attack_node in attacks_hitboxes:

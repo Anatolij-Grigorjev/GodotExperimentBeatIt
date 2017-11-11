@@ -71,13 +71,11 @@ transform/pos = Vector2( 85, 0 )
 [node name="thug" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 806.12, 667.101 )
-current_state = null
 feet_pos = Vector2( 750, 600 )
 
 [node name="player" parent="." instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 79.5247, 429.049 )
-current_state = null
 
 [connection signal="body_enter" from="stop_1" to="." method="_on_stop_1_body_enter"]
 

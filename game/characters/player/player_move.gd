@@ -116,7 +116,7 @@ func _process(delta):
 				jump_state = null
 				#stop descend attack if it was in progress
 				if (parent.current_state == parent.ATTACKING):
-					attacks.reset_combo_attack_state()
+					attacks.reset_attack_state()
 			
 		
 	if (move_vector.length_squared() != 0):

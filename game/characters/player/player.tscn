@@ -594,7 +594,6 @@ drag_margin/bottom = 0.2
 
 [node name="body" type="CollisionShape2D" parent="."]
 
-visibility/visible = false
 transform/pos = Vector2( 2, 2 )
 transform/scale = Vector2( 0.75, 0.75 )
 shape = SubResource( 1 )
@@ -603,8 +602,6 @@ _update_shape_index = 0
 
 [node name="catch_collider" type="Area2D" parent="."]
 
-editor/display_folded = true
-visibility/visible = false
 transform/scale = Vector2( 0.548853, 0.589701 )
 input/pickable = true
 shapes/0/shape = SubResource( 13 )
@@ -645,7 +642,6 @@ script/script = ExtResource( 6 )
 
 [node name="attack_1" type="Area2D" parent="attack_hitboxes"]
 
-visibility/visible = false
 transform/pos = Vector2( 1.32037, -20.2458 )
 input/pickable = true
 shapes/0/shape = SubResource( 14 )
@@ -667,7 +663,6 @@ _update_shape_index = 0
 
 [node name="attack_2" type="Area2D" parent="attack_hitboxes"]
 
-visibility/visible = false
 input/pickable = true
 shapes/0/shape = SubResource( 15 )
 shapes/0/transform = Matrix32( 1.13361, 0, 0, 1, 15.7991, 3.91318 )
@@ -688,7 +683,6 @@ _update_shape_index = 0
 
 [node name="attack_3" type="Area2D" parent="attack_hitboxes"]
 
-visibility/visible = false
 transform/pos = Vector2( 3.21516, -22.1406 )
 input/pickable = true
 shapes/0/shape = SubResource( 14 )
@@ -710,7 +704,6 @@ _update_shape_index = 0
 
 [node name="attack_4" type="Area2D" parent="attack_hitboxes"]
 
-visibility/visible = false
 transform/pos = Vector2( 1.32037, -20.2458 )
 input/pickable = true
 shapes/0/shape = SubResource( 16 )
@@ -731,7 +724,6 @@ _update_shape_index = 0
 
 [node name="attack_jump_asc" type="Area2D" parent="attack_hitboxes"]
 
-visibility/visible = false
 input/pickable = true
 shapes/0/shape = SubResource( 17 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 5.57077, 4.89554 )
@@ -751,7 +743,6 @@ _update_shape_index = 0
 
 [node name="attack_jump_desc" type="Area2D" parent="attack_hitboxes"]
 
-visibility/visible = false
 input/pickable = true
 shapes/0/shape = SubResource( 16 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 6.75245, 5.23316 )

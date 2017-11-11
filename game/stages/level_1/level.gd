@@ -8,31 +8,43 @@ onready var stop_1 = get_node("stop_1")
 
 var player_current_bounds_x = null
 
+#nodes in level in the group characters. 
+#this will be a list of maps where character nodes and other properties are strored
+var characters_in_level = []
+
 func _ready():
 	var tex_extents = ground.texture_extents
 	player.get_node("camera").set_limit(MARGIN_BOTTOM, tex_extents.y * 2)
+	#populate characters info map
+	for character in get_tree().get_nodes_in_group(CONST.GROUP_CHARS):
+		characters_in_level.append({
+			"id": character.get_name(),
+			"node": character,
+			"can_jump": character.has_method("jumping")
+		})
 	set_process(true)
 	
 func _process(delta):
-	for character in get_tree().get_nodes_in_group(CONST.GROUP_CHARS):
-		if (!character.movement.jumping):
-			var feet_pos = character.feet_pos
+	for character in characters_in_level:
+		#check ground Z bounds when character not jumping
+		if (!character.can_jump or !character.node.jumping()):
+			var feet_pos = character.node.feet_pos
 			var good_feet_pos = ground.nearest_in_bounds(feet_pos)
 			if (feet_pos != good_feet_pos):
-				character.set_pos_by_feet(good_feet_pos)
-		var good_min = ground.nearest_in_general_bounds(character.min_pos)
-		if (good_min.x > character.min_pos.x):
-			character.set_pos_by_min(good_min)
-		var good_max = ground.nearest_in_general_bounds(character.max_pos)
-		if (good_max.x < character.max_pos.x):
-			character.set_pos_by_max(good_max)
+				character.node.set_pos_by_feet(good_feet_pos)
+		var good_min = ground.nearest_in_general_bounds(character.node.min_pos)
+		if (good_min.x > character.node.min_pos.x):
+			character.node.set_pos_by_min(good_min)
+		var good_max = ground.nearest_in_general_bounds(character.node.max_pos)
+		if (good_max.x < character.node.max_pos.x):
+			character.node.set_pos_by_max(good_max)
 		#use plaeyr camera bounds to limit enemy movements as well
 		#but enemies can at most position themselves out of view
-		if (character != player and player_current_bounds_x != null):
-			if (character.max_pos.x < player_current_bounds_x.x):
-				character.set_pos_by_max(Vector2(player_current_bounds_x.x + 1, character.max_pos.y))
-			if (character.min_pos.x > player_current_bounds_x.y):
-				character.set_pos_by_min(Vector2(player_current_bounds_x.y - 1, character.min_pos.y))
+		if (character.node != player and player_current_bounds_x != null):
+			if (character.node.max_pos.x < player_current_bounds_x.x):
+				character.node.set_pos_by_max(Vector2(player_current_bounds_x.x + 1, character.node.max_pos.y))
+			if (character.node.min_pos.x > player_current_bounds_x.y):
+				character.node.set_pos_by_min(Vector2(player_current_bounds_x.y - 1, character.node.min_pos.y))
 		
 	if (player_current_bounds_x != null):
 		if (player.min_pos.x < player_current_bounds_x.x):

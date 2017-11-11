@@ -23,9 +23,11 @@ func _ready():
 func _process(delta):
 	._process(delta)
 	
-	
+const CIRCLE_COLOR_PAIN = Color(1, 1, 1)
 func _draw():
 	._draw()
+	if (current_state == HURTING):
+		draw_circle(get_pos(), 20.0, CIRCLE_COLOR_PAIN)
 	
 func change_anim():
 	if (current_state == STANDING):

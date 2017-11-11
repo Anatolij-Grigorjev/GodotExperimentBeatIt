@@ -4,6 +4,11 @@ extends Area2D
 onready var CONST = get_node("/root/const")
 onready var parent = get_node("../")
 
+onready var CATCHING_STATES = [
+	parent.WALKING,
+	parent.RUNNING
+]
+
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
@@ -26,8 +31,10 @@ func _on_catch_point_body_enter( body ):
 	#can only grab currently hurting enemies
 	if ( body.current_state != parent.HURTING ):
 		return
-	#set the porper states
-	body.current_state = parent.CAUGHT
-	parent.current_state = parent.CATCHING
-	parent.caught_enemy = body
-	body.set_global_pos(parent.catch_point.get_global_pos())
+	#if the player is walking towards the enemy, not standing there attacking
+	if ( parent.current_state in CATCHING_STATES): 
+		#set the porper states
+		body.current_state = parent.CAUGHT
+		parent.current_state = parent.CATCHING
+		parent.caught_enemy = body
+		body.set_global_pos(parent.catch_point.get_global_pos())

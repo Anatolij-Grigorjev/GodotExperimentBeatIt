@@ -35,6 +35,8 @@ func config_attacks():
 				attack_name, 
 				prop, 
 				attack_node.attack_info[prop])
+			if (attack_node.attack_info.disloge_x != null and attack_node.attack_info.disloge_y != null):
+				attack_node.attack_info.disloge_vector = Vector2(attack_node.attack_info.disloge_x, attack_node.attack_info.disloge_y)
 			attack_node.dump()
 	else:
 		print("problem opening attacks.ini: " + str(err))

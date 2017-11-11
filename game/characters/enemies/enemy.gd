@@ -52,7 +52,7 @@ func change_anim():
 	
 func change_state(delta):
 	#some states are not meant to make decisions
-	if (current_state == HURTIN):
+	if (current_state == HURTING):
 		getting_hit = hit_lock > 0
 		if (getting_hit):
 			hit_lock -= delta
@@ -119,6 +119,7 @@ func get_hit(attack_info):
 	getting_hit = true
 	just_hit = true
 	hit_lock = attack_info.hit_lock 
+	current_state = HURTING
 	if (attack_info.disloge_vector != CONST.VECTOR2_ZERO):
 		if (current_state == HURTING):
 			#was already hurting when this attack hit, 
@@ -126,9 +127,8 @@ func get_hit(attack_info):
 			move_and_slide(attack_info.disloge_vector)
 			ignore_z = true
 			current_state = FALLING
-			current_state_ctx.fall_direction = sign(attack_info.disloge_vector)
+			current_state_ctx.fall_direction = sign(attack_info.disloge_vector.x)
 		else:
 			#was not yet hurt when attack hit, 
 			#push back half idstance and start hurting
 			move_and_slide(Vector2(attack_info.disloge_vector.x / 2, 0))
-			current_state = HURTING

@@ -24,6 +24,9 @@ var attack_info = {
 	hit_lock = 0.2,
 	#force vector to fall enemy when hit by attack
 	disloge_vector = Vector2(0,0),
+	#helper components of disloge_vector for reading from file
+	disloge_x = null,
+	disloge_y = null,
 	#attack type, determines hit effect 
 	#and other enemy specific things
 	attack_type = GROUND_ATTACK
@@ -38,11 +41,13 @@ func dump():
 func body_enter( body ):
 	if (body == player):
 		return
+	print(attack_info.attack_name + " add body: " + str(body))
 	area_bodies[body.get_name()] = body
 	
 func body_exit ( body ):
 	if (body == player ):
 		return
+	print(attack_info.attack_name + " remove body: " + str(body))
 	area_bodies.erase(body.get_name())
 	
 func process_bodies():

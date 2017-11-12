@@ -26,4 +26,8 @@ texture/rotation = 0.0
 invert/enable = false
 invert/border = 100.0
 
+[node name="extents" type="Position2D" parent="."]
+
+transform/pos = Vector2( 1928, 375 )
+
 

@@ -1,6 +1,7 @@
 extends Sprite
 
 onready var bounds_poly = get_node("bounds")
+onready var bounds_scene = get_node("extents").get_pos()
 
 var x_range = Vector2() #min and max X to check against scene bounds
 var y_range = Vector2() #min and max Y to check generic scene bounds

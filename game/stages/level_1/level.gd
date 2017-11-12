@@ -69,12 +69,22 @@ func _on_stop_1_body_exit( body ):
 
 
 func set_area_activeness(area, active = true):
+	print("seeting activeness for area " + str(area) + ": " + str(active))
 	if (active):
-		area.get_node("camera").make_current()
+		var camera = area.get_node("camera")
 		var min_pos = area.get_node("min_stop_pos").get_global_pos()
 		var max_pos = area.get_node("max_stop_pos").get_global_pos()
+		setup_camera_bounds(camera, min_pos, max_pos)
+		camera.make_current()
 		#set x bounds for characters using prebaked positions
 		player_current_bounds_x = Vector2(min_pos.x, max_pos.x)
+		print("player bounds x: " + str(player_current_bounds_x))
 	else:
 		area.get_node("camera").clear_current()
 		player_current_bounds_x = null
+
+func setup_camera_bounds(camera, min_pos, max_pos):
+	camera.set_limit(MARGIN_LEFT, min_pos.x)
+	camera.set_limit(MARGIN_TOP, min_pos.y)
+	camera.set_limit(MARGIN_RIGHT, max_pos.x)
+	camera.set_limit(MARGIN_BOTTOM, max_pos.y)

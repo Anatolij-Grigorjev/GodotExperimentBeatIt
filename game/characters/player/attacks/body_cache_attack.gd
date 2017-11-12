@@ -3,7 +3,7 @@ extends Node
 var active = false
 
 onready var parent = get_node("../")
-onready var player = get_node("../../")
+onready var player = get_node("../../../")
 
 #dictionary instead of list for quicker access by id
 var area_bodies = {}

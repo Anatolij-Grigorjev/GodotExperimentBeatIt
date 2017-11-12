@@ -2,7 +2,7 @@ extends Area2D
 
 #quick access to constnats
 onready var CONST = get_node("/root/const")
-onready var parent = get_node("../")
+onready var parent = get_node("../../")
 
 onready var CATCHING_STATES = [
 	parent.WALKING,

@@ -21,6 +21,7 @@ onready var MOVEMENT = {
 	CONST.INPUT_ACTION_MOVE_DOWN: Vector2(0.0, 1.0)
 }
 onready var parent = get_node("../")
+onready var sprite = get_node("../sprites")
 #access to attacks, to know when to lock
 onready var attacks = get_node("../player_attack")
 
@@ -146,9 +147,9 @@ func _process(delta):
 			parent.next_anim = CONST.PLAYER_ANIM_WALK
 		#flip sprite if direction change
 		if (move_vector.x < 0 and frame_action == CONST.INPUT_ACTION_MOVE_LEFT):
-			parent.set_scale(Vector2(-1.0, 1.0))
+			sprite.set_scale(Vector2(-1.0, 1.0))
 		elif (move_vector.x > 0 and frame_action == CONST.INPUT_ACTION_MOVE_RIGHT):
-			parent.set_scale(Vector2(1.0, 1.0))
+			sprite.set_scale(Vector2(1.0, 1.0))
 	else:
 		#only apply idle animation if no other
 		#animation was chosen as part of the logic

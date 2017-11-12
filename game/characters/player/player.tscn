@@ -2,17 +2,42 @@
 
 [ext_resource path="res://characters/player/player_main.gd" type="Script" id=1]
 [ext_resource path="res://characters/player/player_sprites.png" type="Texture" id=2]
-[ext_resource path="res://characters/player/player_move.gd" type="Script" id=3]
-[ext_resource path="res://characters/player/player_attack.gd" type="Script" id=4]
-[ext_resource path="res://characters/player/catch_point.gd" type="Script" id=5]
-[ext_resource path="res://characters/player/player_attack_hitboxes.gd" type="Script" id=6]
-[ext_resource path="res://characters/player/attacks/body_cache_attack.gd" type="Script" id=7]
+[ext_resource path="res://characters/player/catch_point.gd" type="Script" id=3]
+[ext_resource path="res://characters/player/player_attack_hitboxes.gd" type="Script" id=4]
+[ext_resource path="res://characters/player/attacks/body_cache_attack.gd" type="Script" id=5]
+[ext_resource path="res://characters/player/player_move.gd" type="Script" id=6]
+[ext_resource path="res://characters/player/player_attack.gd" type="Script" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
 custom_solver_bias = 0.0
 radius = 18.1143
 height = 59.4577
+
+[sub_resource type="RectangleShape2D" id=13]
+
+custom_solver_bias = 0.0
+extents = Vector2( 19, 55 )
+
+[sub_resource type="RectangleShape2D" id=14]
+
+custom_solver_bias = 0.0
+extents = Vector2( 19.2052, 15.6667 )
+
+[sub_resource type="RectangleShape2D" id=15]
+
+custom_solver_bias = 0.0
+extents = Vector2( 14.1805, 7.73714 )
+
+[sub_resource type="RectangleShape2D" id=16]
+
+custom_solver_bias = 0.0
+extents = Vector2( 32.5941, 12.4987 )
+
+[sub_resource type="RectangleShape2D" id=17]
+
+custom_solver_bias = 0.0
+extents = Vector2( 17.7387, 27.5229 )
 
 [sub_resource type="Animation" id=2]
 
@@ -51,7 +76,7 @@ tracks/2/keys = {
 "values": [ Vector2( -2, 2 ), Vector2( -10, 3 ), Vector2( -10, 3 ), Vector2( 2, 2 ) ]
 }
 tracks/3/type = "method"
-tracks/3/path = NodePath("attack_hitboxes")
+tracks/3/path = NodePath("sprites/attack_hitboxes")
 tracks/3/interp = 1
 tracks/3/imported = false
 tracks/3/keys = {
@@ -103,7 +128,7 @@ tracks/2/keys = {
 "values": [ Vector2( -2, 2 ), Vector2( -10, 3 ), Vector2( -10, 3 ), Vector2( 2, 2 ) ]
 }
 tracks/3/type = "method"
-tracks/3/path = NodePath("attack_hitboxes")
+tracks/3/path = NodePath("sprites/attack_hitboxes")
 tracks/3/interp = 1
 tracks/3/imported = false
 tracks/3/keys = {
@@ -155,7 +180,7 @@ tracks/2/keys = {
 "values": [ Vector2( -2, 2 ), Vector2( -2, 3 ), Vector2( 0.5, 3 ) ]
 }
 tracks/3/type = "method"
-tracks/3/path = NodePath("attack_hitboxes")
+tracks/3/path = NodePath("sprites/attack_hitboxes")
 tracks/3/interp = 1
 tracks/3/imported = false
 tracks/3/keys = {
@@ -207,7 +232,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0.62, 0.62 ), Vector2( 0.65, 0.65 ), Vector2( 0.58, 0.58 ), Vector2( 0.58, 0.58 ), Vector2( 0.58, 0.58 ), Vector2( 0.58, 0.58 ) ]
 }
 tracks/3/type = "method"
-tracks/3/path = NodePath("attack_hitboxes")
+tracks/3/path = NodePath("sprites/attack_hitboxes")
 tracks/3/interp = 1
 tracks/3/imported = false
 tracks/3/keys = {
@@ -258,7 +283,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0.65, 0.65 ), Vector2( 0.65, 0.65 ), Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ) ]
 }
 tracks/3/type = "method"
-tracks/3/path = NodePath("attack_hitboxes")
+tracks/3/path = NodePath("sprites/attack_hitboxes")
 tracks/3/interp = 1
 tracks/3/imported = false
 tracks/3/keys = {
@@ -309,7 +334,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0.62, 0.62 ), Vector2( 0.65, 0.65 ), Vector2( 0.58, 0.58 ), Vector2( 0.58, 0.58 ), Vector2( 0.58, 0.58 ), Vector2( 0.58, 0.58 ) ]
 }
 tracks/3/type = "method"
-tracks/3/path = NodePath("attack_hitboxes")
+tracks/3/path = NodePath("sprites/attack_hitboxes")
 tracks/3/interp = 1
 tracks/3/imported = false
 tracks/3/keys = {
@@ -494,38 +519,13 @@ tracks/1/keys = {
 "values": [ Vector2( -3, 1 ), Vector2( -3, 1 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=13]
-
-custom_solver_bias = 0.0
-extents = Vector2( 19, 55 )
-
-[sub_resource type="RectangleShape2D" id=14]
-
-custom_solver_bias = 0.0
-extents = Vector2( 19.2052, 15.6667 )
-
-[sub_resource type="RectangleShape2D" id=15]
-
-custom_solver_bias = 0.0
-extents = Vector2( 14.1805, 7.73714 )
-
-[sub_resource type="RectangleShape2D" id=16]
-
-custom_solver_bias = 0.0
-extents = Vector2( 32.5941, 12.4987 )
-
-[sub_resource type="RectangleShape2D" id=17]
-
-custom_solver_bias = 0.0
-extents = Vector2( 17.7387, 27.5229 )
-
 [node name="player" type="KinematicBody2D" groups=[
 "characters",
 ]]
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 0.75, 0, 0, 0.75, 2, 2 )
+shapes/0/transform = Matrix32( 0.75, 0, 0, 0.75, -3, 1 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -541,7 +541,157 @@ max_pos = Vector2( 0, 0 )
 texture = ExtResource( 2 )
 vframes = 18
 hframes = 10
-frame = 17
+frame = 5
+
+[node name="catch_collider" type="Area2D" parent="sprites"]
+
+editor/display_folded = true
+transform/scale = Vector2( 0.548853, 0.589701 )
+input/pickable = true
+shapes/0/shape = SubResource( 13 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 9.5 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 3 )
+
+[node name="collision" type="CollisionShape2D" parent="sprites/catch_collider"]
+
+transform/pos = Vector2( 0, 9.5 )
+shape = SubResource( 13 )
+trigger = false
+_update_shape_index = 0
+
+[node name="catch_point" type="Position2D" parent="sprites"]
+
+transform/pos = Vector2( 23, 0 )
+
+[node name="attack_hitboxes" type="Node2D" parent="sprites"]
+
+editor/display_folded = true
+script/script = ExtResource( 4 )
+
+[node name="attack_1" type="Area2D" parent="sprites/attack_hitboxes"]
+
+transform/pos = Vector2( 1.32037, -20.2458 )
+input/pickable = true
+shapes/0/shape = SubResource( 14 )
+shapes/0/transform = Matrix32( 0.705838, 0, 0, 0.674804, 10.4297, 21.5496 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 5 )
+
+[node name="collision" type="CollisionShape2D" parent="sprites/attack_hitboxes/attack_1"]
+
+transform/pos = Vector2( 10.4297, 21.5496 )
+transform/scale = Vector2( 0.705838, 0.674804 )
+shape = SubResource( 14 )
+trigger = false
+_update_shape_index = 0
+
+[node name="attack_2" type="Area2D" parent="sprites/attack_hitboxes"]
+
+input/pickable = true
+shapes/0/shape = SubResource( 15 )
+shapes/0/transform = Matrix32( 1.13361, 0, 0, 1, 15.7991, 3.91318 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 5 )
+
+[node name="collision" type="CollisionShape2D" parent="sprites/attack_hitboxes/attack_2"]
+
+transform/pos = Vector2( 15.7991, 3.91318 )
+transform/scale = Vector2( 1.13361, 1 )
+shape = SubResource( 15 )
+trigger = false
+_update_shape_index = 0
+
+[node name="attack_3" type="Area2D" parent="sprites/attack_hitboxes"]
+
+transform/pos = Vector2( 3.21516, -22.1406 )
+input/pickable = true
+shapes/0/shape = SubResource( 14 )
+shapes/0/transform = Matrix32( 0.400713, 0, 0, 1, 11.8652, 4.22975 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 5 )
+
+[node name="collision" type="CollisionShape2D" parent="sprites/attack_hitboxes/attack_3"]
+
+transform/pos = Vector2( 11.8652, 4.22975 )
+transform/scale = Vector2( 0.400713, 1 )
+shape = SubResource( 14 )
+trigger = false
+_update_shape_index = 0
+
+[node name="attack_4" type="Area2D" parent="sprites/attack_hitboxes"]
+
+transform/pos = Vector2( 1.32037, -20.2458 )
+input/pickable = true
+shapes/0/shape = SubResource( 16 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 5.43208, 25.479 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 5 )
+
+[node name="collision" type="CollisionShape2D" parent="sprites/attack_hitboxes/attack_4"]
+
+transform/pos = Vector2( 5.43208, 25.479 )
+shape = SubResource( 16 )
+trigger = false
+_update_shape_index = 0
+
+[node name="attack_jump_asc" type="Area2D" parent="sprites/attack_hitboxes"]
+
+input/pickable = true
+shapes/0/shape = SubResource( 17 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 5.57077, 4.89554 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 5 )
+
+[node name="collision" type="CollisionShape2D" parent="sprites/attack_hitboxes/attack_jump_asc"]
+
+transform/pos = Vector2( 5.57077, 4.89554 )
+shape = SubResource( 17 )
+trigger = false
+_update_shape_index = 0
+
+[node name="attack_jump_desc" type="Area2D" parent="sprites/attack_hitboxes"]
+
+input/pickable = true
+shapes/0/shape = SubResource( 16 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 6.75245, 5.23316 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 5 )
+
+[node name="collision" type="CollisionShape2D" parent="sprites/attack_hitboxes/attack_jump_desc"]
+
+transform/pos = Vector2( 6.75245, 5.23316 )
+shape = SubResource( 16 )
+trigger = false
+_update_shape_index = 0
 
 [node name="anim" type="AnimationPlayer" parent="."]
 
@@ -567,11 +717,11 @@ autoplay = ""
 
 [node name="player_move" type="Node2D" parent="."]
 
-script/script = ExtResource( 3 )
+script/script = ExtResource( 6 )
 
 [node name="player_attack" type="Node2D" parent="."]
 
-script/script = ExtResource( 4 )
+script/script = ExtResource( 7 )
 
 [node name="camera" type="Camera2D" parent="."]
 
@@ -594,35 +744,11 @@ drag_margin/bottom = 0.2
 
 [node name="body" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( 2, 2 )
+transform/pos = Vector2( -3, 1 )
 transform/scale = Vector2( 0.75, 0.75 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
-
-[node name="catch_collider" type="Area2D" parent="."]
-
-transform/scale = Vector2( 0.548853, 0.589701 )
-input/pickable = true
-shapes/0/shape = SubResource( 13 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 9.5 )
-shapes/0/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-script/script = ExtResource( 5 )
-
-[node name="collision" type="CollisionShape2D" parent="catch_collider"]
-
-transform/pos = Vector2( 0, 9.5 )
-shape = SubResource( 13 )
-trigger = false
-_update_shape_index = 0
-
-[node name="catch_point" type="Position2D" parent="."]
-
-transform/pos = Vector2( 23, 0 )
 
 [node name="feet" type="Position2D" parent="."]
 
@@ -636,146 +762,22 @@ transform/pos = Vector2( -40, 40 )
 
 transform/pos = Vector2( 40, -40 )
 
-[node name="attack_hitboxes" type="Node2D" parent="."]
+[connection signal="body_enter" from="sprites/catch_collider" to="sprites/catch_collider" method="_on_catch_point_body_enter"]
 
-script/script = ExtResource( 6 )
+[connection signal="body_enter" from="sprites/attack_hitboxes/attack_1" to="sprites/attack_hitboxes/attack_1" method="body_enter"]
 
-[node name="attack_1" type="Area2D" parent="attack_hitboxes"]
+[connection signal="body_exit" from="sprites/attack_hitboxes/attack_1" to="sprites/attack_hitboxes/attack_1" method="body_exit"]
 
-transform/pos = Vector2( 1.32037, -20.2458 )
-input/pickable = true
-shapes/0/shape = SubResource( 14 )
-shapes/0/transform = Matrix32( 0.705838, 0, 0, 0.674804, 10.4297, 21.5496 )
-shapes/0/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-script/script = ExtResource( 7 )
+[connection signal="body_enter" from="sprites/attack_hitboxes/attack_2" to="sprites/attack_hitboxes/attack_2" method="body_enter"]
 
-[node name="collision" type="CollisionShape2D" parent="attack_hitboxes/attack_1"]
+[connection signal="body_exit" from="sprites/attack_hitboxes/attack_2" to="sprites/attack_hitboxes/attack_2" method="body_exit"]
 
-transform/pos = Vector2( 10.4297, 21.5496 )
-transform/scale = Vector2( 0.705838, 0.674804 )
-shape = SubResource( 14 )
-trigger = false
-_update_shape_index = 0
+[connection signal="body_enter" from="sprites/attack_hitboxes/attack_3" to="sprites/attack_hitboxes/attack_3" method="body_enter"]
 
-[node name="attack_2" type="Area2D" parent="attack_hitboxes"]
+[connection signal="body_exit" from="sprites/attack_hitboxes/attack_3" to="sprites/attack_hitboxes/attack_3" method="body_exit"]
 
-input/pickable = true
-shapes/0/shape = SubResource( 15 )
-shapes/0/transform = Matrix32( 1.13361, 0, 0, 1, 15.7991, 3.91318 )
-shapes/0/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-script/script = ExtResource( 7 )
+[connection signal="body_enter" from="sprites/attack_hitboxes/attack_4" to="sprites/attack_hitboxes/attack_4" method="body_enter"]
 
-[node name="collision" type="CollisionShape2D" parent="attack_hitboxes/attack_2"]
-
-transform/pos = Vector2( 15.7991, 3.91318 )
-transform/scale = Vector2( 1.13361, 1 )
-shape = SubResource( 15 )
-trigger = false
-_update_shape_index = 0
-
-[node name="attack_3" type="Area2D" parent="attack_hitboxes"]
-
-transform/pos = Vector2( 3.21516, -22.1406 )
-input/pickable = true
-shapes/0/shape = SubResource( 14 )
-shapes/0/transform = Matrix32( 0.400713, 0, 0, 1, 11.8652, 4.22975 )
-shapes/0/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-script/script = ExtResource( 7 )
-
-[node name="collision" type="CollisionShape2D" parent="attack_hitboxes/attack_3"]
-
-transform/pos = Vector2( 11.8652, 4.22975 )
-transform/scale = Vector2( 0.400713, 1 )
-shape = SubResource( 14 )
-trigger = false
-_update_shape_index = 0
-
-[node name="attack_4" type="Area2D" parent="attack_hitboxes"]
-
-transform/pos = Vector2( 1.32037, -20.2458 )
-input/pickable = true
-shapes/0/shape = SubResource( 16 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 5.43208, 25.479 )
-shapes/0/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-script/script = ExtResource( 7 )
-
-[node name="collision" type="CollisionShape2D" parent="attack_hitboxes/attack_4"]
-
-transform/pos = Vector2( 5.43208, 25.479 )
-shape = SubResource( 16 )
-trigger = false
-_update_shape_index = 0
-
-[node name="attack_jump_asc" type="Area2D" parent="attack_hitboxes"]
-
-input/pickable = true
-shapes/0/shape = SubResource( 17 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 5.57077, 4.89554 )
-shapes/0/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-script/script = ExtResource( 7 )
-
-[node name="collision" type="CollisionShape2D" parent="attack_hitboxes/attack_jump_asc"]
-
-transform/pos = Vector2( 5.57077, 4.89554 )
-shape = SubResource( 17 )
-trigger = false
-_update_shape_index = 0
-
-[node name="attack_jump_desc" type="Area2D" parent="attack_hitboxes"]
-
-input/pickable = true
-shapes/0/shape = SubResource( 16 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 6.75245, 5.23316 )
-shapes/0/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-script/script = ExtResource( 7 )
-
-[node name="collision" type="CollisionShape2D" parent="attack_hitboxes/attack_jump_desc"]
-
-transform/pos = Vector2( 6.75245, 5.23316 )
-shape = SubResource( 16 )
-trigger = false
-_update_shape_index = 0
-
-[connection signal="body_enter" from="catch_collider" to="catch_collider" method="_on_catch_point_body_enter"]
-
-[connection signal="body_enter" from="attack_hitboxes/attack_1" to="attack_hitboxes/attack_1" method="body_enter"]
-
-[connection signal="body_exit" from="attack_hitboxes/attack_1" to="attack_hitboxes/attack_1" method="body_exit"]
-
-[connection signal="body_enter" from="attack_hitboxes/attack_2" to="attack_hitboxes/attack_2" method="body_enter"]
-
-[connection signal="body_exit" from="attack_hitboxes/attack_2" to="attack_hitboxes/attack_2" method="body_exit"]
-
-[connection signal="body_enter" from="attack_hitboxes/attack_3" to="attack_hitboxes/attack_3" method="body_enter"]
-
-[connection signal="body_exit" from="attack_hitboxes/attack_3" to="attack_hitboxes/attack_3" method="body_exit"]
-
-[connection signal="body_enter" from="attack_hitboxes/attack_4" to="attack_hitboxes/attack_4" method="body_enter"]
-
-[connection signal="body_exit" from="attack_hitboxes/attack_4" to="attack_hitboxes/attack_4" method="body_exit"]
+[connection signal="body_exit" from="sprites/attack_hitboxes/attack_4" to="sprites/attack_hitboxes/attack_4" method="body_exit"]
 
 

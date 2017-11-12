@@ -77,10 +77,12 @@ func set_pos_by_feet(feet_pos):
 
 func set_pos_by_min(min_pos):
 	var min_pos_local = min_pos_node.get_pos()
-	var pos = Vector2(min_pos.x + min_pos_local.x, min_pos.y - min_pos_local.y)
+	#technically should be + min local x, but its likely negative
+	var pos = Vector2(min_pos.x - min_pos_local.x, min_pos.y - min_pos_local.y)
 	set_pos(pos)
 
 func set_pos_by_max(max_pos):
 	var max_pos_local = max_pos_node.get_pos()
-	var pos = Vector2(max_pos.x - max_pos_local.x, max_pos.y + max_pos_local.y)
+	#technically should be + min local y, but its likely negative
+	var pos = Vector2(max_pos.x - max_pos_local.x, max_pos.y - max_pos_local.y)
 	set_pos(pos)

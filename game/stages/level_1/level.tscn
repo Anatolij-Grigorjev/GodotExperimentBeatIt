@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://stages/level_1/level.gd" type="Script" id=1]
 [ext_resource path="res://stages/bg_pieces/city_ground.tscn" type="PackedScene" id=2]
-[ext_resource path="res://characters/enemies/thug/thug.tscn" type="PackedScene" id=3]
-[ext_resource path="res://characters/player/player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://characters/player/player.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -16,14 +15,14 @@ script/script = ExtResource( 1 )
 
 [node name="ground" parent="." instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 965.257, 560.153 )
+transform/pos = Vector2( 965, 188 )
 transform/scale = Vector2( 0.5, 0.5 )
 z/z = -4096
 z/relative = false
 
 [node name="stop_1" type="Area2D" parent="."]
 
-transform/pos = Vector2( 531.704, 558.008 )
+transform/pos = Vector2( 532, 188 )
 transform/scale = Vector2( 8.78127, 5.8756 )
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
@@ -47,10 +46,10 @@ anchor_mode = 0
 rotating = false
 current = false
 zoom = Vector2( 1, 1 )
-limit/left = -10000000
-limit/top = -10000000
-limit/right = 10000000
-limit/bottom = 10000000
+limit/left = 0
+limit/top = -190
+limit/right = 85
+limit/bottom = 32
 drag_margin/h_enabled = true
 drag_margin/v_enabled = true
 smoothing/enable = false
@@ -62,20 +61,15 @@ drag_margin/bottom = 0.2
 
 [node name="min_stop_pos" type="Position2D" parent="stop_1"]
 
-transform/pos = Vector2( -32, 0 )
+transform/pos = Vector2( -32, -32 )
 
 [node name="max_stop_pos" type="Position2D" parent="stop_1"]
 
-transform/pos = Vector2( 85, 0 )
+transform/pos = Vector2( 85, 32 )
 
-[node name="thug" parent="." instance=ExtResource( 3 )]
+[node name="player" parent="." instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 806.12, 667.101 )
-feet_pos = Vector2( 750, 600 )
-
-[node name="player" parent="." instance=ExtResource( 4 )]
-
-transform/pos = Vector2( 79.5247, 429.049 )
+transform/pos = Vector2( 79.5247, 88 )
 
 [connection signal="body_enter" from="stop_1" to="." method="_on_stop_1_body_enter"]
 

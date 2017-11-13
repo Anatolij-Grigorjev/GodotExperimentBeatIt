@@ -10,6 +10,7 @@ const VECTOR2_ZERO = Vector2(0, 0)
 
 const PLAYER_ATTACKS_CONFIG_FILE_PATH = "res://characters/player/attacks/attacks.ini"
 const HIT_EFFECTS_FOLDER_PATH = "res://characters/hit_effects/"
+const ENEMIES_POOL_CLASS = "res://stages/enemies_pool.gd"
 #player animations names
 const PLAYER_ANIM_IDLE = "player_idle"
 const PLAYER_ANIM_WALK = "player_walk"
@@ -56,3 +57,13 @@ const THUG_ANIM_FALLING_FWD = "thug_falling_forward"
 const THUNG_ANIM_FALLING_BCK = "thug_falling_backward"
 const THUG_ANIM_CAUGHT = "thug_caught"
 const THUG_ANIM_CAUGHT_HURT = "thug_caught_hurt"
+
+
+
+#Level constants
+#JSON value for when enemy appearing behind player
+const STOP_AREA_ENEMY_MIN = "left"
+#JSON value for when enemy appearing in front of player
+const STOP_AREA_ENEMY_MAX = "right"
+
+const LEVEL_1_ENEMY_PLACEMENT = "res://stages/level_1/enemies.json"

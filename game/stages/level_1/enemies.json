@@ -1,0 +1,13 @@
+{
+	"stop_1":[
+		{
+			"code": "thug",
+			"from": "left"
+		},
+		{
+			"code": "thug",
+			"from": "right"
+		}
+
+	]
+}

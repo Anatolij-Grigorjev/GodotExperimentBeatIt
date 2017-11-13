@@ -11,6 +11,7 @@ extents = Vector2( 58.1728, 30.8087 )
 
 [node name="level" type="Node"]
 
+process/pause_mode = 1
 script/script = ExtResource( 1 )
 
 [node name="ground" parent="." instance=ExtResource( 2 )]
@@ -22,6 +23,7 @@ z/relative = false
 
 [node name="stop_1" type="Area2D" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 532, 188 )
 transform/scale = Vector2( 8.78127, 5.8756 )
 input/pickable = true

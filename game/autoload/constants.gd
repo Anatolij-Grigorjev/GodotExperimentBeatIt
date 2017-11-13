@@ -61,9 +61,4 @@ const THUG_ANIM_CAUGHT_HURT = "thug_caught_hurt"
 
 
 #Level constants
-#JSON value for when enemy appearing behind player
-const STOP_AREA_ENEMY_MIN = "left"
-#JSON value for when enemy appearing in front of player
-const STOP_AREA_ENEMY_MAX = "right"
-
 const LEVEL_1_ENEMY_PLACEMENT = "res://stages/level_1/enemies.json"

@@ -76,7 +76,8 @@ func _process(delta):
 			player.set_pos_by_max(Vector2(player_current_bounds_x.y - 1, player.max_pos.y))
 	#check current stop enemies
 	if (current_stop != null and player_current_bounds_x != null):
-		var pool = areas_info[current_stop].enemies_pool
+		var pool = areas_info[current_stop].enemy_pool
+		pool._process(delta)
 		if (pool.finished):
 			player_current_bounds_x = null
 

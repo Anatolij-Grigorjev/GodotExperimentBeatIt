@@ -7,6 +7,7 @@
 extends Node
 
 const VECTOR2_ZERO = Vector2(0, 0)
+const FILE_PATH_NAMES_DB = "res://autoload/names-randomized.db"
 
 const PLAYER_ATTACKS_CONFIG_FILE_PATH = "res://characters/player/attacks/attacks.ini"
 const HIT_EFFECTS_FOLDER_PATH = "res://characters/hit_effects/"

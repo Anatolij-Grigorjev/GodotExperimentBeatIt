@@ -56,9 +56,10 @@ const THUG_ANIM_ATTACK_1 = "thug_attack_1"
 const THUG_ANIM_HURTING = "thug_hurting"
 const THUG_ANIM_FALLING_FWD = "thug_falling_forward"
 const THUNG_ANIM_FALLING_BCK = "thug_falling_backward"
+const THUNG_ANIM_ON_BACK = "thug_fall_on_back"
+const THUNG_ANIM_ON_BELLY = "thug_fall_on_belly"
 const THUG_ANIM_CAUGHT = "thug_caught"
 const THUG_ANIM_CAUGHT_HURT = "thug_caught_hurt"
-
 
 
 #Level constants

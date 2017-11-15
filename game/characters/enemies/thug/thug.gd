@@ -1,7 +1,5 @@
 extends "../enemy.gd"
 
-
-onready var sprite = get_node("sprite")
 var movement = {}
 onready var hit_effect = preload("res://characters/hit_effects/hit_effect_regular.tscn")
 
@@ -12,6 +10,7 @@ func _ready():
 	attack_distance = 50
 	aggressiveness = 0.70 
 	movement_speed = Vector2(150, 50)
+	lying_down_cooldown = 0.6
 	attacks = [
 		CONST.THUG_ANIM_ATTACK_1
 	]
@@ -27,7 +26,7 @@ const CIRCLE_COLOR_PAIN = Color(1, 1, 1)
 func _draw():
 	._draw()
 	if (current_state == HURTING):
-		draw_circle(get_pos(), 20.0, CIRCLE_COLOR_PAIN)
+		draw_circle(get_global_pos(), 20.0, CIRCLE_COLOR_PAIN)
 	
 func change_anim():
 	if (current_state == STANDING):
@@ -54,6 +53,12 @@ func change_anim():
 			current_anim = CONST.THUG_ANIM_FALLING_FWD 
 		else: 
 			current_anim = CONST.THUG_ANIM_FALLING_BCK
+			
+	elif (current_state == FALLEN):
+		if current_state_ctx.fall_direction > 0:
+			current_anim = CONST.THUNG_ANIM_ON_BACK
+		else:
+			current_anim = CONST.THUG_ANIM_ON_BELLY
 
 func take_action(delta):
 	#custom thug attack actions

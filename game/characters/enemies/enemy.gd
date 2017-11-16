@@ -15,6 +15,7 @@ var just_hit = false
 onready var anim = get_node("anim")
 onready var sprite = get_node("sprite")
 var player
+const DISLOGE_KEYS = [ "disloge", "current_disloge_time"]
 
 #main defaults for enemies on things
 export var decision_interval = 2.5 #in seconds
@@ -22,6 +23,8 @@ export var scan_distance = 350 # in pixels, to either side
 export var attack_distance = 50 #in pixels, either side
 export var aggressiveness = 0.75 # in percentiles
 export var lying_down_cooldown = 0.2 #time spent lying down, in seconds
+export var falling_in_air_time = 0.2 #time spent flying through air when falling
+export var hurt_pushback_time = 0.15 #tiem spent pushed back by strong blow
 export var movement_speed = Vector2(150, 50)
 
 
@@ -33,6 +36,7 @@ func _ready():
 	._ready()
 	
 func _process(delta):
+	move_vector = CONST.VECTOR2_ZERO
 	if (player != null):
 		var old_state = current_state
 		change_state(delta)
@@ -41,6 +45,14 @@ func _process(delta):
 		change_anim()
 		if (current_anim != anim.get_current_animation()):
 			anim.play(current_anim)
+	
+	if (current_state_ctx.has_all(DISLOGE_KEYS)):
+		move_vector += current_state_ctx.disloge
+		var curr_disloge = current_state_ctx.current_disloge_time
+		curr_disloge -= delta
+		if (curr_disloge <= 0):
+			for key in DISLOGE_KEYS:
+				current_state_ctx.erase(key)
 	
 	if (just_hit):
 		just_hit = false
@@ -53,13 +65,15 @@ func change_anim():
 func reset_state(action_wait = decision_interval):
 	current_state = STANDING
 	current_state_ctx.clear()
+	feet_ground_y = null
 	current_decision_wait = action_wait
 	
 func change_state(delta):
 	if (current_state == FALLING):
 		#fly till we reach point of takeoff
-		if (current_state_ctx.fall_start_y < feet_pos.y):
+		if (current_state_ctx.fall_start_y > feet_pos.y):
 			current_state = FALLEN
+			feet_ground_y = null
 			current_state_ctx.lying_cooldown = lying_down_cooldown
 	if (current_state == FALLEN):
 		if (current_state_ctx.lying_cooldown > 0):
@@ -135,6 +149,7 @@ func get_hit(attack_info):
 	just_hit = true
 	hit_lock = attack_info.hit_lock 
 	current_state = HURTING
+	
 	if (attack_info.disloge_vector != CONST.VECTOR2_ZERO):
 		#strip sign of X, assign our own
 		var disloge = Vector2(abs(attack_info.disloge_vector.x), attack_info.disloge_vector.y)
@@ -146,12 +161,15 @@ func get_hit(attack_info):
 		if (current_state == HURTING):
 			#was already hurting when this attack hit, 
 			#fly back with full force
-			move_and_slide(disloge)
 			ignore_z = true
 			current_state = FALLING
 			current_state_ctx.fall_direction = sign(disloge.x)
 			current_state_ctx.fall_start_y = feet_pos.y
+			current_state_ctx.disloge = disloge
+			current_state_ctx.current_disloge_time = falling_in_air_time
+			feet_ground_y = feet_pos.y
 		else:
 			#was not yet hurt when attack hit, 
 			#push back half idstance and start hurting
-			move_and_slide(Vector2(disloge.x / 2, 0))
+			current_state_ctx.disloge = Vector2(disloge.x / 2, 0)
+			current_state_ctx.current_disloge_time = hurt_pushback_time

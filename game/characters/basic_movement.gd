@@ -9,6 +9,13 @@ const CIRCLE_COLOR_MIN = Color(0, 1, 0)
 const CIRCLE_COLOR_MAX = Color(1, 0, 0)
 onready var FONT_DEBUG_INFO = preload("res://debug_font.fnt")
 
+#graivity affecting characters
+const GRAVITY = Vector2(0.0, 198)
+#main movement vector
+var move_vector = Vector2(0, 0)
+var ignore_G = false #should character ignore effects of gravity?
+var feet_ground_y = null #last recorded y position of character before airtime
+
 enum BODY_STATES {
 STANDING, WALKING, RUNNING, 
 ATTACKING, JUMPING, HURTING, 
@@ -31,7 +38,6 @@ const STATES_STRINGS = {
 
 export(int) var current_state = STANDING
 
-var can_jump = false
 var ignore_z = false
 export var feet_pos = Vector2()
 export var min_pos = Vector2()
@@ -44,7 +50,6 @@ func _ready():
 	#set initial vars
 	set_positions()
 	set_z_as_relative(false)
-	can_jump = has_method("jumping")
 	set_process(true)	
 	
 func set_positions():
@@ -62,12 +67,18 @@ func _draw():
 func _process(delta):
 	set_positions()
 	
-	#ignore changes to z position while a jumping character jumps, 
-	#but can also be set via other means
-	if (can_jump):
-		ignore_z = jumping()
+	#ignore z while character in air
+	if (feet_ground_y != null):
+		ignore_z = true
 	if (not ignore_z):
 		set_z(Z_REDUCTION_COEF * feet_pos.y)
+	#calculate G force if its not ignored 
+	if (not ignore_G and feet_ground_y != null):
+		var move_down = GRAVITY
+		#halfspeed down when attacking
+		if (current_state == ATTACKING):
+			move_down.y /= 2
+		move_vector.y += move_down.y
 	#do update for draw calls
 	update()
 

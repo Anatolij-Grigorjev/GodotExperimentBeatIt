@@ -49,12 +49,13 @@ func _ready():
 	
 func _process(delta):
 	for character in characters_in_level:
-		#check ground Z bounds when character not jumping
-		if (!character.can_jump or !character.node.jumping()):
+		#check ground Z bounds when character not in air
+		if (character.node.feet_ground_y == null):
 			var feet_pos = character.node.feet_pos
 			var good_feet_pos = ground.nearest_in_bounds(feet_pos)
 			if (feet_pos != good_feet_pos):
 				character.node.set_pos_by_feet(good_feet_pos)
+		#always check outer level bounds
 		var good_min = ground.nearest_in_general_bounds(character.node.min_pos)
 		if (good_min.x > character.node.min_pos.x):
 			character.node.set_pos_by_min(good_min)

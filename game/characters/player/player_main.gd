@@ -35,6 +35,9 @@ func _process(delta):
 		anim.play(curr_anim)
 	#clear at end of frame
 	next_anim = null
-
-func jumping():
-	return movement.jump_state != null
+	#integrate new position
+	var new_pos = get_pos() + (move_vector * delta)
+	set_pos(new_pos)
+	#also add posirion to caugh enemy
+	if (caught_enemy != null):
+		caught_enemy.set_pos(catch_point.get_pos() + new_pos)

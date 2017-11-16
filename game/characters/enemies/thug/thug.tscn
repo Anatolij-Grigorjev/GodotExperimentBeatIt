@@ -56,7 +56,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=3]
 
 resource/name = "thug_fall_on_back"
 length = 0.2
@@ -83,7 +83,7 @@ tracks/1/keys = {
 "values": [ Vector2( 1e-05, 1e-05 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=4]
 
 resource/name = "thug_fall_on_belly"
 length = 0.2
@@ -110,7 +110,7 @@ tracks/1/keys = {
 "values": [ Vector2( 1e-05, 1e-05 ) ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=5]
 
 resource/name = "thug_falling_backward"
 length = 0.6
@@ -157,7 +157,7 @@ tracks/3/keys = {
 "values": [ 35.0, 150.0, 90.0, 35.0 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=6]
 
 resource/name = "thug_falling_forward"
 length = 0.6
@@ -204,7 +204,7 @@ tracks/3/keys = {
 "values": [ 45.0, 90.0, 135.0 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=7]
 
 length = 0.7
 loop = false
@@ -250,7 +250,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=8]
 
 length = 1.1
 loop = true
@@ -296,7 +296,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=9]
 
 length = 1.1
 loop = true
@@ -342,7 +342,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=10]
 
 custom_solver_bias = 0.0
 extents = Vector2( 13.6965, 10.7096 )
@@ -354,7 +354,7 @@ extents = Vector2( 13.6965, 10.7096 )
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 0.819152, -0.573576, 0.573576, 0.819152, 0.9, 11.5 )
+shapes/0/transform = Matrix32( -0.707107, -0.707107, 0.707107, -0.707107, -3, 2 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -369,6 +369,8 @@ scan_distance = 350
 attack_distance = 50
 aggressiveness = 0.75
 lying_down_cooldown = 0.2
+falling_in_air_time = 0.2
+hurt_pushback_time = 0.15
 movement_speed = Vector2( 150, 50 )
 
 [node name="anim" type="AnimationPlayer" parent="."]
@@ -377,13 +379,13 @@ playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
 anims/thug_attack_1 = SubResource( 2 )
-anims/thug_fall_on_back = SubResource( 7 )
-anims/thug_fall_on_belly = SubResource( 8 )
-anims/thug_falling_backward = SubResource( 11 )
-anims/thug_falling_forward = SubResource( 10 )
-anims/thug_hurting = SubResource( 3 )
-anims/thug_idle = SubResource( 4 )
-anims/thug_walk = SubResource( 5 )
+anims/thug_fall_on_back = SubResource( 3 )
+anims/thug_fall_on_belly = SubResource( 4 )
+anims/thug_falling_backward = SubResource( 5 )
+anims/thug_falling_forward = SubResource( 6 )
+anims/thug_hurting = SubResource( 7 )
+anims/thug_idle = SubResource( 8 )
+anims/thug_walk = SubResource( 9 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -395,14 +397,14 @@ transform/pos = Vector2( 1, 0 )
 texture = ExtResource( 2 )
 vframes = 14
 hframes = 10
-frame = 43
+frame = 33
 
 [node name="fist" type="Area2D" parent="sprite"]
 
 editor/display_folded = true
 transform/pos = Vector2( -2.15114, 4.61118 )
 input/pickable = true
-shapes/0/shape = SubResource( 6 )
+shapes/0/shape = SubResource( 10 )
 shapes/0/transform = Matrix32( 0.796457, 0, 0, 0.68497, 34.0237, -4.40655 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -414,7 +416,7 @@ angular_damp = 1.0
 
 transform/pos = Vector2( 34.0237, -4.40655 )
 transform/scale = Vector2( 0.796457, 0.68497 )
-shape = SubResource( 6 )
+shape = SubResource( 10 )
 trigger = false
 _update_shape_index = 0
 
@@ -424,8 +426,8 @@ transform/pos = Vector2( 1, 0 )
 
 [node name="body" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( 0.9, 11.5 )
-transform/rot = 35.0
+transform/pos = Vector2( -3, 2 )
+transform/rot = 135.0
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0

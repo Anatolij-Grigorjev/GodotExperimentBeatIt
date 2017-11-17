@@ -13,7 +13,8 @@ onready var FONT_DEBUG_INFO = preload("res://debug_font.fnt")
 const GRAVITY = Vector2(0.0, 198)
 #main movement vector
 var move_vector = Vector2(0, 0)
-var ignore_G = false #should character ignore effects of gravity?
+#should character ignore effects of gravity?
+var ignore_G = false setget set_ignore_G
 var feet_ground_y = null #last recorded y position of character before airtime
 
 enum BODY_STATES {
@@ -23,6 +24,7 @@ FALLING, CATCHING, CAUGHT,
 CAUGHT_HURTING, FALLEN
 }
 const STATES_STRINGS = {
+	null: "<NONE>",
 	0: "STANDING",
 	1: "WALKING",
 	2: "RUNNING",
@@ -98,3 +100,7 @@ func set_pos_by_max(max_pos):
 	#technically should be + min local y, but its likely negative
 	var pos = Vector2(max_pos.x - max_pos_local.x, max_pos.y - max_pos_local.y)
 	set_pos(pos)
+	
+func set_ignore_G(new_val):
+	ignore_G = new_val
+	print("Ignore G: " + str(new_val) + " for node " + get_name()) 

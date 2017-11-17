@@ -348,8 +348,8 @@ custom_solver_bias = 0.0
 extents = Vector2( 13.6965, 10.7096 )
 
 [node name="thug" type="KinematicBody2D" groups=[
-"characters",
 "enemies",
+"characters",
 ]]
 
 input/pickable = true
@@ -369,7 +369,6 @@ scan_distance = 350
 attack_distance = 50
 aggressiveness = 0.75
 lying_down_cooldown = 0.2
-falling_in_air_time = 0.2
 hurt_pushback_time = 0.15
 movement_speed = Vector2( 150, 50 )
 
@@ -401,7 +400,6 @@ frame = 33
 
 [node name="fist" type="Area2D" parent="sprite"]
 
-editor/display_folded = true
 transform/pos = Vector2( -2.15114, 4.61118 )
 input/pickable = true
 shapes/0/shape = SubResource( 10 )

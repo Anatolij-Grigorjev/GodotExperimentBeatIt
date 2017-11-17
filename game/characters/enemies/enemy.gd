@@ -15,7 +15,7 @@ var just_hit = false
 onready var anim = get_node("anim")
 onready var sprite = get_node("sprite")
 var player
-const DISLOGE_KEYS = [ "disloge", "current_disloge_time"]
+const DISLOGE_KEYS = [ "disloge", "initial_pos"]
 
 #main defaults for enemies on things
 export var decision_interval = 2.5 #in seconds
@@ -23,7 +23,6 @@ export var scan_distance = 350 # in pixels, to either side
 export var attack_distance = 50 #in pixels, either side
 export var aggressiveness = 0.75 # in percentiles
 export var lying_down_cooldown = 0.2 #time spent lying down, in seconds
-export var falling_in_air_time = 0.2 #time spent flying through air when falling
 export var hurt_pushback_time = 0.15 #tiem spent pushed back by strong blow
 export var movement_speed = Vector2(150, 50)
 
@@ -48,19 +47,32 @@ func _process(delta):
 	
 	if (current_state_ctx.has_all(DISLOGE_KEYS)):
 		move_vector += current_state_ctx.disloge
-		var curr_disloge = current_state_ctx.current_disloge_time
-		curr_disloge -= delta
-		if (curr_disloge <= 0):
+		#check if disloge distance achieved
+		var got_there = disloged_enough()
+		if (got_there):
 			for key in DISLOGE_KEYS:
 				current_state_ctx.erase(key)
 	
 	if (just_hit):
 		just_hit = false
-	#process movement limitations on level
+	
 	._process(delta)
+	
+	#integrate new position
+	var new_pos = get_pos() + (move_vector * delta)
+	set_pos(new_pos)
 
 func change_anim():
 	pass
+	
+func disloged_enough():
+	if (current_state_ctx.has_all(DISLOGE_KEYS)):
+		var x_ok = abs(max_pos.x - current_state_ctx.initial_pos.x) >= current_state_ctx.disloge.x 
+		var y_ok = abs(max_pos.y - current_state_ctx.initial_pos.y) >= current_state_ctx.disloge.y
+		
+		return x_ok and y_ok
+	else:
+		return true
 	
 func reset_state(action_wait = decision_interval):
 	current_state = STANDING
@@ -71,16 +83,21 @@ func reset_state(action_wait = decision_interval):
 func change_state(delta):
 	if (current_state == FALLING):
 		#fly till we reach point of takeoff
-		if (current_state_ctx.fall_start_y > feet_pos.y):
-			current_state = FALLEN
-			feet_ground_y = null
-			current_state_ctx.lying_cooldown = lying_down_cooldown
+		if (ignore_G):
+			ignore_G = not disloged_enough()
+		else:
+			if (current_state_ctx.fall_start_y < feet_pos.y):
+				current_state = FALLEN
+				feet_ground_y = null
+				current_state_ctx.lying_cooldown = lying_down_cooldown
+		return
 	if (current_state == FALLEN):
 		if (current_state_ctx.lying_cooldown > 0):
 			current_state_ctx.lying_cooldown -= delta
 	#enough lying down on the job, get up and do something
 		else:
 			reset_state()
+		return
 	#some states are not meant to make decisions
 	if (current_state == HURTING):
 		getting_hit = hit_lock > 0
@@ -165,11 +182,13 @@ func get_hit(attack_info):
 			current_state = FALLING
 			current_state_ctx.fall_direction = sign(disloge.x)
 			current_state_ctx.fall_start_y = feet_pos.y
+			#ignore gravity and fly through the air while we can
+			ignore_G = true
 			current_state_ctx.disloge = disloge
-			current_state_ctx.current_disloge_time = falling_in_air_time
+			current_state_ctx.initial_pos = max_pos
 			feet_ground_y = feet_pos.y
 		else:
 			#was not yet hurt when attack hit, 
 			#push back half idstance and start hurting
 			current_state_ctx.disloge = Vector2(disloge.x / 2, 0)
-			current_state_ctx.current_disloge_time = hurt_pushback_time
+			current_state_ctx.initial_pos = max_pos

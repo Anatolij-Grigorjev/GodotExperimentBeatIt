@@ -11,7 +11,6 @@ func _ready():
 	aggressiveness = 0.70 
 	movement_speed = Vector2(150, 50)
 	lying_down_cooldown = 0.6
-	falling_in_air_time = 0.6
 	hurt_pushback_time = 0.2
 	attacks = [
 		CONST.THUG_ANIM_ATTACK_1

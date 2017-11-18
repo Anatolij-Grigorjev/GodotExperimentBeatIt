@@ -22,13 +22,14 @@ var characters_in_level = []
 func _ready():
 	var tex_extents = ground.texture_extents
 	player.get_node("camera").set_limit(MARGIN_BOTTOM, tex_extents.y * 2)
+	ground.add_user_signal(CONST.LEVEL_X_START_SIGNAL)
+	ground.add_user_signal(CONST.LEVEL_X_END_SIGNAL)
 	#populate characters info map
 	for character in get_tree().get_nodes_in_group(CONST.GROUP_CHARS):
-		characters_in_level.append({
-			"id": character.get_name(),
-			"node": character,
-			"can_jump": character.has_method("jumping")
-		})
+		#add character signals to react to reaching map bounds when falling for example
+		add_character_bounds_signals(character)
+		#add character node to processed characters list in map
+		characters_in_level.append(make_character_data(character))
 	
 	var enemies_data = UTILS.json_to_dict(CONST.LEVEL_1_ENEMY_PLACEMENT)	
 	for area_name in areas_nodes_names:
@@ -47,6 +48,24 @@ func _ready():
 	
 	set_process(true)
 	
+#creation of character data externalized to dynamically add more when needed (like generated enemies)
+func make_character_data(character):
+	return {
+		"id": character.get_name(),
+		"node": character,
+		"can_jump": character.has_method("jumping")
+	}
+	
+func add_character_bounds_signals(character):
+	#add for map start
+	if (character.has_method(CONST.CHARACTER_LEVEL_BOUNDS_X_METHOD) and 
+	not is_connected(CONST.LEVEL_X_START_SIGNAL, character, CONST.CHARACTER_LEVEL_BOUNDS_X_METHOD)):
+		ground.connect(CONST.LEVEL_X_START_SIGNAL, character, CONST.CHARACTER_LEVEL_BOUNDS_X_METHOD)
+	#add for map end
+	if (character.has_method(CONST.CHARACTER_LEVEL_BOUNDS_X_METHOD) and 
+	not is_connected(CONST.LEVEL_X_END_SIGNAL, character, CONST.CHARACTER_LEVEL_BOUNDS_X_METHOD)):
+		ground.connect(CONST.LEVEL_X_END_SIGNAL, character, CONST.CHARACTER_LEVEL_BOUNDS_X_METHOD)
+	
 func _process(delta):
 	for character in characters_in_level:
 		#check ground Z bounds when character not in air
@@ -55,12 +74,14 @@ func _process(delta):
 			var good_feet_pos = ground.nearest_in_bounds(feet_pos)
 			if (feet_pos != good_feet_pos):
 				character.node.set_pos_by_feet(good_feet_pos)
-		#always check outer level bounds
+		#always check outer level bounds (except when characters falling
 		var good_min = ground.nearest_in_general_bounds(character.node.min_pos)
 		if (good_min.x > character.node.min_pos.x):
+			ground.emit_signal("reached_level_start_x")
 			character.node.set_pos_by_min(good_min)
 		var good_max = ground.nearest_in_general_bounds(character.node.max_pos)
 		if (good_max.x < character.node.max_pos.x):
+			ground.emit_signal("reached_level_end_x")
 			character.node.set_pos_by_max(good_max)
 		#use plaeyr camera bounds to limit enemy movements as well
 		#but enemies can at most position themselves out of view

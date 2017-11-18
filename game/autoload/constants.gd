@@ -56,11 +56,14 @@ const THUG_ANIM_ATTACK_1 = "thug_attack_1"
 const THUG_ANIM_HURTING = "thug_hurting"
 const THUG_ANIM_FALLING_FWD = "thug_falling_forward"
 const THUG_ANIM_FALLING_BCK = "thug_falling_backward"
-const THUNG_ANIM_ON_BACK = "thug_fall_on_back"
-const THUNG_ANIM_ON_BELLY = "thug_fall_on_belly"
+const THUG_ANIM_ON_BACK = "thug_fall_on_back"
+const THUG_ANIM_ON_BELLY = "thug_fall_on_belly"
 const THUG_ANIM_CAUGHT = "thug_caught"
 const THUG_ANIM_CAUGHT_HURT = "thug_caught_hurt"
 
 
 #Level constants
 const LEVEL_1_ENEMY_PLACEMENT = "res://stages/level_1/enemies.json"
+const LEVEL_X_START_SIGNAL = "reached_level_start_x"
+const LEVEL_X_END_SIGNAL = "reached_level_end_x"
+const CHARACTER_LEVEL_BOUNDS_X_METHOD = "reached_bound_x"

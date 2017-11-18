@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=1]
+[gd_scene load_steps=14 format=1]
 
 [ext_resource path="res://characters/enemies/thug/thug.gd" type="Script" id=1]
 [ext_resource path="res://characters/enemies/thug/bandit_sprites.png" type="Texture" id=2]
@@ -54,6 +54,33 @@ tracks/3/keys = {
 "transitions": FloatArray( 1 ),
 "update": 0,
 "values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=11]
+
+resource/name = "thug_caught"
+length = 0.2
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ 53 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:transform/scale")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -348,13 +375,13 @@ custom_solver_bias = 0.0
 extents = Vector2( 13.6965, 10.7096 )
 
 [node name="thug" type="KinematicBody2D" groups=[
-"enemies",
 "characters",
+"enemies",
 ]]
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( -0.707107, -0.707107, 0.707107, -0.707107, -3, 2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -0.505905, 4.18157 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -378,6 +405,7 @@ playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
 anims/thug_attack_1 = SubResource( 2 )
+anims/thug_caught = SubResource( 11 )
 anims/thug_fall_on_back = SubResource( 3 )
 anims/thug_fall_on_belly = SubResource( 4 )
 anims/thug_falling_backward = SubResource( 5 )
@@ -396,7 +424,7 @@ transform/pos = Vector2( 1, 0 )
 texture = ExtResource( 2 )
 vframes = 14
 hframes = 10
-frame = 33
+frame = 53
 
 [node name="fist" type="Area2D" parent="sprite"]
 
@@ -424,8 +452,7 @@ transform/pos = Vector2( 1, 0 )
 
 [node name="body" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( -3, 2 )
-transform/rot = 135.0
+transform/pos = Vector2( -0.505905, 4.18157 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0

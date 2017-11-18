@@ -8,6 +8,7 @@ enum COMBO_ATTACKS {
 	ATTACK3 = 2, 
 	ATTACK4 = 3
 }
+onready var hitboxes = get_node("../sprites/attack_hitboxes")
 #last allowed combo attack without hitting anything
 const LAST_NON_COMBO = ATTACK4
 #last attack in complete combo
@@ -99,6 +100,7 @@ func reset_attack_state():
 	last_combo_attack = null
 	current_combo_countdown = 0
 	hitting = false
+	hitboxes.reset_attacks()
 	
 func ground_attack():
 	if (last_combo_attack == null):

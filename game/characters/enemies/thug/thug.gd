@@ -57,7 +57,7 @@ func change_anim():
 			
 	elif (current_state == FALLEN):
 		if current_state_ctx.fall_direction > 0:
-			current_anim = CONST.THUNG_ANIM_ON_BACK
+			current_anim = CONST.THUG_ANIM_ON_BACK
 		else:
 			current_anim = CONST.THUG_ANIM_ON_BELLY
 

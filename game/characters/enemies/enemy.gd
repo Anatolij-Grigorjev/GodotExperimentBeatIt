@@ -5,6 +5,7 @@ var current_state_ctx = {}
 var attacks = []
 var current_anim
 var getting_hit
+var at_bounds_x = false
 #amount of time enemy is actively getting hit
 #immune to further hits while this is happening
 var hit_lock
@@ -67,8 +68,8 @@ func change_anim():
 	
 func disloged_enough():
 	if (current_state_ctx.has_all(DISLOGE_KEYS)):
-		var x_ok = abs(max_pos.x - current_state_ctx.initial_pos.x) >= current_state_ctx.disloge.x 
-		var y_ok = abs(max_pos.y - current_state_ctx.initial_pos.y) >= current_state_ctx.disloge.y
+		var x_ok = at_bounds_x or abs(max_pos.x - current_state_ctx.initial_pos.x) >= abs(current_state_ctx.disloge.x) 
+		var y_ok = abs(max_pos.y - current_state_ctx.initial_pos.y) >= abs(current_state_ctx.disloge.y)
 		
 		return x_ok and y_ok
 	else:
@@ -76,6 +77,10 @@ func disloged_enough():
 	
 func reset_state(action_wait = decision_interval):
 	current_state = STANDING
+	getting_hit = false
+	ignore_z = false
+	ignore_G = false
+	at_bounds_x = false
 	current_state_ctx.clear()
 	feet_ground_y = null
 	current_decision_wait = action_wait
@@ -89,6 +94,7 @@ func change_state(delta):
 			if (current_state_ctx.fall_start_y < feet_pos.y):
 				current_state = FALLEN
 				feet_ground_y = null
+				ignore_z = false
 				current_state_ctx.lying_cooldown = lying_down_cooldown
 		return
 	if (current_state == FALLEN):
@@ -114,6 +120,8 @@ func change_state(delta):
 		return
 	#make deiscions
 	current_decision_wait -= delta
+	#being at bounds doesnt matter if not falling
+	at_bounds_x = false
 	if (current_decision_wait < 0):
 		#make decision,
 		#due to upper if, unlikely to be HURTING here
@@ -160,6 +168,9 @@ func set_random_attack_state(distance):
 	current_state = ATTACKING
 	current_state_ctx.direction = distance.normalized()
 	current_state_ctx.attack = randi() % attacks.size()
+
+func reached_bound_x():
+	at_bounds_x = true
 	
 func get_hit(attack_info):
 	getting_hit = true
@@ -170,12 +181,11 @@ func get_hit(attack_info):
 	if (attack_info.disloge_vector != CONST.VECTOR2_ZERO):
 		#strip sign of X, assign our own
 		var disloge = Vector2(abs(attack_info.disloge_vector.x), attack_info.disloge_vector.y)
-		#make it a hit in the back if enemy and player
-		# were facing same the same direction, 
-		#hit in the front otherwise
-		if (sign(player.sprite.get_scale().x) == sign(sprite.get_scale().x)):
-			disloge.x *= -1
+		#hit enemy fall direction depends on where the player was facing	
+		disloge.x *= sign(player.sprite.get_scale().x)
 		if (current_state == HURTING):
+			#when falling hits are not avoided
+			getting_hit = false
 			#was already hurting when this attack hit, 
 			#fly back with full force
 			ignore_z = true

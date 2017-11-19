@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://stages/level_1/level.gd" type="Script" id=1]
 [ext_resource path="res://stages/bg_pieces/city_ground.tscn" type="PackedScene" id=2]
 [ext_resource path="res://characters/player/player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://characters/enemies/thug/thug.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -24,7 +23,6 @@ z/relative = false
 
 [node name="stop_1" type="Area2D" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 532, 188 )
 transform/scale = Vector2( 8.78127, 5.8756 )
 input/pickable = true
@@ -73,10 +71,6 @@ transform/pos = Vector2( 85, 32 )
 [node name="player" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 79.5247, 88 )
-
-[node name="thug" parent="." instance=ExtResource( 4 )]
-
-transform/pos = Vector2( 195.937, 250.429 )
 
 [connection signal="body_enter" from="stop_1" to="." method="_on_stop_1_body_enter"]
 

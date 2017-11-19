@@ -10,7 +10,7 @@ var curr_anim
 var next_anim
 
 var caught_enemy
-
+var getting_hit = false
 #nodes to perform additional processing when parent is ready
 #normally children are inited before parent
 onready var init_nodes = [
@@ -41,3 +41,6 @@ func _process(delta):
 	#also add posirion to caugh enemy
 	if (caught_enemy != null):
 		caught_enemy.set_pos(catch_point.get_pos() + new_pos)
+
+func get_hit(attack_info):
+	pass

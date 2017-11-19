@@ -116,6 +116,8 @@ func _process(delta):
 			if (parent.feet_pos.y >= parent.feet_ground_y):
 				parent.move_vector.y = parent.feet_pos.y - parent.feet_ground_y
 				jump_state = null
+				#have to manually set it back to not ignore (set automatically when character in air)
+				parent.ignore_z = false
 				parent.feet_ground_y = null
 				#stop descend attack if it was in progress
 				if (parent.current_state == parent.ATTACKING):

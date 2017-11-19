@@ -20,8 +20,10 @@ var finished = false #pool over
 var code_to_enemy_scene = {
 	"thug" : preload("res://characters/enemies/thug/thug.tscn")
 }
+var level
 
 func _init(
+level,
 enemies_data, 
 left_x, 
 right_x, 
@@ -43,11 +45,13 @@ spawn_interval_bound = 0.75):
 		})
 	current_enemies = []
 	current_spawn_wait = rand_range(0, spawn_wait_max)
+	#level passed as arg becasue this script is just an object with no access to scene tree
+	self.level = level
 	
 func _process(delta):
 	if (finished):
 		return
-	#still have nemeies to release, check in with timer and do it
+	#still have enemies to release, check in with timer and do it
 	if (!enemies_pool.empty()):
 		if (current_spawn_wait > 0):
 			current_spawn_wait -= delta
@@ -56,6 +60,7 @@ func _process(delta):
 			var packed_enemy = enemies_pool.back()
 			enemies_pool.pop_back()
 			var real_enemy = packed_enemy.scene.instance()
+			level.add_child(real_enemy)
 			real_enemy.set_global_pos(packed_enemy.position)
 			print("Created enemy " + str(real_enemy) + " at position " + str(real_enemy.get_pos()))
 			current_enemies.append(real_enemy)

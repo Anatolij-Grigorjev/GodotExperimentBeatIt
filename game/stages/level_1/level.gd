@@ -40,10 +40,14 @@ func _ready():
 		areas_info[area] = {
 			"min_pos": min_pos,
 			"max_pos": max_pos,
-			"enemy_pool": EnemiesPool.new(enemies_data[area_name], #enemy data
+			"enemy_pool": EnemiesPool.new(self, #level to child enemies into
+			enemies_data[area_name], #enemy data
 			min_pos.x, #left X to spawn
 			max_pos.x, #right X to spawn
-			Vector2(min_pos.y, max_pos.y)) #Y sapwn bounds
+			Vector2(
+				ground.nearest_in_bounds(min_pos).y, 
+				ground.nearest_in_bounds(max_pos).y
+			)) #Y spawn bounds, culled by the ground bounds
 		}
 	
 	set_process(true)

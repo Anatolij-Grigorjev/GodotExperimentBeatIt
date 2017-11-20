@@ -111,14 +111,12 @@ func ground_attack():
 	else:
 		#already attacking, extend combo due to action
 		if (last_combo_attack <= LAST_NON_COMBO):
-			print("continue combo from point " + str(last_combo_attack))
 			continue_combo()
 		#landed hits later in combo, extend it further
 		elif (last_combo_attack <= LAST_COMBO and hitting):
 			continue_combo()
 		else:
 			if (!parent.anim.is_playing() and parent.curr_anim in ATTACK_ANIMATIONS):
-				print("reset when combo over")
 				reset_attack_state()
 				
 func start_combo():

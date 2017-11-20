@@ -41,13 +41,11 @@ func dump():
 func body_enter( body ):
 	if (body == player):
 		return
-	print(attack_info.attack_name + " add body: " + str(body))
 	area_bodies[body.get_name()] = body
 	
 func body_exit ( body ):
 	if (body == player ):
 		return
-	print(attack_info.attack_name + " remove body: " + str(body))
 	area_bodies.erase(body.get_name())
 	
 func process_bodies():

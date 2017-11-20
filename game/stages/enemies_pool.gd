@@ -61,7 +61,7 @@ func _process(delta):
 			enemies_pool.pop_back()
 			var real_enemy = packed_enemy.scene.instance()
 			level.add_child(real_enemy)
-			real_enemy.set_global_pos(packed_enemy.position)
+			real_enemy.set_pos_by_feet(packed_enemy.position)
 			print("Created enemy " + str(real_enemy) + " at position " + str(real_enemy.get_pos()))
 			current_enemies.append(real_enemy)
 	else:

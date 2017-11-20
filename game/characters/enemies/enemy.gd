@@ -5,7 +5,6 @@ var current_state_ctx = {}
 var attacks = []
 var current_anim
 var getting_hit
-var at_bounds_x = false
 #amount of time enemy is actively getting hit
 #immune to further hits while this is happening
 var hit_lock
@@ -68,10 +67,9 @@ func change_anim():
 	
 func disloged_enough():
 	if (current_state_ctx.has_all(DISLOGE_KEYS)):
-		var x_ok = at_bounds_x or abs(max_pos.x - current_state_ctx.initial_pos.x) >= abs(current_state_ctx.disloge.x) 
+		#did the enemy go high enough into the air fro mthe disloge
 		var y_ok = abs(max_pos.y - current_state_ctx.initial_pos.y) >= abs(current_state_ctx.disloge.y)
-		
-		return x_ok and y_ok
+		return y_ok
 	else:
 		return true
 	
@@ -80,7 +78,6 @@ func reset_state(action_wait = decision_interval):
 	getting_hit = false
 	ignore_z = false
 	ignore_G = false
-	at_bounds_x = false
 	current_state_ctx.clear()
 	feet_ground_y = null
 	current_decision_wait = action_wait
@@ -120,8 +117,7 @@ func change_state(delta):
 		return
 	#make deiscions
 	current_decision_wait -= delta
-	#being at bounds doesnt matter if not falling
-	at_bounds_x = false
+
 	if (current_decision_wait < 0):
 		#make decision,
 		#due to upper if, unlikely to be HURTING here
@@ -168,9 +164,6 @@ func set_random_attack_state(distance):
 	current_state = ATTACKING
 	current_state_ctx.direction = distance.normalized()
 	current_state_ctx.attack = randi() % attacks.size()
-
-func reached_bound_x():
-	at_bounds_x = true
 	
 func get_hit(attack_info):
 	getting_hit = true

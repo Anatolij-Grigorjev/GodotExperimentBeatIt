@@ -56,7 +56,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=3]
 
 resource/name = "thug_caught"
 length = 0.2
@@ -83,9 +83,8 @@ tracks/1/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 
-resource/name = "thug_fall_on_back"
 length = 0.2
 loop = false
 step = 0.1
@@ -110,9 +109,8 @@ tracks/1/keys = {
 "values": [ Vector2( 1e-05, 1e-05 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 
-resource/name = "thug_fall_on_belly"
 length = 0.2
 loop = false
 step = 0.1
@@ -137,9 +135,8 @@ tracks/1/keys = {
 "values": [ Vector2( 1e-05, 1e-05 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 
-resource/name = "thug_falling_backward"
 length = 0.6
 loop = false
 step = 0.2
@@ -184,9 +181,8 @@ tracks/3/keys = {
 "values": [ 35.0, 150.0, 90.0, 35.0 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 
-resource/name = "thug_falling_forward"
 length = 0.6
 loop = false
 step = 0.2
@@ -231,7 +227,7 @@ tracks/3/keys = {
 "values": [ 45.0, 90.0, 135.0 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 
 length = 0.7
 loop = false
@@ -277,7 +273,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 
 length = 1.1
 loop = true
@@ -323,7 +319,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 
 length = 1.1
 loop = true
@@ -369,7 +365,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="RectangleShape2D" id=11]
 
 custom_solver_bias = 0.0
 extents = Vector2( 13.6965, 10.7096 )
@@ -405,14 +401,14 @@ playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
 anims/thug_attack_1 = SubResource( 2 )
-anims/thug_caught = SubResource( 11 )
-anims/thug_fall_on_back = SubResource( 3 )
-anims/thug_fall_on_belly = SubResource( 4 )
-anims/thug_falling_backward = SubResource( 5 )
-anims/thug_falling_forward = SubResource( 6 )
-anims/thug_hurting = SubResource( 7 )
-anims/thug_idle = SubResource( 8 )
-anims/thug_walk = SubResource( 9 )
+anims/thug_caught = SubResource( 3 )
+anims/thug_fall_on_back = SubResource( 4 )
+anims/thug_fall_on_belly = SubResource( 5 )
+anims/thug_falling_backward = SubResource( 6 )
+anims/thug_falling_forward = SubResource( 7 )
+anims/thug_hurting = SubResource( 8 )
+anims/thug_idle = SubResource( 9 )
+anims/thug_walk = SubResource( 10 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -430,7 +426,7 @@ frame = 53
 
 transform/pos = Vector2( -2.15114, 4.61118 )
 input/pickable = true
-shapes/0/shape = SubResource( 10 )
+shapes/0/shape = SubResource( 11 )
 shapes/0/transform = Matrix32( 0.796457, 0, 0, 0.68497, 34.0237, -4.40655 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -442,7 +438,7 @@ angular_damp = 1.0
 
 transform/pos = Vector2( 34.0237, -4.40655 )
 transform/scale = Vector2( 0.796457, 0.68497 )
-shape = SubResource( 10 )
+shape = SubResource( 11 )
 trigger = false
 _update_shape_index = 0
 

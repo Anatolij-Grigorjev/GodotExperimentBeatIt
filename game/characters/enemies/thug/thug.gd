@@ -6,7 +6,7 @@ onready var hit_effect = preload("res://characters/hit_effects/hit_effect_regula
 func _ready():
 	#init enemy variables
 	decision_interval = 0.5 
-	scan_distance = 300 
+	scan_distance = 700 
 	attack_distance = 50
 	aggressiveness = 0.70 
 	movement_speed = Vector2(150, 50)

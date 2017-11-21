@@ -71,7 +71,6 @@ transform/pos = Vector2( 85, 32 )
 [node name="player" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 79.5247, 88 )
-center_pos = Vector2( 0, 0 )
 
 [connection signal="body_enter" from="stop_1" to="." method="_on_stop_1_body_enter"]
 

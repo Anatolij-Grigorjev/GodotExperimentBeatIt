@@ -69,7 +69,7 @@ func change_anim():
 func disloged_enough():
 	if (current_state_ctx.has_all(DISLOGE_KEYS)):
 		#did the enemy go high enough into the air fro mthe disloge
-		var y_ok = abs(max_pos.y - current_state_ctx.initial_pos.y) >= abs(current_state_ctx.disloge.y)
+		var y_ok = abs(center_pos.y - current_state_ctx.initial_pos.y) >= abs(current_state_ctx.disloge.y)
 		return y_ok
 	else:
 		return true

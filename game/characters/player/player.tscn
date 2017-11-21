@@ -531,6 +531,7 @@ current_state = null
 feet_pos = Vector2( 0, 0 )
 min_pos = Vector2( 0, 0 )
 max_pos = Vector2( 0, 0 )
+center_pos = Vector2( 0, 0 )
 
 [node name="sprites" type="Sprite" parent="."]
 

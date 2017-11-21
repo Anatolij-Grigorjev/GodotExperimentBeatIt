@@ -387,6 +387,7 @@ current_state = null
 feet_pos = Vector2( 0, 0 )
 min_pos = Vector2( 0, 0 )
 max_pos = Vector2( 0, 0 )
+center_pos = Vector2( 0, 0 )
 decision_interval = 2.5
 scan_distance = 350
 attack_distance = 50
@@ -394,6 +395,7 @@ aggressiveness = 0.75
 lying_down_cooldown = 0.2
 hurt_pushback_time = 0.15
 movement_speed = Vector2( 150, 50 )
+armor_coef = 1.0
 
 [node name="anim" type="AnimationPlayer" parent="."]
 

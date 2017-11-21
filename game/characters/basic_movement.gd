@@ -44,6 +44,7 @@ var ignore_z = false
 export var feet_pos = Vector2()
 export var min_pos = Vector2()
 export var max_pos = Vector2()
+export var center_pos = Vector2()
 onready var feet_node = get_node("feet")
 onready var min_pos_node = get_node("min_pos")
 onready var max_pos_node = get_node("max_pos")
@@ -58,6 +59,7 @@ func set_positions():
 	feet_pos = feet_node.get_global_pos()
 	min_pos = min_pos_node.get_global_pos()
 	max_pos = max_pos_node.get_global_pos()
+	center_pos = get_global_pos()
 
 func _draw():
 	draw_circle(feet_node.get_pos(), 10.0, CIRCLE_COLOR_FEET)

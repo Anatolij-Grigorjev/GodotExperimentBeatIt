@@ -25,6 +25,7 @@ export var aggressiveness = 0.75 # in percentiles
 export var lying_down_cooldown = 0.2 #time spent lying down, in seconds
 export var hurt_pushback_time = 0.15 #tiem spent pushed back by strong blow
 export var movement_speed = Vector2(150, 50)
+export var armor_coef = 1.0 #additional weigth coefficient to reduce disloge
 
 
 func _ready():
@@ -169,29 +170,37 @@ func get_hit(attack_info):
 	getting_hit = true
 	just_hit = true
 	hit_lock = attack_info.hit_lock 
+	#check prev state later in method
+	var prev_state = current_state
+	#state was not hurting, make it hurt
 	current_state = HURTING
-	
 	if (attack_info.disloge_vector != CONST.VECTOR2_ZERO):
 		#strip sign of X, assign our own
 		var disloge = Vector2(abs(attack_info.disloge_vector.x), attack_info.disloge_vector.y)
 		#hit enemy fall direction depends on where the player was facing	
 		disloge.x *= sign(player.sprite.get_scale().x)
-		if (current_state == HURTING):
-			#when falling hits are not avoided
-			getting_hit = false
+		#setup pushback
+		current_state_ctx.disloge = disloge / armor_coef
+		current_state_ctx.initial_pos = center_pos
+		
+		if (prev_state == HURTING):
 			#was already hurting when this attack hit, 
 			#fly back with full force
 			ignore_z = true
 			current_state = FALLING
-			current_state_ctx.fall_direction = sign(disloge.x)
+			#fall animation direction is independant of actual fall direction
+			#depends on what direction player was facing in relation
+			#to enemy
+			if (sign(player.sprite.get_scale().x) != sign(sprite.get_scale().x)):
+				current_state_ctx.fall_direction = 1 
+			else:
+				current_state_ctx.fall_direction = -1
 			current_state_ctx.fall_start_y = feet_pos.y
 			#ignore gravity and fly through the air while we can
 			ignore_G = true
-			current_state_ctx.disloge = disloge
-			current_state_ctx.initial_pos = max_pos
 			feet_ground_y = feet_pos.y
 		else:
 			#was not yet hurt when attack hit, 
 			#push back half idstance and start hurting
-			current_state_ctx.disloge = Vector2(disloge.x / 2, 0)
-			current_state_ctx.initial_pos = max_pos
+			current_state_ctx.disloge = Vector2(
+				current_state_ctx.disloge.x / 2, 0)

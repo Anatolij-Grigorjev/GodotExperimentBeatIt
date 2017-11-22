@@ -6,13 +6,18 @@ enum COMBO_ATTACKS {
 	ATTACK1 = 0, 
 	ATTACK2 = 1, 
 	ATTACK3 = 2, 
-	ATTACK4 = 3
+	ATTACK4 = 3,
+	CATCH_ATTACK_1 = 4,
+	CATCH_ATTACK_2 = 5,
+	CATCH_ATTACK_3 = 6
 }
 onready var hitboxes = get_node("../sprites/attack_hitboxes")
 #last allowed combo attack without hitting anything
 const LAST_NON_COMBO = ATTACK4
 #last attack in complete combo
 const LAST_COMBO = ATTACK4
+#last attack in catch combo
+const LAST_CATCH_COMBO = CATCH_ATTACK_3
 #time in seconds after hit finishes that 
 #the character remains in an ATTACKING state and ready to combo
 const MAX_COMBO_COUNTDOWN = 0.25
@@ -23,7 +28,10 @@ onready var ATTACK_ANIMATIONS = [
 	CONST.PLAYER_ANIM_ATTACK_3,
 	CONST.PLAYER_ANIM_ATTACK_4,
 	CONST.PLAYER_ANIM_ATTACK_JUMP_ASCEND,
-	CONST.PLAYER_ANIM_ATTACK_JUMP_DESCEND
+	CONST.PLAYER_ANIM_ATTACK_JUMP_DESCEND,
+	CONST.PLAYER_ANIM_CATTACK_1,
+	CONST.PLAYER_ANIM_CATTACK_2,
+	CONST.PLAYER_ANIM_CATTACK_3
 ]
 
 #access to main character node
@@ -85,6 +93,9 @@ func _process(delta):
 			return
 	#if attack was pressed
 	if (pressing[CONST.INPUT_ACTION_ATTACK]):
+		#regular cathc attack
+		if (parent.current_state == parent.CATCHING):
+			catch_attack()
 		#regular ground combo
 		if (movement.jump_state == null):
 			ground_attack()
@@ -98,10 +109,22 @@ func reset_attack_state():
 	locked = false
 	parent.current_state = parent.STANDING if movement.jump_state == null else parent.JUMPING
 	last_combo_attack = null
+	parent.release_enemy()
 	current_combo_countdown = 0
 	hitting = false
 	hitboxes.reset_attacks()
-	
+
+func catch_attack():
+	if (last_combo_attack == null):
+		start_catch_attack()
+	else:
+		#extend catch attack if not at limit
+		if (last_combo_attack <= LAST_CATCH_COMBO and hitting):
+			continue_catch_attack()
+		else:
+			if (!parent.anim.is_playing() and parent.curr_anim in ATTACK_ANIMATIONS):
+				reset_attack_state()
+
 func ground_attack():
 	if (last_combo_attack == null):
 		#not attacking yet, so first combo hit
@@ -121,11 +144,21 @@ func ground_attack():
 				
 func start_combo():
 	queue_combo_move(ATTACK1, CONST.PLAYER_ANIM_ATTACK_1)
+
+func start_catch_combo():
+	queue_combo_move(CATCH_ATTACK_1, CONST.PLAYER_ANIM_CATTACK_1)
 				
 func continue_combo():
 	queue_combo_move(
 	last_combo_attack + 1,
 	"player_attack_" + str(last_combo_attack + 1)
+	)
+
+#catch attack animations are offset by length of CATCH_ATTACK	
+func continue_catch_attack():
+	queue_combo_move(
+	last_combo_attack - CATCH_ATTACK_1 + 1,
+	"player_catch_attack_" + str(last_combo_attack - CATCH_ATTACK_1 + 1)
 	)
 
 func queue_combo_move(new_attack_state, new_anim):

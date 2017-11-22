@@ -55,7 +55,8 @@ func _process(delta):
 	#initial frame logic
 	parent.move_vector = Vector2(0, 0)
 	var frame_action = ""
-	if (!attacks.locked or jump_state != null):
+	if ((!attacks.locked or jump_state != null) 
+		and parent.current_state != parent.CATCHING ):
 		for action in MOVEMENT:
 			#movement not allowed when locked into attack, except when parent.JUMPING
 			if (Input.is_action_pressed(action)):

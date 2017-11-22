@@ -36,5 +36,6 @@ func _on_catch_point_body_enter( body ):
 		#set the porper states
 		body.current_state = parent.CAUGHT
 		parent.current_state = parent.CATCHING
+		parent.next_anim = CONST.PLAYER_ANIM_CATCHING
 		parent.caught_enemy = body
 		body.set_global_pos(parent.catch_point.get_global_pos())

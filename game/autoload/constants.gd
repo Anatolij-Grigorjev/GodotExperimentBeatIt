@@ -18,6 +18,7 @@ const PLAYER_ANIM_WALK = "player_walk"
 const PLAYER_ANIM_RUN = "player_run"
 const PLAYER_ANIM_JUMP_START = "player_jump_start"
 const PLAYER_ANIM_JUMP_AIR = "player_jump_air"
+const PLAYER_ANIM_CATCHING = "player_catching"
 #attack animations
 const PLAYER_ANIM_ATTACK_1 = "player_attack_1"
 const PLAYER_ANIM_ATTACK_2 = "player_attack_2"
@@ -25,6 +26,9 @@ const PLAYER_ANIM_ATTACK_3 = "player_attack_3"
 const PLAYER_ANIM_ATTACK_4 = "player_attack_4"
 const PLAYER_ANIM_ATTACK_JUMP_ASCEND = "player_attack_jump_ascend"
 const PLAYER_ANIM_ATTACK_JUMP_DESCEND = "player_attack_jump_descend"
+const PLAYER_ANIM_CATTACK_1 = "player_catch_attack_1"
+const PLAYER_ANIM_CATTACK_2 = "player_catch_attack_2"
+const PLAYER_ANIM_CATTACK_3 = "player_catch_attack_3"
 
 
 #common animation to receive hit

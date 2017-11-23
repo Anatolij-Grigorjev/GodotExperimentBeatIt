@@ -24,6 +24,13 @@ onready var sprite = get_node("../sprites")
 #access to attacks, to know when to lock
 onready var attacks = get_node("../player_attack")
 
+#states that dont allow this script to defualt to STANDING
+#when no movement is happening
+onready var NON_RESET_STATES = [
+	parent.ATTACKING,
+	parent.JUMPING,
+	parent.CATCHING
+]
 
 var jump_start_height = 0 #Y height to come back to after jump finished
 var jump_state
@@ -70,7 +77,7 @@ func _process(delta):
 			if (!frame_action.empty() and frame_action != last_action_up.action):
 				#pressed different direction, lets stop parent.RUNNING
 				parent.current_state = parent.STANDING
-		else:
+		elif (parent.current_state == parent.WALKING):
 			if (!frame_action.empty() and frame_action == last_action_up.action
 				and OS.get_unix_time() - last_action_up.time <= CONST.DOUBLE_TAP_INTERVAL_MS):
 					parent.current_state = parent.RUNNING
@@ -120,6 +127,7 @@ func _process(delta):
 				#have to manually set it back to not ignore (set automatically when character in air)
 				parent.ignore_z = false
 				parent.feet_ground_y = null
+				parent.current_state = parent.STANDING
 				#stop descend attack if it was in progress
 				if (parent.current_state == parent.ATTACKING):
 					attacks.reset_attack_state()
@@ -152,15 +160,13 @@ func _process(delta):
 	else:
 		#only apply idle animation if no other
 		#animation was chosen as part of the logic
-		if (parent.current_state != parent.ATTACKING and !attacks.locked and jump_state == null):
+		if (!(parent.current_state in NON_RESET_STATES)):
 			parent.current_state = parent.STANDING
 			parent.next_anim = CONST.PLAYER_ANIM_IDLE
 	
 	#clear animation state if attacking
 	if (parent.current_state == parent.ATTACKING and attacks.locked):
 		parent.next_anim = null
-	
-	#set up for next frame
 	
 	
 	#if there was move input in last frame, lets record action release

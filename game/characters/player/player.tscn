@@ -345,7 +345,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id=13]
 
 resource/name = "player_catch_attack_1"
 length = 0.3
@@ -392,7 +392,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=20]
+[sub_resource type="Animation" id=14]
 
 resource/name = "player_catch_attack_2"
 length = 0.3
@@ -439,7 +439,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=21]
+[sub_resource type="Animation" id=15]
 
 resource/name = "player_catch_attack_3"
 length = 0.6
@@ -491,7 +491,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id=16]
 
 resource/name = "player_catching"
 length = 0.1
@@ -508,7 +508,7 @@ tracks/0/keys = {
 "values": [ 50 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=17]
 
 length = 1.1
 loop = true
@@ -544,7 +544,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0.75, 0.75 ), Vector2( 0.75, 0.75 ) ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=18]
 
 length = 0.4
 loop = false
@@ -580,7 +580,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0.7, 0.7 ) ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=19]
 
 length = 0.1
 loop = false
@@ -616,7 +616,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=20]
 
 length = 0.8
 loop = true
@@ -652,7 +652,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0.75, 0.75 ), Vector2( 0.75, 0.75 ) ]
 }
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=21]
 
 length = 0.9
 loop = true
@@ -684,7 +684,7 @@ tracks/1/keys = {
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 0.75, 0, 0, 0.75, 2, 2 )
+shapes/0/transform = Matrix32( 0.75, 0, 0, 0.75, -3, 1 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -701,16 +701,15 @@ center_pos = Vector2( 0, 0 )
 texture = ExtResource( 2 )
 vframes = 18
 hframes = 10
-frame = 50
+frame = 4
 
 [node name="catch_collider" type="Area2D" parent="sprites"]
 
 editor/display_folded = true
-visibility/visible = false
 transform/scale = Vector2( 0.548853, 0.589701 )
 input/pickable = true
 shapes/0/shape = SubResource( 2 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 9.5 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -5, 5 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -720,7 +719,7 @@ script/script = ExtResource( 3 )
 
 [node name="collision" type="CollisionShape2D" parent="sprites/catch_collider"]
 
-transform/pos = Vector2( 0, 9.5 )
+transform/pos = Vector2( -5, 5 )
 shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
@@ -735,6 +734,7 @@ script/script = ExtResource( 4 )
 
 [node name="attack_1" type="Area2D" parent="sprites/attack_hitboxes"]
 
+editor/display_folded = true
 visibility/visible = false
 transform/pos = Vector2( 1.32037, -20.2458 )
 input/pickable = true
@@ -757,6 +757,7 @@ _update_shape_index = 0
 
 [node name="attack_2" type="Area2D" parent="sprites/attack_hitboxes"]
 
+editor/display_folded = true
 visibility/visible = false
 input/pickable = true
 shapes/0/shape = SubResource( 4 )
@@ -778,6 +779,7 @@ _update_shape_index = 0
 
 [node name="attack_3" type="Area2D" parent="sprites/attack_hitboxes"]
 
+editor/display_folded = true
 visibility/visible = false
 transform/pos = Vector2( 3.21516, -22.1406 )
 input/pickable = true
@@ -800,6 +802,7 @@ _update_shape_index = 0
 
 [node name="attack_4" type="Area2D" parent="sprites/attack_hitboxes"]
 
+editor/display_folded = true
 visibility/visible = false
 transform/pos = Vector2( 1.32037, -20.2458 )
 input/pickable = true
@@ -821,6 +824,7 @@ _update_shape_index = 0
 
 [node name="attack_jump_asc" type="Area2D" parent="sprites/attack_hitboxes"]
 
+editor/display_folded = true
 visibility/visible = false
 input/pickable = true
 shapes/0/shape = SubResource( 6 )
@@ -841,6 +845,7 @@ _update_shape_index = 0
 
 [node name="attack_jump_desc" type="Area2D" parent="sprites/attack_hitboxes"]
 
+editor/display_folded = true
 visibility/visible = false
 input/pickable = true
 shapes/0/shape = SubResource( 5 )
@@ -870,15 +875,15 @@ anims/player_attack_3 = SubResource( 9 )
 anims/player_attack_4 = SubResource( 10 )
 anims/player_attack_jump_ascend = SubResource( 11 )
 anims/player_attack_jump_descend = SubResource( 12 )
-anims/player_catch_attack_1 = SubResource( 19 )
-anims/player_catch_attack_2 = SubResource( 20 )
-anims/player_catch_attack_3 = SubResource( 21 )
-anims/player_catching = SubResource( 18 )
-anims/player_idle = SubResource( 13 )
-anims/player_jump_air = SubResource( 14 )
-anims/player_jump_start = SubResource( 15 )
-anims/player_run = SubResource( 16 )
-anims/player_walk = SubResource( 17 )
+anims/player_catch_attack_1 = SubResource( 13 )
+anims/player_catch_attack_2 = SubResource( 14 )
+anims/player_catch_attack_3 = SubResource( 15 )
+anims/player_catching = SubResource( 16 )
+anims/player_idle = SubResource( 17 )
+anims/player_jump_air = SubResource( 18 )
+anims/player_jump_start = SubResource( 19 )
+anims/player_run = SubResource( 20 )
+anims/player_walk = SubResource( 21 )
 next/player_jump_start = "player_jump_air"
 playback/active = true
 playback/speed = 1.0
@@ -914,7 +919,8 @@ drag_margin/bottom = 0.2
 
 [node name="body" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( 2, 2 )
+visibility/visible = false
+transform/pos = Vector2( -3, 1 )
 transform/scale = Vector2( 0.75, 0.75 )
 shape = SubResource( 1 )
 trigger = false

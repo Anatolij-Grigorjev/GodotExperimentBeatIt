@@ -44,10 +44,12 @@ func _process(delta):
 
 func release_enemy():
 	var enemy = caught_enemy
-	caught_enemy = null
-	enemy.current_state = FALLING
-	enemy.set_pos_by_feet(feet_pos - Vector2(0, 5))
-	enemy.current_state_ctx.fall_start_y = feet_pos.y
+	if (enemy != null):
+		caught_enemy = null
+		enemy.current_state = FALLING
+		enemy.set_pos_by_feet(feet_pos - Vector2(0, 5))
+		enemy.current_state_ctx.fall_start_y = feet_pos.y
+		enemy.current_state_ctx.fall_direction = 1
 
 func get_hit(attack_info):
 	pass

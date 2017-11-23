@@ -145,7 +145,7 @@ func ground_attack():
 func start_combo():
 	queue_combo_move(ATTACK1, CONST.PLAYER_ANIM_ATTACK_1)
 
-func start_catch_combo():
+func start_catch_attack():
 	queue_combo_move(CATCH_ATTACK_1, CONST.PLAYER_ANIM_CATTACK_1)
 				
 func continue_combo():

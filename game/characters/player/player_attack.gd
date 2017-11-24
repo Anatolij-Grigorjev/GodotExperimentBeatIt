@@ -39,6 +39,11 @@ onready var parent = get_node("../")
 #access to movement, to know what attack to switch to
 onready var movement = get_node("../player_move")
 
+onready var ATTACK_STATES = [
+	parent.ATTACKING,
+	parent.CATCHING
+]
+
 onready var ACTIONS = [
 	CONST.INPUT_ACTION_ATTACK,
 	CONST.INPUT_ACTION_MOVE_LEFT,
@@ -80,7 +85,7 @@ func _process(delta):
 
 	#if we are attacking, 
 	#lets ignore input while the animation plays out
-	if (parent.current_state == parent.ATTACKING):
+	if (parent.current_state in ATTACK_STATES):
 		#parent still playing some attack animation, no updates needed
 		if (parent.anim.is_playing() and parent.curr_anim in ATTACK_ANIMATIONS):
 			return

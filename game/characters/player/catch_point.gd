@@ -2,6 +2,8 @@ extends Area2D
 
 #quick access to constnats
 onready var CONST = get_node("/root/const")
+onready var UTILS = get_node("/root/utils")
+
 onready var parent = get_node("../../")
 
 onready var CATCHING_STATES = [
@@ -10,6 +12,8 @@ onready var CATCHING_STATES = [
 ]
 
 var last_known_body = null
+#idle holding of catch, in seconds
+const CATCH_HOLD_DURATION = 1.0
 
 func _ready():
 	set_process(true)
@@ -18,7 +22,7 @@ func _process(delta):
 	#already holding somebody, cant hold 2 guys at once
 	if ( parent.caught_enemy != null ):
 		return
-	#noboyd in the vicinity, nothing to process
+	#nobody in the vicinity, nothing to process
 	if (last_known_body == null):
 		return
 	process_caught_body()
@@ -37,10 +41,15 @@ func process_caught_body():
 	if ( parent.current_state in CATCHING_STATES): 
 		#set the porper states
 		last_known_body.current_state = parent.CAUGHT
+		#make caught enemy face player
+		if (!UTILS.sprites_facing(parent.sprite, last_known_body.sprite)):
+			last_known_body.sprite.set_scale(Vector2(-1, 1))
 		parent.current_state = parent.CATCHING
 		parent.next_anim = CONST.PLAYER_ANIM_CATCHING
+		parent.attacks.current_combo_countdown = CATCH_HOLD_DURATION
 		parent.caught_enemy = last_known_body
-		last_known_body.set_global_pos(parent.catch_point.get_global_pos())
+		var global_catch_pos = parent.catch_point.get_global_pos()
+		last_known_body.set_global_pos(Vector2(global_catch_pos.x, parent.center_pos.y))
 
 func _on_catch_point_body_enter( body ):
 	#collision with own body

@@ -46,10 +46,15 @@ func release_enemy():
 	var enemy = caught_enemy
 	if (enemy != null):
 		caught_enemy = null
-		enemy.current_state = FALLING
-		enemy.set_pos_by_feet(feet_pos - Vector2(0, 5))
+		enemy.set_pos_by_feet(feet_pos - Vector2(0, 1))
+		enemy.feet_ground_y = feet_pos.y
 		enemy.current_state_ctx.fall_start_y = feet_pos.y
+		enemy.current_state = FALLING
+		enemy.ignore_G = true
+		enemy.ignore_z = true
 		enemy.current_state_ctx.fall_direction = 1
+		enemy.current_state_ctx.initial_pos = enemy.center_pos
+		enemy.current_state_ctx.disloge = CONST.VECTOR2_ZERO
 
 func get_hit(attack_info):
 	pass

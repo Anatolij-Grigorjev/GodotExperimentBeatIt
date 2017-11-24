@@ -5,14 +5,6 @@ extends "../attack_hitboxes.gd"
 onready var attacks = get_node("../../player_attack")
 
 func _ready():
-	attacks_hitboxes = [
-		get_node("attack_1"),
-		get_node("attack_2"),
-		get_node("attack_3"),
-		get_node("attack_4"),
-		get_node("attack_jump_asc"),
-		get_node("attack_jump_desc")
-	]
 	parent = get_node("../../")
 	attacks_conf_file = CONST.PLAYER_ATTACKS_CONFIG_FILE_PATH
 	enemy_group = CONST.GROUP_ENEMIES

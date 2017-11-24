@@ -2,6 +2,7 @@ extends Node2D
 
 #quick access to constnats
 onready var CONST = get_node("/root/const")
+#list gets populated from configuration file
 var attacks_hitboxes = []
 #access to main character node
 var parent
@@ -23,6 +24,8 @@ func config_attacks():
 		var attack_names = attacks_config.get_sections()
 		for attack_name in attack_names:
 			var attack_node = get_node(attack_name)
+			#add found attack node to hitboxes list
+			attacks_hitboxes.append(attack_node)
 			attack_node.attack_info.attack_name = attack_name
 			for prop in attacks_config.get_section_keys(attack_name):		
 				attack_node.attack_info[prop] = attacks_config.get_value(

@@ -39,3 +39,6 @@ func json_to_dict( location ):
 	var data = {}
 	data.parse_json(text)
 	return data
+
+func sprites_facing(sprite1, sprite2):
+	return sign(sprite1.get_scale().x) != sign(sprite2.get_scale().x)

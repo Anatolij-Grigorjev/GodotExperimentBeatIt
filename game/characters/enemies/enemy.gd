@@ -191,7 +191,7 @@ func get_hit(attack_info):
 			#fall animation direction is independant of actual fall direction
 			#depends on what direction player was facing in relation
 			#to enemy
-			if (sign(player.sprite.get_scale().x) != sign(sprite.get_scale().x)):
+			if (UTILS.sprites_facing(player.sprite, sprite)):
 				current_state_ctx.fall_direction = 1 
 			else:
 				current_state_ctx.fall_direction = -1

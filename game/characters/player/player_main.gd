@@ -58,3 +58,7 @@ func release_enemy():
 
 func get_hit(attack_info):
 	pass
+	
+func _draw():
+	._draw()
+	draw_circle(catch_point.get_pos(), 5.0, COLOR_WHITE)

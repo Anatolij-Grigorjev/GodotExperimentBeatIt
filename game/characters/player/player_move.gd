@@ -1,6 +1,7 @@
 extends Node2D
 #quick access to constnats
 onready var CONST = get_node("/root/const")
+onready var UTILS = get_node("/root/utils")
 
 enum JUMP_STATES { WIND_UP = 0, ASCEND = 1, DESCEND = 2 }
 
@@ -155,8 +156,12 @@ func _process(delta):
 		#flip sprite if direction change
 		if (parent.move_vector.x < 0 and frame_action == CONST.INPUT_ACTION_MOVE_LEFT):
 			sprite.set_scale(Vector2(-1.0, 1.0))
+			if (parent.catch_point.get_pos().x > 0):
+				UTILS.mirror_pos(parent.catch_point, "x")
 		elif (parent.move_vector.x > 0 and frame_action == CONST.INPUT_ACTION_MOVE_RIGHT):
 			sprite.set_scale(Vector2(1.0, 1.0))
+			if (parent.catch_point.get_pos().x < 0):
+				UTILS.mirror_pos(parent.catch_point, "x")
 	else:
 		#only apply idle animation if no other
 		#animation was chosen as part of the logic

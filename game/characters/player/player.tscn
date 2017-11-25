@@ -399,10 +399,10 @@ tracks/4/keys = {
 "times": FloatArray( 0.1, 0.3 ),
 "transitions": FloatArray( 1, 1 ),
 "values": [ {
-"args": [ 6 ],
+"args": [ 4 ],
 "method": "doing_attack"
 }, {
-"args": [ 6, false ],
+"args": [ 4, false ],
 "method": "doing_attack"
 } ]
 }
@@ -461,10 +461,10 @@ tracks/4/keys = {
 "times": FloatArray( 0.1, 0.3 ),
 "transitions": FloatArray( 1, 1 ),
 "values": [ {
-"args": [ 7 ],
+"args": [ 5 ],
 "method": "doing_attack"
 }, {
-"args": [ 7, false ],
+"args": [ 5, false ],
 "method": "doing_attack"
 } ]
 }
@@ -513,10 +513,10 @@ tracks/3/keys = {
 "times": FloatArray( 0.3, 0.6 ),
 "transitions": FloatArray( 1, 1 ),
 "values": [ {
-"args": [ 8 ],
+"args": [ 6 ],
 "method": "doing_attack"
 }, {
-"args": [ 8, false ],
+"args": [ 6, false ],
 "method": "doing_attack"
 } ]
 }
@@ -731,10 +731,16 @@ center_pos = Vector2( 0, 0 )
 texture = ExtResource( 2 )
 vframes = 18
 hframes = 10
-frame = 50
+frame = 52
+
+[node name="catch_point" type="Position2D" parent="sprites"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( 23, 0 )
 
 [node name="catch_collider" type="Area2D" parent="sprites"]
 
+editor/display_folded = true
 visibility/behind_parent = true
 transform/scale = Vector2( 0.548853, 0.589701 )
 input/pickable = true
@@ -753,11 +759,6 @@ transform/pos = Vector2( -5, 5 )
 shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
-
-[node name="catch_point" type="Position2D" parent="sprites"]
-
-visibility/behind_parent = true
-transform/pos = Vector2( 23, 0 )
 
 [node name="attack_hitboxes" type="Node2D" parent="sprites"]
 
@@ -853,6 +854,73 @@ shape = SubResource( 5 )
 trigger = false
 _update_shape_index = 0
 
+[node name="attack_catch_1" type="Area2D" parent="sprites/attack_hitboxes"]
+
+editor/display_folded = true
+transform/pos = Vector2( 10, -15 )
+input/pickable = true
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 0.400713, 0, 0, 1, 11.8652, 4.22975 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 5 )
+
+[node name="collision" type="CollisionShape2D" parent="sprites/attack_hitboxes/attack_catch_1"]
+
+transform/pos = Vector2( 11.8652, 4.22975 )
+transform/scale = Vector2( 0.400713, 1 )
+shape = SubResource( 3 )
+trigger = false
+_update_shape_index = 0
+
+[node name="attack_catch_2" type="Area2D" parent="sprites/attack_hitboxes"]
+
+editor/display_folded = true
+visibility/visible = false
+transform/pos = Vector2( 10, -15 )
+input/pickable = true
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 0.400713, 0, 0, 1, 11.8652, 4.22975 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 5 )
+
+[node name="collision" type="CollisionShape2D" parent="sprites/attack_hitboxes/attack_catch_2"]
+
+transform/pos = Vector2( 11.8652, 4.22975 )
+transform/scale = Vector2( 0.400713, 1 )
+shape = SubResource( 3 )
+trigger = false
+_update_shape_index = 0
+
+[node name="attack_catch_3" type="Area2D" parent="sprites/attack_hitboxes"]
+
+editor/display_folded = true
+visibility/visible = false
+transform/pos = Vector2( 1.32037, -20.2458 )
+input/pickable = true
+shapes/0/shape = SubResource( 5 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 5.43208, 25.479 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 5 )
+
+[node name="collision" type="CollisionShape2D" parent="sprites/attack_hitboxes/attack_catch_3"]
+
+transform/pos = Vector2( 5.43208, 25.479 )
+shape = SubResource( 5 )
+trigger = false
+_update_shape_index = 0
+
 [node name="attack_jump_asc" type="Area2D" parent="sprites/attack_hitboxes"]
 
 editor/display_folded = true
@@ -891,71 +959,6 @@ script/script = ExtResource( 5 )
 [node name="collision" type="CollisionShape2D" parent="sprites/attack_hitboxes/attack_jump_desc"]
 
 transform/pos = Vector2( 6.75245, 5.23316 )
-shape = SubResource( 5 )
-trigger = false
-_update_shape_index = 0
-
-[node name="attack_catch_1" type="Area2D" parent="sprites/attack_hitboxes"]
-
-editor/display_folded = true
-transform/pos = Vector2( 3.21516, -22.1406 )
-input/pickable = true
-shapes/0/shape = SubResource( 3 )
-shapes/0/transform = Matrix32( 0.400713, 0, 0, 1, 11.8652, 4.22975 )
-shapes/0/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-script/script = ExtResource( 5 )
-
-[node name="collision" type="CollisionShape2D" parent="sprites/attack_hitboxes/attack_catch_1"]
-
-transform/pos = Vector2( 11.8652, 4.22975 )
-transform/scale = Vector2( 0.400713, 1 )
-shape = SubResource( 3 )
-trigger = false
-_update_shape_index = 0
-
-[node name="attack_catch_2" type="Area2D" parent="sprites/attack_hitboxes"]
-
-editor/display_folded = true
-transform/pos = Vector2( 3.21516, -22.1406 )
-input/pickable = true
-shapes/0/shape = SubResource( 3 )
-shapes/0/transform = Matrix32( 0.400713, 0, 0, 1, 11.8652, 4.22975 )
-shapes/0/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-script/script = ExtResource( 5 )
-
-[node name="collision" type="CollisionShape2D" parent="sprites/attack_hitboxes/attack_catch_2"]
-
-transform/pos = Vector2( 11.8652, 4.22975 )
-transform/scale = Vector2( 0.400713, 1 )
-shape = SubResource( 3 )
-trigger = false
-_update_shape_index = 0
-
-[node name="attack_catch_3" type="Area2D" parent="sprites/attack_hitboxes"]
-
-editor/display_folded = true
-transform/pos = Vector2( 1.32037, -20.2458 )
-input/pickable = true
-shapes/0/shape = SubResource( 5 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 5.43208, 25.479 )
-shapes/0/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-script/script = ExtResource( 5 )
-
-[node name="collision" type="CollisionShape2D" parent="sprites/attack_hitboxes/attack_catch_3"]
-
-transform/pos = Vector2( 5.43208, 25.479 )
 shape = SubResource( 5 )
 trigger = false
 _update_shape_index = 0

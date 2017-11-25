@@ -4,9 +4,10 @@ extends KinematicBody2D
 onready var UTILS = get_node("/root/utils")
 onready var CONST = get_node("/root/const")
 const Z_REDUCTION_COEF = 0.5
-const CIRCLE_COLOR_FEET = Color(1, 0, 1)	
+const CIRCLE_COLOR_FEET = Color(1, 0, 1)
 const CIRCLE_COLOR_MIN = Color(0, 1, 0)
 const CIRCLE_COLOR_MAX = Color(1, 0, 0)
+const COLOR_WHITE = Color(1, 1, 1)
 onready var FONT_DEBUG_INFO = preload("res://debug_font.fnt")
 
 #graivity affecting characters

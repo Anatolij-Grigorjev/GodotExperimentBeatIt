@@ -41,9 +41,10 @@ func process_caught_body():
 	if ( parent.current_state in CATCHING_STATES): 
 		#set the porper states
 		last_known_body.current_state = parent.CAUGHT
+		last_known_body.getting_hit = false
 		#make caught enemy face player
 		if (!UTILS.sprites_facing(parent.sprite, last_known_body.sprite)):
-			last_known_body.sprite.set_scale(Vector2(-1, 1))
+			UTILS.flip_sprite_dir(last_known_body.sprite)
 		parent.current_state = parent.CATCHING
 		parent.next_anim = CONST.PLAYER_ANIM_CATCHING
 		parent.attacks.current_combo_countdown = CATCH_HOLD_DURATION

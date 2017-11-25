@@ -80,7 +80,17 @@ tracks/1/keys = {
 "times": FloatArray( 0 ),
 "transitions": FloatArray( 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [ Vector2( 1.4, 1.4 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("body:transform/pos")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2.5, 4.5 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -377,7 +387,7 @@ extents = Vector2( 13.6965, 10.7096 )
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, -0.505905, 4.18157 )
+shapes/0/transform = Matrix32( 1.4, 0, 0, 1.4, 2.5, 4.5 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -450,7 +460,8 @@ transform/pos = Vector2( 1, 0 )
 
 [node name="body" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( -0.505905, 4.18157 )
+transform/pos = Vector2( 2.5, 4.5 )
+transform/scale = Vector2( 1.4, 1.4 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0

@@ -34,6 +34,7 @@ func config_attacks():
 				attack_node.attack_info[prop])
 			if (attack_node.attack_info.disloge_x != null and attack_node.attack_info.disloge_y != null):
 				attack_node.attack_info.disloge_vector = Vector2(attack_node.attack_info.disloge_x, attack_node.attack_info.disloge_y)
+		for attack_node in attacks_hitboxes:
 			attack_node.dump()
 	else:
 		print("problem opening " + attacks_conf_file + ": " + str(err))
@@ -46,6 +47,8 @@ func _process (delta):
 			
 #return true if the body was in enemy group so attack connected
 func do_attack( body, attack_info ):
+	if (attack_info.attack_name.begins_with("attack_catch")):
+		print(attack_info)
 	#handle an enemy getting hit
 	if (body.is_in_group(enemy_group)):
 		var enemy = body
@@ -55,7 +58,6 @@ func do_attack( body, attack_info ):
 		#Z of enemy to see if they in attack range
 		var enemy_z = enemy.get_z()
 		var diff = abs(parent.get_z() - enemy_z)
-
 		if (diff <= attack_info.attack_z):
 			enemy.get_hit(attack_info)
 		return true

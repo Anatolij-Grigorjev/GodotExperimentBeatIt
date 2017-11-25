@@ -39,6 +39,21 @@ func json_to_dict( location ):
 	var data = {}
 	data.parse_json(text)
 	return data
+	
+func flip_sprite_dir( sprite ):
+	var scale = sprite.get_scale()
+	scale.x *= -1
+	sprite.set_scale(scale)
+	
+func mirror_pos( node, axis = "both" ):
+	var pos = node.get_pos()
+	if (axis == "x"):
+		pos.x *= -1
+	elif (axis == "y"):
+		pos.y *= -1
+	else:
+		pos *= -1
+	node.set_pos(pos)
 
 func sprites_facing(sprite1, sprite2):
 	return sign(sprite1.get_scale().x) != sign(sprite2.get_scale().x)

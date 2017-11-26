@@ -22,7 +22,7 @@ extents = Vector2( 19, 55 )
 [sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
-extents = Vector2( 19.2052, 15.6667 )
+extents = Vector2( 19, 16 )
 
 [sub_resource type="RectangleShape2D" id=4]
 
@@ -731,7 +731,7 @@ center_pos = Vector2( 0, 0 )
 texture = ExtResource( 2 )
 vframes = 18
 hframes = 10
-frame = 52
+frame = 50
 
 [node name="catch_point" type="Position2D" parent="sprites"]
 
@@ -860,7 +860,7 @@ editor/display_folded = true
 transform/pos = Vector2( 10, -15 )
 input/pickable = true
 shapes/0/shape = SubResource( 3 )
-shapes/0/transform = Matrix32( 0.400713, 0, 0, 1, 11.8652, 4.22975 )
+shapes/0/transform = Matrix32( 0.4, 0, 0, 1, 12, 4 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -870,8 +870,8 @@ script/script = ExtResource( 5 )
 
 [node name="collision" type="CollisionShape2D" parent="sprites/attack_hitboxes/attack_catch_1"]
 
-transform/pos = Vector2( 11.8652, 4.22975 )
-transform/scale = Vector2( 0.400713, 1 )
+transform/pos = Vector2( 12, 4 )
+transform/scale = Vector2( 0.4, 1 )
 shape = SubResource( 3 )
 trigger = false
 _update_shape_index = 0
@@ -1054,5 +1054,25 @@ transform/pos = Vector2( 40, -40 )
 [connection signal="body_enter" from="sprites/attack_hitboxes/attack_4" to="sprites/attack_hitboxes/attack_4" method="body_enter"]
 
 [connection signal="body_exit" from="sprites/attack_hitboxes/attack_4" to="sprites/attack_hitboxes/attack_4" method="body_exit"]
+
+[connection signal="body_enter" from="sprites/attack_hitboxes/attack_catch_1" to="sprites/attack_hitboxes/attack_catch_1" method="body_enter"]
+
+[connection signal="body_exit" from="sprites/attack_hitboxes/attack_catch_1" to="sprites/attack_hitboxes/attack_catch_1" method="body_exit"]
+
+[connection signal="body_enter" from="sprites/attack_hitboxes/attack_catch_2" to="sprites/attack_hitboxes/attack_catch_2" method="body_enter"]
+
+[connection signal="body_exit" from="sprites/attack_hitboxes/attack_catch_2" to="sprites/attack_hitboxes/attack_catch_2" method="body_exit"]
+
+[connection signal="body_enter" from="sprites/attack_hitboxes/attack_catch_3" to="sprites/attack_hitboxes/attack_catch_3" method="body_enter"]
+
+[connection signal="body_exit" from="sprites/attack_hitboxes/attack_catch_3" to="sprites/attack_hitboxes/attack_catch_3" method="body_exit"]
+
+[connection signal="body_enter" from="sprites/attack_hitboxes/attack_jump_asc" to="sprites/attack_hitboxes/attack_jump_asc" method="body_enter"]
+
+[connection signal="body_exit" from="sprites/attack_hitboxes/attack_jump_asc" to="sprites/attack_hitboxes/attack_jump_asc" method="body_exit"]
+
+[connection signal="body_enter" from="sprites/attack_hitboxes/attack_jump_desc" to="sprites/attack_hitboxes/attack_jump_desc" method="body_enter"]
+
+[connection signal="body_exit" from="sprites/attack_hitboxes/attack_jump_desc" to="sprites/attack_hitboxes/attack_jump_desc" method="body_exit"]
 
 

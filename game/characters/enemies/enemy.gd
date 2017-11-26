@@ -16,6 +16,8 @@ onready var anim = get_node("anim")
 onready var sprite = get_node("sprite")
 var player
 const DISLOGE_KEYS = [ "disloge", "initial_pos"]
+var HURTING_STATES = [ HURTING, CAUGHT_HURTING ]
+var CAUGHT_STATES = [ CAUGHT, CAUGHT_HURTING ]
 
 #main defaults for enemies on things
 export var decision_interval = 2.5 #in seconds
@@ -103,7 +105,7 @@ func change_state(delta):
 			reset_state()
 		return
 	#some states are not meant to make decisions
-	if (current_state == HURTING):
+	if (current_state in HURTING_STATES):
 		getting_hit = hit_lock > 0
 		if (getting_hit):
 			hit_lock -= delta
@@ -112,7 +114,10 @@ func change_state(delta):
 			#finished hurting and not being hurt no more,
 			#so get back to standing and 
 			#make another decision on the next frame
-			reset_state(0)
+			if (current_state == HURTING):
+				reset_state(0)
+			else:
+				current_state = CAUGHT
 		return
 	if (current_state == CAUGHT):
 		return
@@ -173,7 +178,7 @@ func get_hit(attack_info):
 	#check prev state later in method
 	var prev_state = current_state
 	#state was not hurting, make it hurt
-	current_state = HURTING
+	current_state = HURTING if !(prev_state in CAUGHT_STATES) else CAUGHT_HURTING 
 	if (attack_info.disloge_vector != CONST.VECTOR2_ZERO):
 		#strip sign of X, assign our own
 		var disloge = Vector2(abs(attack_info.disloge_vector.x), attack_info.disloge_vector.y)
@@ -183,7 +188,7 @@ func get_hit(attack_info):
 		current_state_ctx.disloge = disloge / armor_coef
 		current_state_ctx.initial_pos = center_pos
 		
-		if (prev_state == HURTING):
+		if (prev_state in HURTING_STATES):
 			#was already hurting when this attack hit, 
 			#fly back with full force
 			ignore_z = true

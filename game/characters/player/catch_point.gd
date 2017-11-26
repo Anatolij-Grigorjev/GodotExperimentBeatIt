@@ -46,6 +46,7 @@ func process_caught_body():
 		if (!UTILS.sprites_facing(parent.sprite, last_known_body.sprite)):
 			UTILS.flip_sprite_dir(last_known_body.sprite)
 		parent.current_state = parent.CATCHING
+		#setup max combo cooldown
 		parent.next_anim = CONST.PLAYER_ANIM_CATCHING
 		parent.attacks.current_combo_countdown = CATCH_HOLD_DURATION
 		parent.caught_enemy = last_known_body

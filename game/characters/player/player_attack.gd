@@ -13,7 +13,7 @@ enum COMBO_ATTACKS {
 }
 onready var hitboxes = get_node("../sprites/attack_hitboxes")
 #last allowed combo attack without hitting anything
-const LAST_NON_COMBO = ATTACK4
+const LAST_NON_COMBO = ATTACK2
 #last attack in complete combo
 const LAST_COMBO = ATTACK4
 #last attack in catch combo
@@ -92,8 +92,10 @@ func _process(delta):
 		#parent not playing attack, lets work with the combo cooldown
 		if (current_combo_countdown > 0):
 			current_combo_countdown -= delta
+
 		else:
 			#marks end of a combo sequence, go to different states immediately
+			print("reset from combo cooldown")
 			reset_attack_state()
 			return
 	#if attack was pressed
@@ -162,7 +164,7 @@ func continue_combo():
 #catch attack animations are offset by length of CATCH_ATTACK	
 func continue_catch_attack():
 	queue_combo_move(
-	last_combo_attack - CATCH_ATTACK_1 + 1,
+	last_combo_attack + 1,
 	"player_catch_attack_" + str(last_combo_attack - CATCH_ATTACK_1 + 1)
 	)
 

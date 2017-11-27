@@ -44,6 +44,10 @@ onready var ATTACK_STATES = [
 	parent.ATTACKING,
 	parent.CATCH_ATTACKING
 ]
+onready var CATCHING_STATES = [
+	parent.CATCHING,
+	parent.CATCH_ATTACKING
+]
 
 onready var ACTIONS = [
 	CONST.INPUT_ACTION_ATTACK,
@@ -95,20 +99,22 @@ func _process(delta):
 			current_combo_countdown -= delta
 		else:
 			#marks end of a combo sequence, go to different states immediately
-			print("reset combo after countdown")
+			print("reset combo after countdown %s state %s" % [current_combo_countdown, parent.current_state])
 			reset_attack_state()
 		return
 	#if attack was pressed
 	if (pressing[CONST.INPUT_ACTION_ATTACK]):
 		#regular cathc attack
-		if (parent.current_state == parent.CATCHING):
+		if (parent.current_state in CATCHING_STATES):
 			catch_attack()
+			return
 		#regular ground combo
 		if (movement.jump_state == null):
 			ground_attack()
-		#mid-jump-attacks
+			#mid-jump-attacks
 		else:
 			jump_attack()
+		return
 	
 	
 	

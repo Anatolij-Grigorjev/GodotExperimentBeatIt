@@ -30,7 +30,8 @@ onready var attacks = get_node("../player_attack")
 onready var NON_RESET_STATES = [
 	parent.ATTACKING,
 	parent.JUMPING,
-	parent.CATCHING
+	parent.CATCHING,
+	parent.CATCH_ATTACKING
 ]
 
 var jump_start_height = 0 #Y height to come back to after jump finished

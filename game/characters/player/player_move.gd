@@ -65,7 +65,7 @@ func _process(delta):
 	parent.move_vector = Vector2(0, 0)
 	var frame_action = ""
 	if ((!attacks.locked or jump_state != null) 
-		and parent.current_state != parent.CATCHING ):
+		and not parent.current_state in attacks.CATCHING_STATES ):
 		for action in MOVEMENT:
 			#movement not allowed when locked into attack, except when parent.JUMPING
 			if (Input.is_action_pressed(action)):
@@ -166,7 +166,7 @@ func _process(delta):
 	else:
 		#only apply idle animation if no other
 		#animation was chosen as part of the logic
-		if (!(parent.current_state in NON_RESET_STATES)):
+		if (not parent.current_state in NON_RESET_STATES):
 			parent.current_state = parent.STANDING
 			parent.next_anim = CONST.PLAYER_ANIM_IDLE
 	

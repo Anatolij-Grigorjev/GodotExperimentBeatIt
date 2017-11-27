@@ -73,6 +73,8 @@ var last_combo_attack
 #current countdown of combo sequence 
 var current_combo_countdown
 
+var end_catch_disloge = Vector2()
+
 func _ready():
 	last_combo_attack = null
 	current_combo_countdown = 0
@@ -81,6 +83,7 @@ func _ready():
 		pressing[action] = false
 
 	set_process(true)
+	#set disloge for end of catch combo
 	
 func _process(delta):
 		
@@ -99,9 +102,8 @@ func _process(delta):
 			current_combo_countdown -= delta
 		else:
 			#marks end of a combo sequence, go to different states immediately
-			print("reset combo after countdown %s state %s" % [current_combo_countdown, parent.current_state])
 			reset_attack_state()
-		return
+			return
 	#if attack was pressed
 	if (pressing[CONST.INPUT_ACTION_ATTACK]):
 		#regular cathc attack
@@ -153,7 +155,7 @@ func catch_attack():
 			if (!parent.anim.is_playing() and parent.curr_anim in ATTACK_ANIMATIONS):
 				#release person in attack, catch combo over
 				parent.release_enemy()
-				reset_attack_state()
+				reset_attack_state(end_catch_disloge)
 
 func ground_attack():
 	if (last_combo_attack == null):

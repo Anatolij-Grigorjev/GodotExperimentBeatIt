@@ -28,7 +28,6 @@ func _process(delta):
 			catch_hold_duration -= delta
 			return
 		else:
-			print("release catch hold %s state %s" % [catch_hold_duration, parent.current_state])
 			parent.release_enemy()
 			catch_hold_duration = 0.0
 			return

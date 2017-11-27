@@ -42,7 +42,7 @@ func _process(delta):
 	if (caught_enemy != null):
 		caught_enemy.set_pos(catch_point.get_pos() + new_pos)
 
-func release_enemy():
+func release_enemy(disloge = CONST.VECTOR2_ZERO):
 	var enemy = caught_enemy
 	if (enemy != null):
 		caught_enemy = null
@@ -54,7 +54,7 @@ func release_enemy():
 		enemy.ignore_z = true
 		enemy.current_state_ctx.fall_direction = 1
 		enemy.current_state_ctx.initial_pos = enemy.center_pos
-		enemy.current_state_ctx.disloge = CONST.VECTOR2_ZERO
+		enemy.current_state_ctx.disloge = disloge
 
 func get_hit(attack_info):
 	pass

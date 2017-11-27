@@ -21,8 +21,8 @@ var feet_ground_y = null #last recorded y position of character before airtime
 enum BODY_STATES {
 STANDING, WALKING, RUNNING, 
 ATTACKING, JUMPING, HURTING, 
-FALLING, CATCHING, CAUGHT, 
-CAUGHT_HURTING, FALLEN
+FALLING, CATCHING, CATCH_ATTACKING, 
+CAUGHT, CAUGHT_HURTING, FALLEN
 }
 const STATES_STRINGS = {
 	null: "<NONE>",
@@ -34,9 +34,10 @@ const STATES_STRINGS = {
 	5: "HURTING",
 	6: "FALLING",
 	7: "CATCHING",
-	8: "CAUGHT",
-	9: "CAUGHT_HURTING",
-	10: "FALLEN"
+	8: "CATCH_ATTACKING",
+	9: "CAUGHT",
+	10: "CAUGHT_HURTING",
+	11: "FALLEN"
 }
 
 export(int) var current_state = STANDING

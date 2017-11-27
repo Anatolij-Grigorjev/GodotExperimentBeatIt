@@ -12,20 +12,29 @@ onready var CATCHING_STATES = [
 ]
 
 var last_known_body = null
-#idle holding of catch, in seconds
-const CATCH_HOLD_DURATION = 1.0
+#max idle holding of catch, in seconds
+const MAX_CATCH_HOLD_DURATION = 1.0
+#current catch hold duration, catch released after this
+var catch_hold_duration = 0.0
 
 func _ready():
 	set_process(true)
 	
 func _process(delta):
-	#already holding somebody, cant hold 2 guys at once
+	#already holding somebody, process holding them
 	if ( parent.caught_enemy != null ):
-		return
-	#nobody in the vicinity, nothing to process
-	if (last_known_body == null):
-		return
-	process_caught_body()
+		
+		if (catch_hold_duration > 0):
+			catch_hold_duration -= delta
+			return
+		else:
+			parent.release_enemy()
+			catch_hold_duration = 0.0
+			return
+	#not holding anybody, process candidate
+	else:
+		if ( last_known_body != null):
+			process_caught_body()
 
 func process_caught_body():
 	#only try to catch enemies
@@ -48,7 +57,7 @@ func process_caught_body():
 		parent.current_state = parent.CATCHING
 		#setup max combo cooldown
 		parent.next_anim = CONST.PLAYER_ANIM_CATCHING
-		parent.attacks.current_combo_countdown = CATCH_HOLD_DURATION
+		catch_hold_duration = MAX_CATCH_HOLD_DURATION
 		parent.caught_enemy = last_known_body
 		var global_catch_pos = parent.catch_point.get_global_pos()
 		last_known_body.set_global_pos(Vector2(global_catch_pos.x, parent.center_pos.y))

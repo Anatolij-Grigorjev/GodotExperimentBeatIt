@@ -12,6 +12,7 @@ enum COMBO_ATTACKS {
 	CATCH_ATTACK_3 = 6
 }
 onready var hitboxes = get_node("../sprites/attack_hitboxes")
+onready var catch_point = get_node("../sprites/catch_collider")
 #last allowed combo attack without hitting anything
 const LAST_NON_COMBO = ATTACK2
 #last attack in complete combo
@@ -41,7 +42,7 @@ onready var movement = get_node("../player_move")
 
 onready var ATTACK_STATES = [
 	parent.ATTACKING,
-	parent.CATCHING
+	parent.CATCH_ATTACKING
 ]
 
 onready var ACTIONS = [
@@ -92,12 +93,11 @@ func _process(delta):
 		#parent not playing attack, lets work with the combo cooldown
 		if (current_combo_countdown > 0):
 			current_combo_countdown -= delta
-
 		else:
 			#marks end of a combo sequence, go to different states immediately
-			print("reset from combo cooldown")
+			print("reset combo after countdown")
 			reset_attack_state()
-			return
+		return
 	#if attack was pressed
 	if (pressing[CONST.INPUT_ACTION_ATTACK]):
 		#regular cathc attack
@@ -114,15 +114,30 @@ func _process(delta):
 	
 func reset_attack_state():
 	locked = false
-	parent.current_state = parent.STANDING if movement.jump_state == null else parent.JUMPING
+	if (parent.caught_enemy != null):
+		parent.current_state = parent.CATCHING
+	elif (movement.jump_state != null):
+		parent.current_state = parent.JUMPING
+	else:
+		parent.current_state = parent.STANDING
 	last_combo_attack = null
-	parent.release_enemy()
 	current_combo_countdown = 0
 	hitting = false
 	hitboxes.reset_attacks()
 
 func catch_attack():
+	#add to catch point longevity when in this method
+	#since any hit adds to it and if its the last one, 
+	#enemy is let go anyway
+	catch_point.catch_hold_duration = clamp(
+		catch_point.catch_hold_duration + MAX_COMBO_COUNTDOWN, 
+		0.0, 
+		catch_point.MAX_CATCH_HOLD_DURATION
+	)
 	if (last_combo_attack == null):
+		#not catch attacking yet
+		parent.current_state = parent.CATCH_ATTACKING
+		
 		start_catch_attack()
 	else:
 		#extend catch attack if not at limit
@@ -130,6 +145,8 @@ func catch_attack():
 			continue_catch_attack()
 		else:
 			if (!parent.anim.is_playing() and parent.curr_anim in ATTACK_ANIMATIONS):
+				#release person in attack, catch combo over
+				parent.release_enemy()
 				reset_attack_state()
 
 func ground_attack():

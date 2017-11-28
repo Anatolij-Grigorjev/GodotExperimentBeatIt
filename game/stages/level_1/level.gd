@@ -19,6 +19,10 @@ var player_current_bounds_x = null
 #this will be a list of maps where character nodes and other properties are strored
 var characters_in_level = []
 
+#level signals
+signal enemy_pool_finished
+signal enemy_pool_add_new(enemy_node, global_feet_pos)
+
 func _ready():
 	var tex_extents = ground.texture_extents
 	player.get_node("camera").set_limit(MARGIN_BOTTOM, tex_extents.y * 2)
@@ -26,6 +30,12 @@ func _ready():
 	for character in get_tree().get_nodes_in_group(CONST.GROUP_CHARS):
 		#add character node to processed characters list in map
 		characters_in_level.append(make_character_data(character))
+	
+	#create signals for enemy pools to emit
+	#pool created enemy to add to level
+	connect(CONST.SIG_ENEMY_POOL_ADD_NEW, self, "_enemy_created")
+	#pool exhausted and over
+	connect(CONST.SIG_ENEMY_POOL_FINISHED, self, "_pool_stop_finished")
 	
 	var enemies_data = UTILS.json_to_dict(CONST.LEVEL_1_ENEMY_PLACEMENT)	
 	for area_name in areas_nodes_names:
@@ -36,7 +46,7 @@ func _ready():
 		areas_info[area] = {
 			"min_pos": min_pos,
 			"max_pos": max_pos,
-			"enemy_pool": EnemiesPool.new(self, #level to child enemies into
+			"enemy_pool": EnemiesPool.new(
 			enemies_data[area_name], #enemy data
 			min_pos.x, #left X to spawn
 			max_pos.x, #right X to spawn
@@ -45,6 +55,8 @@ func _ready():
 				ground.nearest_in_bounds(max_pos).y
 			)) #Y spawn bounds, culled by the ground bounds
 		}
+		#add enemies pool as child of area to use node-related stuff
+		area.add_child(areas_info[area].enemy_pool)
 	
 	set_process(true)
 	
@@ -89,11 +101,18 @@ func _process(delta):
 	#check current stop enemies
 	if (current_stop != null and player_current_bounds_x != null):
 		var pool = areas_info[current_stop].enemy_pool
-		pool._process(delta)
-		if (pool.finished):
-			player_current_bounds_x = null
+		if (pool != null):
+			pool._process(delta)
 
 
+func _pool_stop_finished( ):
+	player_current_bounds_x = null
+	
+func _enemy_created( enemy_node, global_feet_pos ):
+	self.add_child( enemy_node )
+	enemy_node.set_pos_by_feet( global_feet_pos )
+	print("Created enemy %s at position %" % [enemy_node, enemy_node.get_global_pos()])	
+	
 func _on_stop_1_body_enter( body ):
 	if (body.get_name() == "player"):
 		#time to stop player camera and do overhead one
@@ -108,7 +127,6 @@ func _on_stop_1_body_exit( body ):
 		set_area_activeness(stop_1, false)
 		body.get_node("camera").make_current()
 		#remove this stop later since its been dealt with
-		areas_info[stop_1].enemy_pool.queue_free()
 		areas_info.erase(stop_1)
 		areas_nodes.erase("stop_1")
 		stop_1.queue_free()

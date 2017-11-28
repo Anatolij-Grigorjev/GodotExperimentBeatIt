@@ -34,6 +34,12 @@ const PLAYER_ANIM_CATTACK_3 = "player_catch_attack_3"
 #common animation to receive hit
 const ANIM_HIT= "hit_spark"
 
+
+#SIGNALS
+const SIG_ENEMY_DEATH = "enemy_death"
+const SIG_ENEMY_POOL_FINISHED = "enemy_pool_finished"
+const SIG_ENEMY_POOL_ADD_NEW = "enemy_pool_add_new"
+
 #player input actions, defined in project settings
 const INPUT_ACTION_MOVE_LEFT = "move_left"
 const INPUT_ACTION_MOVE_RIGHT = "move_right"

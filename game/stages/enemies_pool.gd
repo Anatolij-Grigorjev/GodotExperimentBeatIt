@@ -1,6 +1,7 @@
 # Class EnemiesPool
-
 extends Node
+onready var CONST = get_node("/root/const")
+
 
 #spawn max bound in sec, actual is random
 var spawn_wait_max = 0.0
@@ -20,10 +21,10 @@ var finished = false #pool over
 var code_to_enemy_scene = {
 	"thug" : preload("res://characters/enemies/thug/thug.tscn")
 }
-var level
+
+signal enemy_death(idx)
 
 func _init(
-level,
 enemies_data, 
 left_x, 
 right_x, 
@@ -45,11 +46,16 @@ spawn_interval_bound = 0.75):
 		})
 	current_enemies = []
 	current_spawn_wait = rand_range(0, spawn_wait_max)
-	#level passed as arg becasue this script is just an object with no access to scene tree
-	self.level = level
+	
+#constnats not initialized before _ready
+func _ready():
+	#enemy death connected here, enemy idx stored in enemy
+	connect(CONST.SIG_ENEMY_DEATH, self, "_enemy_dead")
 	
 func _process(delta):
 	if (finished):
+		emit(CONST.SIG_ENEMY_POOL_FINISHED)
+		queue_free()
 		return
 	#still have enemies to release, check in with timer and do it
 	if (!enemies_pool.empty()):
@@ -60,15 +66,15 @@ func _process(delta):
 			var packed_enemy = enemies_pool.back()
 			enemies_pool.pop_back()
 			var real_enemy = packed_enemy.scene.instance()
-			level.add_child(real_enemy)
-			real_enemy.set_pos_by_feet(packed_enemy.position)
-			print("Created enemy " + str(real_enemy) + " at position " + str(real_enemy.get_pos()))
+			emit_signal(CONST.SIG_ENEMY_POOL_ADD_NEW, real_enemy, packed_enemy.position)
+			real_enemy.pool_idx = current_enemies.size()
 			current_enemies.append(real_enemy)
 	else:
 		if (current_enemies.empty()):
 			finished = true
-		else:
-			#prune freed enemies
-			for enemy in current_enemies:
-				if (enemy.is_queued_for_deletion()):
-					current_enemies.remove(enemy)
+
+func _enemy_dead(idx):
+	#ignore indices out of range
+	if (idx >= 0 and idx < current_enemies.size()):
+		print("enemy dead at index %s, removing..." % idx)
+		current_enemies.remove(idx)

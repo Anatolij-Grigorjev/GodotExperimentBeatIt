@@ -12,13 +12,15 @@ var hit_lock
 #gets consumed on next update
 var just_hit = false
 
+#enemy pool index, should be updated before death
+var pool_idx = -1
+
 onready var anim = get_node("anim")
 onready var sprite = get_node("sprite")
 var player
 const DISLOGE_KEYS = [ "disloge", "initial_pos"]
 var HURTING_STATES = [ HURTING, CAUGHT_HURTING ]
 var CAUGHT_STATES = [ CAUGHT, CAUGHT_HURTING ]
-
 #main defaults for enemies on things
 export var decision_interval = 2.5 #in seconds
 export var scan_distance = 350 # in pixels, to either side
@@ -134,7 +136,7 @@ func change_state(delta):
 				#player spotted, lets check if we care
 				if (randf() < aggressiveness):
 					if (abs(distance.x) < attack_distance):
-						set_random_attack_state(distance)
+						set_attack_state(distance)
 					else:
 						current_state = WALKING
 						current_state_ctx.direction = distance.normalized()
@@ -143,7 +145,7 @@ func change_state(delta):
 		elif (current_state == WALKING):
 			
 			if (abs(distance.x) < attack_distance):
-				set_random_attack_state(distance)
+				set_attack_state(distance)
 				#lost enemy
 			elif (abs(distance.x) > scan_distance):
 				current_state = STANDING
@@ -165,11 +167,19 @@ func take_action(delta):
 			sprite.set_scale(Vector2(-1.0, 1.0))
 		elif (current_state_ctx.direction.x > 0):
 			sprite.set_scale(Vector2(1.0, 1.0))
-			
+
+#default implementation for enemy is to pick a random attack
+func set_attack_state(distance):
+	set_random_attack_state(distance)
+
 func set_random_attack_state(distance):
 	current_state = ATTACKING
 	current_state_ctx.direction = distance.normalized()
 	current_state_ctx.attack = randi() % attacks.size()
+	
+func dying():
+	emit_signal(CONST.SIG_ENEMY_DEATH, pool_idx)
+	queue_free()
 	
 func get_hit(attack_info):
 	getting_hit = true

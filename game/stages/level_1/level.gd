@@ -46,7 +46,7 @@ func _ready():
 		areas_info[area] = {
 			"min_pos": min_pos,
 			"max_pos": max_pos,
-			"enemy_pool": EnemiesPool.new(
+			"enemy_pool": EnemiesPool.new(self,
 			enemies_data[area_name], #enemy data
 			min_pos.x, #left X to spawn
 			max_pos.x, #right X to spawn
@@ -111,7 +111,7 @@ func _pool_stop_finished( ):
 func _enemy_created( enemy_node, global_feet_pos ):
 	self.add_child( enemy_node )
 	enemy_node.set_pos_by_feet( global_feet_pos )
-	print("Created enemy %s at position %" % [enemy_node, enemy_node.get_global_pos()])	
+	print("Created enemy %s at position %s" % [enemy_node, enemy_node.get_global_pos()])	
 	
 func _on_stop_1_body_enter( body ):
 	if (body.get_name() == "player"):

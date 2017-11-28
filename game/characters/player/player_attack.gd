@@ -66,6 +66,9 @@ var locked = false
 #are the attacks connecting to something? 
 #combo cant be continued if they dont
 var hitting = false
+#should the update loop finish attack
+# sequence regardless of input
+var finish_attack = false
 #attack inputs collected for next frame
 var pressing = {}
 #latest performed attack within combo time limit
@@ -105,7 +108,7 @@ func _process(delta):
 			reset_attack_state()
 			return
 	#if attack was pressed
-	if (pressing[CONST.INPUT_ACTION_ATTACK]):
+	if (pressing[CONST.INPUT_ACTION_ATTACK] || finish_attack):
 		#regular cathc attack
 		if (parent.current_state in CATCHING_STATES):
 			catch_attack()
@@ -122,6 +125,7 @@ func _process(delta):
 	
 func reset_attack_state():
 	locked = false
+	finish_attack = false
 	if (parent.caught_enemy != null):
 		parent.current_state = parent.CATCHING
 	elif (movement.jump_state != null):
@@ -151,11 +155,14 @@ func catch_attack():
 		#extend catch attack if not at limit
 		if (last_combo_attack <= LAST_CATCH_COMBO and hitting):
 			continue_catch_attack()
+			if (last_combo_attack > LAST_CATCH_COMBO):
+				finish_attack = true
 		else:
 			if (!parent.anim.is_playing() and parent.curr_anim in ATTACK_ANIMATIONS):
 				#release person in attack, catch combo over
-				parent.release_enemy()
-				reset_attack_state(end_catch_disloge)
+				parent.release_enemy(end_catch_disloge)
+				#also stop animation when its over
+				reset_attack_state()
 
 func ground_attack():
 	if (last_combo_attack == null):
@@ -170,6 +177,8 @@ func ground_attack():
 		#landed hits later in combo, extend it further
 		elif (last_combo_attack <= LAST_COMBO and hitting):
 			continue_combo()
+			if (last_combo_attack > LAST_COMBO):
+				finish_attack = true
 		else:
 			if (!parent.anim.is_playing() and parent.curr_anim in ATTACK_ANIMATIONS):
 				reset_attack_state()

@@ -714,7 +714,7 @@ tracks/1/keys = {
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 0.75, 0, 0, 0.75, 2, 2 )
+shapes/0/transform = Matrix32( 0.58, 0, 0, 0.58, -4.3, -6.6 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -731,7 +731,7 @@ center_pos = Vector2( 0, 0 )
 texture = ExtResource( 2 )
 vframes = 18
 hframes = 10
-frame = 50
+frame = 137
 
 [node name="catch_point" type="Position2D" parent="sprites"]
 
@@ -1020,8 +1020,8 @@ drag_margin/bottom = 0.2
 [node name="body" type="CollisionShape2D" parent="."]
 
 visibility/visible = false
-transform/pos = Vector2( 2, 2 )
-transform/scale = Vector2( 0.75, 0.75 )
+transform/pos = Vector2( -4.3, -6.6 )
+transform/scale = Vector2( 0.58, 0.58 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0

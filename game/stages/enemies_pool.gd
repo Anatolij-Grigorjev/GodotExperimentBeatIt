@@ -16,7 +16,7 @@ var x_bounds = Vector2()
 var y_bounds = Vector2()
 
 var finished = false #pool over
-
+var level
 #enemy code in JSON translation to packed scene enemy
 var code_to_enemy_scene = {
 	"thug" : preload("res://characters/enemies/thug/thug.tscn")
@@ -25,6 +25,7 @@ var code_to_enemy_scene = {
 signal enemy_death(idx)
 
 func _init(
+level,
 enemies_data, 
 left_x, 
 right_x, 
@@ -46,6 +47,7 @@ spawn_interval_bound = 0.75):
 		})
 	current_enemies = []
 	current_spawn_wait = rand_range(0, spawn_wait_max)
+	self.level = level
 	
 #constnats not initialized before _ready
 func _ready():
@@ -54,7 +56,7 @@ func _ready():
 	
 func _process(delta):
 	if (finished):
-		emit(CONST.SIG_ENEMY_POOL_FINISHED)
+		level.emit(CONST.SIG_ENEMY_POOL_FINISHED)
 		queue_free()
 		return
 	#still have enemies to release, check in with timer and do it
@@ -66,7 +68,7 @@ func _process(delta):
 			var packed_enemy = enemies_pool.back()
 			enemies_pool.pop_back()
 			var real_enemy = packed_enemy.scene.instance()
-			emit_signal(CONST.SIG_ENEMY_POOL_ADD_NEW, real_enemy, packed_enemy.position)
+			level.emit_signal(CONST.SIG_ENEMY_POOL_ADD_NEW, real_enemy, packed_enemy.position)
 			real_enemy.pool_idx = current_enemies.size()
 			current_enemies.append(real_enemy)
 	else:

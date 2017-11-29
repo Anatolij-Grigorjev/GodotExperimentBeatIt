@@ -75,7 +75,7 @@ var pressing = {}
 var last_combo_attack
 #current countdown of combo sequence 
 var current_combo_countdown
-
+#injected when player hitboxes are done being set up
 var end_catch_disloge = Vector2()
 
 func _ready():
@@ -160,7 +160,10 @@ func catch_attack():
 		else:
 			if (!parent.anim.is_playing() and parent.curr_anim in ATTACK_ANIMATIONS):
 				#release person in attack, catch combo over
-				parent.release_enemy(end_catch_disloge)
+				if (last_combo_attack >= LAST_CATCH_COMBO):
+					parent.release_enemy(end_catch_disloge)
+				else:
+					parent.release_enemy() 
 				#also stop animation when its over
 				reset_attack_state()
 

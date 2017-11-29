@@ -13,7 +13,7 @@ onready var CATCHING_STATES = [
 
 var last_known_body = null
 #max idle holding of catch, in seconds
-const MAX_CATCH_HOLD_DURATION = 5.0
+const MAX_CATCH_HOLD_DURATION = 1.5
 #current catch hold duration, catch released after this
 var catch_hold_duration = 0.0
 
@@ -29,6 +29,7 @@ func _process(delta):
 			return
 		else:
 			parent.release_enemy()
+			parent.attacks.reset_attack_state()
 			catch_hold_duration = 0.0
 			return
 	#not holding anybody, process candidate

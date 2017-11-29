@@ -54,7 +54,10 @@ func release_enemy(disloge = CONST.VECTOR2_ZERO):
 		enemy.ignore_z = true
 		enemy.current_state_ctx.fall_direction = 1
 		enemy.current_state_ctx.initial_pos = enemy.center_pos
-		enemy.current_state_ctx.disloge = disloge
+		#make sure disloge happens in the right direction
+		enemy.current_state_ctx.disloge = Vector2(
+			disloge.x * sign(sprite.get_scale().x),
+			disloge.y)
 
 func get_hit(attack_info):
 	pass

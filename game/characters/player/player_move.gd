@@ -34,7 +34,6 @@ onready var NON_RESET_STATES = [
 	parent.CATCH_ATTACKING
 ]
 
-var jump_start_height = 0 #Y height to come back to after jump finished
 var jump_state
 var current_jump_wind_up = 0
 var current_jump_ascend = 0

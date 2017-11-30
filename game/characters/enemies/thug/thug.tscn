@@ -418,8 +418,8 @@ custom_solver_bias = 0.0
 extents = Vector2( 13.6965, 10.7096 )
 
 [node name="thug" type="KinematicBody2D" groups=[
-"characters",
 "enemies",
+"characters",
 ]]
 
 input/pickable = true

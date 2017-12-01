@@ -16,7 +16,6 @@ var just_hit = false
 var pool_idx = -1
 
 onready var anim = get_node("anim")
-onready var sprite = get_node("sprite")
 var player
 const DISLOGE_KEYS = [ "disloge", "initial_pos"]
 var HURTING_STATES = [ HURTING, CAUGHT_HURTING ]
@@ -163,10 +162,9 @@ func take_action(delta):
 	#take action based on elected state
 	if (current_state == WALKING):
 		set_pos(get_pos() + (current_state_ctx.direction * movement_speed * delta))
-		if (current_state_ctx.direction.x < 0):
-			sprite.set_scale(Vector2(-1.0, 1.0))
-		elif (current_state_ctx.direction.x > 0):
-			sprite.set_scale(Vector2(1.0, 1.0))
+		print(current_state_ctx.direction)
+		if (current_state_ctx.direction.x != 0):
+			set_direction(sign(current_state_ctx.direction.x))
 
 #default implementation for enemy is to pick a random attack
 func set_attack_state(distance):

@@ -17,7 +17,7 @@ var move_vector = Vector2(0, 0)
 #should character ignore effects of gravity?
 var ignore_G = false  
 var feet_ground_y = null #last recorded y position of character before airtime
-
+enum FACING_DIRECTIONS { DIR_LEFT = -1, DIR_RIGHT = 1 }
 enum BODY_STATES {
 STANDING, WALKING, RUNNING, 
 ATTACKING, JUMPING, HURTING, 
@@ -50,6 +50,10 @@ export var center_pos = Vector2()
 onready var feet_node = get_node("feet")
 onready var min_pos_node = get_node("min_pos")
 onready var max_pos_node = get_node("max_pos")
+#sprites access to set direction
+onready var sprite = get_node("sprites")
+
+var facing_direction setget set_direction
 
 func _ready():
 	#set initial vars
@@ -104,3 +108,7 @@ func set_pos_by_max(max_pos):
 	#technically should be + min local y, but its likely negative
 	var pos = Vector2(max_pos.x - max_pos_local.x, max_pos.y - max_pos_local.y)
 	set_pos(pos)
+	
+func set_direction(new_dir):
+	facing_direction = new_dir
+	sprite.set_scale(Vector2(new_dir, sprite.get_scale().y))

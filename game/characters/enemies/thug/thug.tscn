@@ -16,7 +16,7 @@ length = 0.5
 loop = false
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("sprite:frame")
+tracks/0/path = NodePath("sprites:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
@@ -63,7 +63,7 @@ length = 0.2
 loop = false
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("sprite:frame")
+tracks/0/path = NodePath("sprites:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
@@ -100,7 +100,7 @@ length = 0.3
 loop = false
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("sprite:frame")
+tracks/0/path = NodePath("sprites:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
@@ -136,7 +136,7 @@ length = 0.2
 loop = false
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("sprite:frame")
+tracks/0/path = NodePath("sprites:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
@@ -162,7 +162,7 @@ length = 0.2
 loop = false
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("sprite:frame")
+tracks/0/path = NodePath("sprites:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
@@ -188,7 +188,7 @@ length = 0.6
 loop = false
 step = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("sprite:frame")
+tracks/0/path = NodePath("sprites:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
@@ -234,7 +234,7 @@ length = 0.6
 loop = false
 step = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("sprite:frame")
+tracks/0/path = NodePath("sprites:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
@@ -280,7 +280,7 @@ length = 0.7
 loop = false
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("sprite:frame")
+tracks/0/path = NodePath("sprites:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
@@ -326,7 +326,7 @@ length = 1.1
 loop = true
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("sprite:frame")
+tracks/0/path = NodePath("sprites:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
@@ -372,7 +372,7 @@ length = 1.1
 loop = true
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("sprite:frame")
+tracks/0/path = NodePath("sprites:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
@@ -464,7 +464,7 @@ playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
 
-[node name="sprite" type="Sprite" parent="."]
+[node name="sprites" type="Sprite" parent="."]
 
 transform/pos = Vector2( 1, 0 )
 texture = ExtResource( 2 )
@@ -472,7 +472,7 @@ vframes = 14
 hframes = 10
 frame = 53
 
-[node name="fist" type="Area2D" parent="sprite"]
+[node name="fist" type="Area2D" parent="sprites"]
 
 transform/pos = Vector2( -2.15114, 4.61118 )
 input/pickable = true
@@ -484,7 +484,7 @@ gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
 
-[node name="attack_1" type="CollisionShape2D" parent="sprite/fist"]
+[node name="attack_1" type="CollisionShape2D" parent="sprites/fist"]
 
 transform/pos = Vector2( 34.0237, -4.40655 )
 transform/scale = Vector2( 0.796457, 0.68497 )

@@ -6,9 +6,9 @@ onready var UTILS = get_node("/root/utils")
 enum JUMP_STATES { WIND_UP = 0, ASCEND = 1, DESCEND = 2 }
 
 #jump constants
-const JUMP_STRENGTH = 250
+const JUMP_STRENGTH = 300
 const JUMP_WIND_UP = 0.1
-const JUMP_ASCEND_TIME = 0.45
+const JUMP_ASCEND_TIME = 0.35
 const MOVESPEED_X_JUMP = 75
 
 var WALK_SPEED = Vector2(100, 50)
@@ -128,7 +128,6 @@ func _process(delta):
 				#have to manually set it back to not ignore (set automatically when character in air)
 				parent.ignore_z = false
 				parent.feet_ground_y = null
-				parent.current_state = parent.STANDING
 				#stop descend attack if it was in progress
 				if (parent.current_state == parent.ATTACKING):
 					attacks.reset_attack_state()
@@ -155,11 +154,11 @@ func _process(delta):
 			parent.next_anim = CONST.PLAYER_ANIM_WALK
 		#flip sprite if direction change
 		if (parent.move_vector.x < 0 and frame_action == CONST.INPUT_ACTION_MOVE_LEFT):
-			sprite.set_scale(Vector2(-1.0, 1.0))
+			parent.facing_direction = parent.DIR_LEFT
 			if (parent.catch_point.get_pos().x > 0):
 				UTILS.mirror_pos(parent.catch_point, "x")
 		elif (parent.move_vector.x > 0 and frame_action == CONST.INPUT_ACTION_MOVE_RIGHT):
-			sprite.set_scale(Vector2(1.0, 1.0))
+			parent.facing_direction = parent.DIR_RIGHT
 			if (parent.catch_point.get_pos().x < 0):
 				UTILS.mirror_pos(parent.catch_point, "x")
 	else:

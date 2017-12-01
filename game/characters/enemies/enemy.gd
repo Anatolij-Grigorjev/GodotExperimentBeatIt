@@ -1,5 +1,8 @@
 extends "../basic_movement.gd"
 
+const MAX_STUN_POINTS = 100
+
+var current_stun_points
 var current_decision_wait
 var current_state_ctx = {}
 var attacks = []
@@ -7,7 +10,7 @@ var current_anim
 var getting_hit
 #amount of time enemy is actively getting hit
 #immune to further hits while this is happening
-var hit_lock
+var hit_lock = 0
 #flag to check if the enemy just got hit on the previous frame
 #gets consumed on next update
 var just_hit = false
@@ -29,12 +32,14 @@ export var lying_down_cooldown = 0.2 #time spent lying down, in seconds
 export var hurt_pushback_time = 0.15 #tiem spent pushed back by strong blow
 export var movement_speed = Vector2(150, 50)
 export var armor_coef = 1.0 #additional weigth coefficient to reduce disloge
+export var stun_regen_rate = 0.0 #how quikcly does enemy recover from hits
 
 
 func _ready():
 	reset_state()
 	getting_hit = false
 	just_hit = false
+	current_stun_points = MAX_STUN_POINTS
 	player = get_tree().get_root().find_node("player", true, false)
 	._ready()
 	
@@ -60,6 +65,15 @@ func _process(delta):
 	if (just_hit):
 		just_hit = false
 	
+	#recover stun points
+	if (current_stun_points < MAX_STUN_POINTS and not getting_hit):
+		current_stun_points = clamp(current_stun_points + stun_regen_rate, 0.0, MAX_STUN_POINTS)	
+	
+	#update hit lock
+	getting_hit = hit_lock > 0
+	if (getting_hit):
+		hit_lock -= delta
+	
 	._process(delta)
 	
 	#integrate new position
@@ -71,9 +85,15 @@ func change_anim():
 	
 func disloged_enough():
 	if (current_state_ctx.has_all(DISLOGE_KEYS)):
-		#did the enemy go high enough into the air fro mthe disloge
-		var y_ok = abs(center_pos.y - current_state_ctx.initial_pos.y) >= abs(current_state_ctx.disloge.y)
-		return y_ok
+		#checking y disloge is good for falling
+		if (current_state == FALLING):
+			#did the enemy go high enough into the air from the disloge
+			var y_ok = abs(center_pos.y - current_state_ctx.initial_pos.y) >= abs(current_state_ctx.disloge.y)
+			return y_ok
+		#for other situations need to check x disloge
+		else:
+			var x_ok = abs(center_pos.x - current_state_ctx.initial_pos.x) >= abs(current_state_ctx.disloge.x)
+			return x_ok
 	else:
 		return true
 	
@@ -107,9 +127,6 @@ func change_state(delta):
 		return
 	#some states are not meant to make decisions
 	if (current_state in HURTING_STATES):
-		getting_hit = hit_lock > 0
-		if (getting_hit):
-			hit_lock -= delta
 		#currently hurting
 		if (!getting_hit and !anim.is_playing()):
 			#finished hurting and not being hurt no more,
@@ -178,29 +195,37 @@ func set_random_attack_state(distance):
 func dying():
 	emit_signal(CONST.SIG_ENEMY_DEATH, pool_idx)
 	queue_free()
+
+func state_for_stun():
+	if (MAX_STUN_POINTS / 2 <= current_stun_points <= MAX_STUN_POINTS):
+		return STANDING
+	elif (1 <= current_stun_points <= MAX_STUN_POINTS):
+		return HURTING
+	else:
+		FALLING
 	
 func get_hit(attack_info):
 	getting_hit = true
 	just_hit = true
 	hit_lock = attack_info.hit_lock 
+	current_stun_points -= attack_info.attack_stun
 	#check prev state later in method
 	var prev_state = current_state
-	#state was not hurting, make it hurt
-	current_state = HURTING if !(prev_state in CAUGHT_STATES) else CAUGHT_HURTING 
+	#state was caught or not
+	current_state = state_for_stun() if !(prev_state in CAUGHT_STATES) else CAUGHT_HURTING 
 	if (attack_info.disloge_vector != CONST.VECTOR2_ZERO):
 		#strip sign of X, assign our own
-		var disloge = Vector2(abs(attack_info.disloge_vector.x), attack_info.disloge_vector.y)
-		#hit enemy fall direction depends on where the player was facing	
-		disloge.x *= sign(player.sprite.get_scale().x)
+		var disloge = Vector2(attack_info.disloge_vector.x, attack_info.disloge_vector.y)
 		#setup pushback
 		current_state_ctx.disloge = disloge / armor_coef
 		current_state_ctx.initial_pos = center_pos
+		#hit enemy fall direction depends on where the player was facing	
+		#disloge.x *= sign(player.sprite.get_scale().x)
 		
-		if (prev_state in HURTING_STATES):
+		if (current_state == FALLING):
 			#was already hurting when this attack hit, 
 			#fly back with full force
 			ignore_z = true
-			current_state = FALLING
 			#fall animation direction is independant of actual fall direction
 			#depends on what direction player was facing in relation
 			#to enemy

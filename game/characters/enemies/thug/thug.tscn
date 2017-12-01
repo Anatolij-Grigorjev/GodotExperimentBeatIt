@@ -443,6 +443,7 @@ lying_down_cooldown = 0.2
 hurt_pushback_time = 0.15
 movement_speed = Vector2( 150, 50 )
 armor_coef = 1.0
+stun_regen_rate = 0.0
 
 [node name="anim" type="AnimationPlayer" parent="."]
 

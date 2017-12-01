@@ -18,17 +18,18 @@ enum ATTACK_TYPES {
 var attack_info = {
 	#name of attack
 	attack_name = "<?>",
+	#how many stun points attack hits for
+	attack_stun = 0,
 	#width of attack effectivness on the field
 	attack_z = 0,
 	#how long does the post-attack invulnerability last on enemy
 	hit_lock = 0.2,
-	#force vector to fall enemy when hit by attack
+	#force vector to move enemy when hit by attack
 	disloge_vector = Vector2(0,0),
 	#helper components of disloge_vector for reading from file
 	disloge_x = null,
 	disloge_y = null,
-	#attack type, determines hit effect 
-	#and other enemy specific things
+	#attack type, for later use
 	attack_type = GROUND_ATTACK
 }
 

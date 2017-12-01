@@ -26,6 +26,7 @@ func _process(delta):
 const CIRCLE_COLOR_PAIN = Color(1, 1, 1)
 func _draw():
 	._draw()
+	draw_string(FONT_DEBUG_INFO, Vector2(50, max_pos_node.get_pos().y),  "(%s/%s)" % [current_stun_points, MAX_STUN_POINTS])
 	if (current_state == HURTING):
 		draw_circle(sprite.get_pos(), 10.0, CIRCLE_COLOR_PAIN)
 	

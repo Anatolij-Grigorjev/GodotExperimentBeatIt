@@ -102,6 +102,7 @@ func reset_state(action_wait = decision_interval):
 	getting_hit = false
 	ignore_z = false
 	ignore_G = false
+	current_stun_points = MAX_STUN_POINTS
 	current_state_ctx.clear()
 	feet_ground_y = null
 	current_decision_wait = action_wait
@@ -197,12 +198,12 @@ func dying():
 	queue_free()
 
 func state_for_stun():
-	if (MAX_STUN_POINTS / 2 <= current_stun_points <= MAX_STUN_POINTS):
+	if (MAX_STUN_POINTS / 2 <= current_stun_points and current_stun_points <= MAX_STUN_POINTS):
 		return STANDING
-	elif (1 <= current_stun_points <= MAX_STUN_POINTS):
+	elif (1 <= current_stun_points and current_stun_points < MAX_STUN_POINTS / 2):
 		return HURTING
 	else:
-		FALLING
+		return FALLING
 	
 func get_hit(attack_info):
 	getting_hit = true
@@ -216,11 +217,11 @@ func get_hit(attack_info):
 	if (attack_info.disloge_vector != CONST.VECTOR2_ZERO):
 		#strip sign of X, assign our own
 		var disloge = Vector2(attack_info.disloge_vector.x, attack_info.disloge_vector.y)
+		#hit enemy fall direction depends on where the player was facing	
+		disloge.x *= sign(player.sprite.get_scale().x)
 		#setup pushback
 		current_state_ctx.disloge = disloge / armor_coef
 		current_state_ctx.initial_pos = center_pos
-		#hit enemy fall direction depends on where the player was facing	
-		#disloge.x *= sign(player.sprite.get_scale().x)
 		
 		if (current_state == FALLING):
 			#was already hurting when this attack hit, 

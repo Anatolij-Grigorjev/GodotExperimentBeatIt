@@ -87,7 +87,7 @@ func _process(delta):
 		var move_down = GRAVITY
 		#halfspeed down when attacking
 		if (current_state == ATTACKING):
-			move_down.y /= 2
+			move_down.y /= 1.1
 		move_vector.y += move_down.y
 	#do update for draw calls
 	update()

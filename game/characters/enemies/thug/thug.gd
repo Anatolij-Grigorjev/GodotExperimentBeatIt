@@ -12,6 +12,7 @@ func _ready():
 	movement_speed = Vector2(150, 50)
 	lying_down_cooldown = 0.6
 	hurt_pushback_time = 0.2
+	stun_regen_rate = 0.1
 	attacks = [
 		CONST.THUG_ANIM_ATTACK_1
 	]
@@ -26,7 +27,7 @@ func _process(delta):
 const CIRCLE_COLOR_PAIN = Color(1, 1, 1)
 func _draw():
 	._draw()
-	draw_string(FONT_DEBUG_INFO, Vector2(50, max_pos_node.get_pos().y),  "(%s/%s)" % [current_stun_points, MAX_STUN_POINTS])
+	draw_string(FONT_DEBUG_INFO, Vector2(50, max_pos_node.get_pos().y),  "(%s/%s)" % [int(current_stun_points), MAX_STUN_POINTS])
 	if (current_state == HURTING):
 		draw_circle(sprite.get_pos(), 10.0, CIRCLE_COLOR_PAIN)
 	

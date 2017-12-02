@@ -37,7 +37,6 @@ onready var NON_RESET_STATES = [
 var jump_state
 var current_jump_wind_up = 0
 var current_jump_ascend = 0
-
 #is the character locked into this set of actions for now?
 var locked = false
 
@@ -80,7 +79,7 @@ func _process(delta):
 				parent.current_state = parent.STANDING
 		elif (parent.current_state == parent.WALKING):
 			if (!frame_action.empty() and frame_action == last_action_up.action
-				and OS.get_unix_time() - last_action_up.time <= CONST.DOUBLE_TAP_INTERVAL_MS):
+				and parent.timer - last_action_up.time <= CONST.DOUBLE_TAP_INTERVAL_SEC):
 					parent.current_state = parent.RUNNING
 		#process deciding to jump
 		var pressed_jump = Input.is_action_pressed(CONST.INPUT_ACTION_JUMP)
@@ -176,7 +175,7 @@ func _process(delta):
 	#if there was move input in last frame, lets record action release
 	if (!last_frame_action.empty() and frame_action.empty()):
 		last_action_up = {
-			"time": OS.get_unix_time(),
+			"time": parent.timer,
 			"action": last_frame_action
 		}
 	last_frame_action = frame_action

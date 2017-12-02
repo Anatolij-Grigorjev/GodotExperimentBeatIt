@@ -50,7 +50,7 @@ const INPUT_ACTION_ATTACK = "attack"
 
 #how many milliseconds of input pause are allowed
 #to be considered a double-tap
-const DOUBLE_TAP_INTERVAL_MS = 100
+const DOUBLE_TAP_INTERVAL_SEC = 0.15
 
 #group of objects that are level characters like player or enemies
 #useful to know who gets a dropshadow

@@ -32,7 +32,7 @@ export var lying_down_cooldown = 0.2 #time spent lying down, in seconds
 export var hurt_pushback_time = 0.15 #tiem spent pushed back by strong blow
 export var movement_speed = Vector2(150, 50)
 export var armor_coef = 1.0 #additional weigth coefficient to reduce disloge
-export var stun_regen_rate = 0.0 #how quikcly does enemy recover from hits
+export var stun_regen_rate = 0.0 #how quikcly does enemy recover from hits, per sec
 
 
 func _ready():
@@ -42,6 +42,17 @@ func _ready():
 	current_stun_points = MAX_STUN_POINTS
 	player = get_tree().get_root().find_node("player", true, false)
 	._ready()
+	#for measured regens
+	set_fixed_process(true)
+	
+func _fixed_process(delta):
+	#update hit lock
+	getting_hit = hit_lock > 0
+	if (getting_hit):
+		hit_lock -= delta
+	#recover stun points
+	if (current_stun_points < MAX_STUN_POINTS and not getting_hit):
+		current_stun_points = clamp(current_stun_points + stun_regen_rate, 0.0, MAX_STUN_POINTS)
 	
 func _process(delta):
 	move_vector = CONST.VECTOR2_ZERO
@@ -64,15 +75,6 @@ func _process(delta):
 	
 	if (just_hit):
 		just_hit = false
-	
-	#recover stun points
-	if (current_stun_points < MAX_STUN_POINTS and not getting_hit):
-		current_stun_points = clamp(current_stun_points + stun_regen_rate, 0.0, MAX_STUN_POINTS)	
-	
-	#update hit lock
-	getting_hit = hit_lock > 0
-	if (getting_hit):
-		hit_lock -= delta
 	
 	._process(delta)
 	
@@ -180,7 +182,6 @@ func take_action(delta):
 	#take action based on elected state
 	if (current_state == WALKING):
 		set_pos(get_pos() + (current_state_ctx.direction * movement_speed * delta))
-		print(current_state_ctx.direction)
 		if (current_state_ctx.direction.x != 0):
 			set_direction(sign(current_state_ctx.direction.x))
 

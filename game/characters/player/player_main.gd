@@ -4,7 +4,8 @@ onready var anim = get_node("anim")
 onready var movement = get_node("player_move")
 onready var attacks = get_node("player_attack")
 onready var catch_point = get_node("sprites/catch_point")
-
+#generic timer counting gametime up during processing updates, in ms
+var timer
 var curr_anim
 var next_anim
 
@@ -20,6 +21,7 @@ onready var init_nodes = [
 func _ready():
 	curr_anim = ""
 	next_anim = null
+	timer = 0.0
 	._ready()
 	for node in init_nodes:
 		if node.has_method("_parent_ready"):
@@ -40,6 +42,7 @@ func _process(delta):
 	#also add posirion to caugh enemy
 	if (caught_enemy != null):
 		caught_enemy.set_pos(catch_point.get_pos() + new_pos)
+	timer += delta
 
 func release_enemy(disloge = CONST.VECTOR2_ZERO):
 	var enemy = caught_enemy

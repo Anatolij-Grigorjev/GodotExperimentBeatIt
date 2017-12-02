@@ -296,15 +296,15 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id=12]
 
-length = 0.6
+length = 0.45
 loop = false
-step = 0.1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprites:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
-"times": FloatArray( 0, 0.1, 0.2, 0.3, 0.5, 0.6 ),
+"times": FloatArray( 0, 0.05, 0.1, 0.2, 0.35, 0.45 ),
 "transitions": FloatArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 132, 133, 134, 135, 136, 137 ]
@@ -314,7 +314,7 @@ tracks/1/path = NodePath("body:transform/pos")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = {
-"times": FloatArray( 0, 0.1, 0.2, 0.3, 0.5, 0.6 ),
+"times": FloatArray( 0, 0.05, 0.1, 0.2, 0.35, 0.45 ),
 "transitions": FloatArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ Vector2( -3.8, -3 ), Vector2( 0.59, -4.8 ), Vector2( -3.5, -5 ), Vector2( -15, -8 ), Vector2( -15, -8 ), Vector2( -4.3, -6.6 ) ]
@@ -324,7 +324,7 @@ tracks/2/path = NodePath("body:transform/scale")
 tracks/2/interp = 1
 tracks/2/imported = false
 tracks/2/keys = {
-"times": FloatArray( 0, 0.1, 0.2, 0.3, 0.5, 0.6 ),
+"times": FloatArray( 0, 0.05, 0.1, 0.2, 0.35, 0.45 ),
 "transitions": FloatArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ Vector2( 0.62, 0.62 ), Vector2( 0.65, 0.65 ), Vector2( 0.58, 0.58 ), Vector2( 0.58, 0.58 ), Vector2( 0.58, 0.58 ), Vector2( 0.58, 0.58 ) ]
@@ -334,7 +334,7 @@ tracks/3/path = NodePath("sprites/attack_hitboxes")
 tracks/3/interp = 1
 tracks/3/imported = false
 tracks/3/keys = {
-"times": FloatArray( 0.3, 0.6 ),
+"times": FloatArray( 0.2, 0.45 ),
 "transitions": FloatArray( 1, 1 ),
 "values": [ {
 "args": [ 5 ],
@@ -728,6 +728,7 @@ center_pos = Vector2( 0, 0 )
 
 [node name="sprites" type="Sprite" parent="."]
 
+editor/display_folded = true
 texture = ExtResource( 2 )
 vframes = 18
 hframes = 10

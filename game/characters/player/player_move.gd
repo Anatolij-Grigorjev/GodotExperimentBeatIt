@@ -60,7 +60,7 @@ func _parent_ready():
 func _process(delta):
 	
 	#initial frame logic
-	parent.move_vector = Vector2(0, 0)
+	parent.move_vector = CONST.VECTOR2_ZERO
 	var frame_action = ""
 	if ((!attacks.locked or jump_state != null) 
 		and not parent.current_state in attacks.CATCHING_STATES ):
@@ -130,13 +130,17 @@ func _process(delta):
 				#stop descend attack if it was in progress
 				if (parent.current_state == parent.ATTACKING):
 					attacks.reset_attack_state()
-			
+	
+	#locked into run attack, supply movement
+	if (parent.current_state == parent.RUN_ATTACKING):
+		parent.move_vector = Vector2(parent.facing_direction, 0)
 		
 	if (parent.move_vector.length_squared() != 0):
 		# resolve movement speed based on character state
 		if (jump_state != null):
 			parent.move_vector.x *= MOVESPEED_X_JUMP
-		elif (parent.current_state == parent.RUNNING):
+		elif (parent.current_state == parent.RUNNING 
+		|| parent.current_state == parent.RUN_ATTACKING):
 			parent.move_vector *= RUN_SPEED
 		else:
 			parent.current_state = parent.WALKING
@@ -168,7 +172,7 @@ func _process(delta):
 			parent.next_anim = CONST.PLAYER_ANIM_IDLE
 	
 	#clear animation state if attacking
-	if (parent.current_state == parent.ATTACKING and attacks.locked):
+	if (parent.current_state in attacks.ATTACK_STATES and attacks.locked):
 		parent.next_anim = null
 	
 	

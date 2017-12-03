@@ -21,7 +21,7 @@ const LAST_COMBO = ATTACK4
 const LAST_CATCH_COMBO = CATCH_ATTACK_3
 #time in seconds after hit finishes that 
 #the character remains in an ATTACKING state and ready to combo
-const MAX_COMBO_COUNTDOWN = 0.25
+const MAX_COMBO_COUNTDOWN = 0.2
 
 onready var ATTACK_ANIMATIONS = [
 	CONST.PLAYER_ANIM_ATTACK_1,
@@ -32,7 +32,8 @@ onready var ATTACK_ANIMATIONS = [
 	CONST.PLAYER_ANIM_ATTACK_JUMP_DESCEND,
 	CONST.PLAYER_ANIM_CATTACK_1,
 	CONST.PLAYER_ANIM_CATTACK_2,
-	CONST.PLAYER_ANIM_CATTACK_3
+	CONST.PLAYER_ANIM_CATTACK_3,
+	CONST.PLAYER_ANIM_RUN_ATTACK,
 ]
 
 #access to main character node
@@ -42,11 +43,12 @@ onready var movement = get_node("../player_move")
 
 onready var ATTACK_STATES = [
 	parent.ATTACKING,
-	parent.CATCH_ATTACKING
+	parent.CATCH_ATTACKING,
+	parent.RUN_ATTACKING,
 ]
 onready var CATCHING_STATES = [
 	parent.CATCHING,
-	parent.CATCH_ATTACKING
+	parent.CATCH_ATTACKING,
 ]
 
 onready var ACTIONS = [
@@ -112,13 +114,15 @@ func _process(delta):
 		#regular cathc attack
 		if (parent.current_state in CATCHING_STATES):
 			catch_attack()
-			return
 		#regular ground combo
-		if (movement.jump_state == null):
-			ground_attack()
+		elif (movement.jump_state != null):
 			#mid-jump-attacks
-		else:
 			jump_attack()
+		else:
+			if (parent.current_state == parent.RUNNING): 
+				run_attack()
+			else:
+				ground_attack()
 		return
 	
 	
@@ -225,3 +229,13 @@ func jump_attack():
 			else:
 				if (!parent.anim.is_playing() and parent.curr_anim in ATTACK_ANIMATIONS):
 					reset_attack_state()
+					
+func run_attack():
+	#start run attack
+	if (parent.current_state != parent.RUN_ATTACKING):
+		parent.current_state = parent.RUN_ATTACKING
+		locked = true
+		parent.next_anim = CONST.PLAYER_ANIM_RUN_ATTACK
+	else:
+		if (!parent.anim.is_playing() and parent.curr_anim in ATTACK_ANIMATIONS):
+			reset_attack_state()

@@ -29,7 +29,7 @@ const PLAYER_ANIM_ATTACK_JUMP_DESCEND = "player_attack_jump_descend"
 const PLAYER_ANIM_CATTACK_1 = "player_catch_attack_1"
 const PLAYER_ANIM_CATTACK_2 = "player_catch_attack_2"
 const PLAYER_ANIM_CATTACK_3 = "player_catch_attack_3"
-
+const PLAYER_ANIM_RUN_ATTACK = "player_run_attack"
 
 #common animation to receive hit
 const ANIM_HIT= "hit_spark"

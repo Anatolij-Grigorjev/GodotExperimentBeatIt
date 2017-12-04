@@ -46,7 +46,7 @@ func _ready():
 		areas_info[area] = {
 			"min_pos": min_pos,
 			"max_pos": max_pos,
-			"enemy_pool": EnemiesPool.new(
+			"enemy_pool": EnemiesPool.new(self,
 			enemies_data[area_name], #enemy data
 			min_pos.x, #left X to spawn
 			max_pos.x, #right X to spawn

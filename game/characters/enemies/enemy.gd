@@ -35,6 +35,7 @@ export var movement_speed = Vector2(150, 50)
 export var armor_coef = 1.0 #additional weigth coefficient to reduce disloge
 export var stun_regen_rate = 0.0 #how quikcly does enemy recover from hits, per sec
 
+#enemy death signal, connected to pool before death
 signal enemy_death(idx)
 
 func _ready():
@@ -46,6 +47,7 @@ func _ready():
 	._ready()
 	#for measured regens
 	set_fixed_process(true)
+	
 	
 func _fixed_process(delta):
 	#update hit lock
@@ -199,7 +201,10 @@ func set_random_attack_state(distance):
 	current_state = ATTACKING
 	current_state_ctx.direction = distance.normalized()
 	current_state_ctx.attack = randi() % attacks.size()
-	
+
+func connect_pool_signal( pool ):
+	connect(CONST.SIG_ENEMY_DEATH, pool, "_enemy_dead")
+
 func dying():
 	print("Enemy %s dead!" % self)
 	emit_signal(CONST.SIG_ENEMY_DEATH, pool_idx)

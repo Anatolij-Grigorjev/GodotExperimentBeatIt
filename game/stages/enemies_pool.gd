@@ -20,14 +20,13 @@ var finished = false #pool over
 var code_to_enemy_scene = {
 	"thug" : preload("res://characters/enemies/thug/thug.tscn")
 }
-
-#enemy signal
-signal enemy_death(idx)
+var level
 #level signals
 signal enemy_pool_finished
 signal enemy_pool_add_new(enemy_node, global_feet_pos)
 
 func _init(
+level,
 enemies_data, 
 left_x, 
 right_x, 
@@ -49,17 +48,20 @@ spawn_interval_bound = 0.75):
 		})
 	current_enemies = []
 	current_spawn_wait = rand_range(0, spawn_wait_max)
+	self.level = level
 	
 #constnats not initialized before _ready
 func _ready():
 	finished = enemies_pool.empty()
-	#enemy death connected here, enemy idx stored in enemy
-	connect(CONST.SIG_ENEMY_DEATH, self, "_enemy_dead")
+	#connect level to the signals emitted later
+	connect(CONST.SIG_ENEMY_POOL_ADD_NEW, level, "_enemy_created")
+	#pool exhausted and over
+	connect(CONST.SIG_ENEMY_POOL_FINISHED, level, "_pool_stop_finished")
 	
 func _process(delta):
 	if (finished):
 		print("pool %s finished!" % self)
-		emit(CONST.SIG_ENEMY_POOL_FINISHED)
+		emit_signal(CONST.SIG_ENEMY_POOL_FINISHED)
 		queue_free()
 		return
 	#still have enemies to release, check in with timer and do it
@@ -73,6 +75,7 @@ func _process(delta):
 			var real_enemy = packed_enemy.scene.instance()
 			emit_signal(CONST.SIG_ENEMY_POOL_ADD_NEW, real_enemy, packed_enemy.position)
 			real_enemy.pool_idx = current_enemies.size()
+			real_enemy.connect_pool_signal(self)
 			current_enemies.append(real_enemy)
 
 func _enemy_dead(idx):

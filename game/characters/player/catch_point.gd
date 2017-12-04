@@ -69,3 +69,7 @@ func _on_catch_point_body_enter( body ):
 		return
 	last_known_body = body
 	
+
+func _on_catch_point_body_exit( body ):
+	if (last_known_body != null and last_known_body == body):
+		last_known_body = null

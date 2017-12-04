@@ -68,6 +68,8 @@ const THUG_ANIM_FALLING_FWD = "thug_falling_forward"
 const THUG_ANIM_FALLING_BCK = "thug_falling_backward"
 const THUG_ANIM_ON_BACK = "thug_fall_on_back"
 const THUG_ANIM_ON_BELLY = "thug_fall_on_belly"
+const THUG_ANIM_DEATH_ON_BACK = "thug_death_on_back"
+const THUG_ANIM_DEATH_ON_BELLY = "thug_death_on_belly"
 const THUG_ANIM_CAUGHT = "thug_caught"
 const THUG_ANIM_CAUGHT_HURT = "thug_caught_hurt"
 

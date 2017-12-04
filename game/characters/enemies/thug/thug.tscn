@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=1]
+[gd_scene load_steps=17 format=1]
 
 [ext_resource path="res://characters/enemies/thug/thug.gd" type="Script" id=1]
 [ext_resource path="res://characters/enemies/thug/bandit_sprites.png" type="Texture" id=2]
@@ -128,6 +128,84 @@ tracks/2/keys = {
 "transitions": FloatArray( 1 ),
 "update": 0,
 "values": [ Vector2( 2.5, 4.5 ) ]
+}
+
+[sub_resource type="Animation" id=13]
+
+resource/name = "thug_death_on_back"
+length = 0.8
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprites:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.3, 0.5, 0.7, 0.8 ),
+"transitions": FloatArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 34, 9, 34, 9, 34, 9 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:transform/scale")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0.8 ),
+"transitions": FloatArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "dying"
+} ]
+}
+
+[sub_resource type="Animation" id=14]
+
+resource/name = "thug_death_on_belly"
+length = 0.8
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprites:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.3, 0.5, 0.7, 0.8 ),
+"transitions": FloatArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 44, 9, 44, 9, 44, 9 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:transform/scale")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0.8 ),
+"transitions": FloatArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "dying"
+} ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -424,7 +502,7 @@ extents = Vector2( 13.6965, 10.7096 )
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1.4, 0, 0, 1.4, 2.5, 4.5 )
+shapes/0/transform = Matrix32( 1e-05, 0, 0, 1e-05, -0.505905, 4.18157 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -435,6 +513,7 @@ feet_pos = Vector2( 0, 0 )
 min_pos = Vector2( 0, 0 )
 max_pos = Vector2( 0, 0 )
 center_pos = Vector2( 0, 0 )
+health = 50
 decision_interval = 2.5
 scan_distance = 350
 attack_distance = 50
@@ -453,6 +532,8 @@ root/root = NodePath("..")
 anims/thug_attack_1 = SubResource( 2 )
 anims/thug_caught = SubResource( 3 )
 anims/thug_caught_hurt = SubResource( 4 )
+anims/thug_death_on_back = SubResource( 13 )
+anims/thug_death_on_belly = SubResource( 14 )
 anims/thug_fall_on_back = SubResource( 5 )
 anims/thug_fall_on_belly = SubResource( 6 )
 anims/thug_falling_backward = SubResource( 7 )
@@ -467,11 +548,12 @@ autoplay = ""
 
 [node name="sprites" type="Sprite" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 1, 0 )
 texture = ExtResource( 2 )
 vframes = 14
 hframes = 10
-frame = 53
+frame = 9
 
 [node name="fist" type="Area2D" parent="sprites"]
 
@@ -499,8 +581,8 @@ transform/pos = Vector2( 1, 0 )
 
 [node name="body" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( 2.5, 4.5 )
-transform/scale = Vector2( 1.4, 1.4 )
+transform/pos = Vector2( -0.505905, 4.18157 )
+transform/scale = Vector2( 1e-05, 1e-05 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0

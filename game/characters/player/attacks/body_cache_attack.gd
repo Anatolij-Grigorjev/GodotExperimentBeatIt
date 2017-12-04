@@ -20,6 +20,8 @@ var attack_info = {
 	attack_name = "<?>",
 	#how many stun points attack hits for
 	attack_stun = 0,
+	#how many HP does this attack take in damage
+	attack_power = 1,
 	#width of attack effectivness on the field
 	attack_z = 0,
 	#how long does the post-attack invulnerability last on enemy

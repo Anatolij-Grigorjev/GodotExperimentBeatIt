@@ -16,16 +16,18 @@ var x_bounds = Vector2()
 var y_bounds = Vector2()
 
 var finished = false #pool over
-var level
 #enemy code in JSON translation to packed scene enemy
 var code_to_enemy_scene = {
 	"thug" : preload("res://characters/enemies/thug/thug.tscn")
 }
 
+#enemy signal
 signal enemy_death(idx)
+#level signals
+signal enemy_pool_finished
+signal enemy_pool_add_new(enemy_node, global_feet_pos)
 
 func _init(
-level,
 enemies_data, 
 left_x, 
 right_x, 
@@ -47,16 +49,17 @@ spawn_interval_bound = 0.75):
 		})
 	current_enemies = []
 	current_spawn_wait = rand_range(0, spawn_wait_max)
-	self.level = level
 	
 #constnats not initialized before _ready
 func _ready():
+	finished = enemies_pool.empty()
 	#enemy death connected here, enemy idx stored in enemy
 	connect(CONST.SIG_ENEMY_DEATH, self, "_enemy_dead")
 	
 func _process(delta):
 	if (finished):
-		level.emit(CONST.SIG_ENEMY_POOL_FINISHED)
+		print("pool %s finished!" % self)
+		emit(CONST.SIG_ENEMY_POOL_FINISHED)
 		queue_free()
 		return
 	#still have enemies to release, check in with timer and do it
@@ -68,15 +71,14 @@ func _process(delta):
 			var packed_enemy = enemies_pool.back()
 			enemies_pool.pop_back()
 			var real_enemy = packed_enemy.scene.instance()
-			level.emit_signal(CONST.SIG_ENEMY_POOL_ADD_NEW, real_enemy, packed_enemy.position)
+			emit_signal(CONST.SIG_ENEMY_POOL_ADD_NEW, real_enemy, packed_enemy.position)
 			real_enemy.pool_idx = current_enemies.size()
 			current_enemies.append(real_enemy)
-	else:
-		if (current_enemies.empty()):
-			finished = true
 
 func _enemy_dead(idx):
 	#ignore indices out of range
 	if (idx >= 0 and idx < current_enemies.size()):
 		print("enemy dead at index %s, removing..." % idx)
 		current_enemies.remove(idx)
+	if (current_enemies.empty()):
+			finished = true

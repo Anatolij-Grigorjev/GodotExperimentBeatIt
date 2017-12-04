@@ -28,6 +28,7 @@ const CIRCLE_COLOR_PAIN = Color(1, 1, 1)
 func _draw():
 	._draw()
 	draw_string(FONT_DEBUG_INFO, Vector2(50, max_pos_node.get_pos().y),  "(%s/%s)" % [int(current_stun_points), MAX_STUN_POINTS])
+	draw_string(FONT_DEBUG_INFO, Vector2(-50, max_pos_node.get_pos().y), str(health))
 	if (current_state == HURTING):
 		draw_circle(sprite.get_pos(), 10.0, CIRCLE_COLOR_PAIN)
 	
@@ -62,6 +63,9 @@ func change_anim():
 			current_anim = CONST.THUG_ANIM_ON_BACK
 		else:
 			current_anim = CONST.THUG_ANIM_ON_BELLY
+	elif (current_state == DYING):
+		#dying animation name is based on fallen animation name (on belly or on back)
+		current_anim = "thug_death_" + current_anim.right("thug_fall_".length())
 
 func take_action(delta):
 	#custom thug attack actions

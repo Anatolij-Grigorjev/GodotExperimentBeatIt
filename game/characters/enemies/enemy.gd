@@ -24,6 +24,7 @@ const DISLOGE_KEYS = [ "disloge", "initial_pos"]
 var HURTING_STATES = [ HURTING, CAUGHT_HURTING ]
 var CAUGHT_STATES = [ CAUGHT, CAUGHT_HURTING ]
 #main defaults for enemies on things
+export var health = 50 #hitpoints of enemy
 export var decision_interval = 2.5 #in seconds
 export var scan_distance = 350 # in pixels, to either side
 export var attack_distance = 50 #in pixels, either side
@@ -34,6 +35,7 @@ export var movement_speed = Vector2(150, 50)
 export var armor_coef = 1.0 #additional weigth coefficient to reduce disloge
 export var stun_regen_rate = 0.0 #how quikcly does enemy recover from hits, per sec
 
+signal enemy_death(idx)
 
 func _ready():
 	reset_state()
@@ -122,6 +124,10 @@ func change_state(delta):
 				current_state_ctx.lying_cooldown = lying_down_cooldown
 		return
 	if (current_state == FALLEN):
+		if (health <= 0):
+			current_state = DYING
+			set_process(false)
+			return
 		if (current_state_ctx.lying_cooldown > 0):
 			current_state_ctx.lying_cooldown -= delta
 	#enough lying down on the job, get up and do something
@@ -195,10 +201,14 @@ func set_random_attack_state(distance):
 	current_state_ctx.attack = randi() % attacks.size()
 	
 func dying():
+	print("Enemy %s dead!" % self)
 	emit_signal(CONST.SIG_ENEMY_DEATH, pool_idx)
 	queue_free()
 
 func state_for_stun():
+	#always fall when dead
+	if (health <= 0):
+		return FALLING
 	if (MAX_STUN_POINTS / 2 <= current_stun_points and current_stun_points <= MAX_STUN_POINTS):
 		return STANDING
 	elif (1 <= current_stun_points and current_stun_points < MAX_STUN_POINTS / 2):
@@ -211,6 +221,7 @@ func get_hit(attack_info):
 	just_hit = true
 	hit_lock = attack_info.hit_lock 
 	current_stun_points -= attack_info.attack_stun
+	health -= attack_info.attack_power
 	#check prev state later in method
 	var prev_state = current_state
 	#state was caught or not

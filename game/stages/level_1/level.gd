@@ -46,7 +46,7 @@ func _ready():
 		areas_info[area] = {
 			"min_pos": min_pos,
 			"max_pos": max_pos,
-			"enemy_pool": EnemiesPool.new(self,
+			"enemy_pool": EnemiesPool.new(
 			enemies_data[area_name], #enemy data
 			min_pos.x, #left X to spawn
 			max_pos.x, #right X to spawn
@@ -107,6 +107,7 @@ func _process(delta):
 
 func _pool_stop_finished( ):
 	player_current_bounds_x = null
+	print("enemy pool over, player unbound!")
 	
 func _enemy_created( enemy_node, global_feet_pos ):
 	self.add_child( enemy_node )

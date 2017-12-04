@@ -39,12 +39,12 @@ extents = Vector2( 32.5941, 12.4987 )
 custom_solver_bias = 0.0
 extents = Vector2( 17.7387, 27.5229 )
 
-[sub_resource type="RectangleShape2D" id=22]
+[sub_resource type="RectangleShape2D" id=7]
 
 custom_solver_bias = 0.0
 extents = Vector2( 24.6876, 16.8977 )
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 
 length = 0.4
 loop = false
@@ -95,7 +95,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 
 length = 0.4
 loop = false
@@ -146,7 +146,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 
 length = 0.3
 loop = false
@@ -197,7 +197,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=11]
 
 length = 0.6
 loop = false
@@ -248,7 +248,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=12]
 
 length = 0.4
 loop = false
@@ -299,7 +299,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=13]
 
 length = 0.45
 loop = false
@@ -350,9 +350,8 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=14]
 
-resource/name = "player_catch_attack_1"
 length = 0.3
 loop = false
 step = 0.1
@@ -412,9 +411,8 @@ tracks/4/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=15]
 
-resource/name = "player_catch_attack_2"
 length = 0.3
 loop = false
 step = 0.1
@@ -474,9 +472,8 @@ tracks/4/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=16]
 
-resource/name = "player_catch_attack_3"
 length = 0.6
 loop = false
 step = 0.1
@@ -526,9 +523,8 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=17]
 
-resource/name = "player_catching"
 length = 0.1
 loop = false
 step = 0.1
@@ -543,7 +539,7 @@ tracks/0/keys = {
 "values": [ 50 ]
 }
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=18]
 
 length = 1.1
 loop = true
@@ -579,7 +575,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0.75, 0.75 ), Vector2( 0.75, 0.75 ) ]
 }
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id=19]
 
 length = 0.4
 loop = false
@@ -615,7 +611,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0.7, 0.7 ) ]
 }
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id=20]
 
 length = 0.1
 loop = false
@@ -651,7 +647,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=20]
+[sub_resource type="Animation" id=21]
 
 length = 0.8
 loop = true
@@ -687,7 +683,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0.75, 0.75 ), Vector2( 0.75, 0.75 ) ]
 }
 
-[sub_resource type="Animation" id=23]
+[sub_resource type="Animation" id=22]
 
 resource/name = "player_run_attack"
 length = 0.6
@@ -739,7 +735,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=21]
+[sub_resource type="Animation" id=23]
 
 length = 0.9
 loop = true
@@ -1026,7 +1022,7 @@ _update_shape_index = 0
 [node name="attack_run" type="Area2D" parent="sprites/attack_hitboxes"]
 
 input/pickable = true
-shapes/0/shape = SubResource( 22 )
+shapes/0/shape = SubResource( 7 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 14.8228, -0.395271 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -1038,7 +1034,7 @@ script/script = ExtResource( 5 )
 [node name="collision" type="CollisionShape2D" parent="sprites/attack_hitboxes/attack_run"]
 
 transform/pos = Vector2( 14.8228, -0.395271 )
-shape = SubResource( 22 )
+shape = SubResource( 7 )
 trigger = false
 _update_shape_index = 0
 
@@ -1047,22 +1043,22 @@ _update_shape_index = 0
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/player_attack_1 = SubResource( 7 )
-anims/player_attack_2 = SubResource( 8 )
-anims/player_attack_3 = SubResource( 9 )
-anims/player_attack_4 = SubResource( 10 )
-anims/player_attack_jump_ascend = SubResource( 11 )
-anims/player_attack_jump_descend = SubResource( 12 )
-anims/player_catch_attack_1 = SubResource( 13 )
-anims/player_catch_attack_2 = SubResource( 14 )
-anims/player_catch_attack_3 = SubResource( 15 )
-anims/player_catching = SubResource( 16 )
-anims/player_idle = SubResource( 17 )
-anims/player_jump_air = SubResource( 18 )
-anims/player_jump_start = SubResource( 19 )
-anims/player_run = SubResource( 20 )
-anims/player_run_attack = SubResource( 23 )
-anims/player_walk = SubResource( 21 )
+anims/player_attack_1 = SubResource( 8 )
+anims/player_attack_2 = SubResource( 9 )
+anims/player_attack_3 = SubResource( 10 )
+anims/player_attack_4 = SubResource( 11 )
+anims/player_attack_jump_ascend = SubResource( 12 )
+anims/player_attack_jump_descend = SubResource( 13 )
+anims/player_catch_attack_1 = SubResource( 14 )
+anims/player_catch_attack_2 = SubResource( 15 )
+anims/player_catch_attack_3 = SubResource( 16 )
+anims/player_catching = SubResource( 17 )
+anims/player_idle = SubResource( 18 )
+anims/player_jump_air = SubResource( 19 )
+anims/player_jump_start = SubResource( 20 )
+anims/player_run = SubResource( 21 )
+anims/player_run_attack = SubResource( 22 )
+anims/player_walk = SubResource( 23 )
 next/player_jump_start = "player_jump_air"
 playback/active = true
 playback/speed = 1.0
@@ -1121,6 +1117,8 @@ transform/pos = Vector2( -40, 40 )
 transform/pos = Vector2( 40, -40 )
 
 [connection signal="body_enter" from="sprites/catch_collider" to="sprites/catch_collider" method="_on_catch_point_body_enter"]
+
+[connection signal="body_exit" from="sprites/catch_collider" to="sprites/catch_collider" method="_on_catch_point_body_exit"]
 
 [connection signal="body_enter" from="sprites/attack_hitboxes/attack_1" to="sprites/attack_hitboxes/attack_1" method="body_enter"]
 

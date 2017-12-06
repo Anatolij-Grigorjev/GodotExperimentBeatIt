@@ -19,6 +19,7 @@ func _ready():
 	movement.jumping = false
 	current_anim = CONST.THUG_ANIM_IDLE
 	anim.play(current_anim)
+	MAX_HP = 50
 	._ready()
 	
 func _process(delta):
@@ -27,8 +28,8 @@ func _process(delta):
 const CIRCLE_COLOR_PAIN = Color(1, 1, 1)
 func _draw():
 	._draw()
-	draw_string(FONT_DEBUG_INFO, Vector2(50, max_pos_node.get_pos().y),  "(%s/%s)" % [int(current_stun_points), MAX_STUN_POINTS])
-	draw_string(FONT_DEBUG_INFO, Vector2(-50, max_pos_node.get_pos().y), str(health))
+	#draw_string(FONT_DEBUG_INFO, Vector2(50, max_pos_node.get_pos().y),  "(%s/%s)" % [int(current_stun_points), MAX_STUN_POINTS])
+	#draw_string(FONT_DEBUG_INFO, Vector2(-50, max_pos_node.get_pos().y), str(health))
 	if (current_state == HURTING):
 		draw_circle(sprite.get_pos(), 10.0, CIRCLE_COLOR_PAIN)
 	

@@ -19,12 +19,14 @@ var just_hit = false
 var pool_idx = -1
 
 onready var anim = get_node("anim")
+onready var healthbar = get_node("healthbar")
 var player
 const DISLOGE_KEYS = [ "disloge", "initial_pos"]
 var HURTING_STATES = [ HURTING, CAUGHT_HURTING ]
 var CAUGHT_STATES = [ CAUGHT, CAUGHT_HURTING ]
+var MAX_HP = 50 #max hp for this enemy
 #main defaults for enemies on things
-export var health = 50 #hitpoints of enemy
+export var health = 1
 export var decision_interval = 2.5 #in seconds
 export var scan_distance = 350 # in pixels, to either side
 export var attack_distance = 50 #in pixels, either side
@@ -43,6 +45,9 @@ func _ready():
 	getting_hit = false
 	just_hit = false
 	current_stun_points = MAX_STUN_POINTS
+	healthbar.set_min( 0 )
+	healthbar.set_max( MAX_HP )
+	set_health(MAX_HP)
 	player = get_tree().get_root().find_node("player", true, false)
 	._ready()
 	#for measured regens
@@ -226,7 +231,7 @@ func get_hit(attack_info):
 	just_hit = true
 	hit_lock = attack_info.hit_lock 
 	current_stun_points -= attack_info.attack_stun
-	health -= attack_info.attack_power
+	set_health(health - attack_info.attack_power)
 	#check prev state later in method
 	var prev_state = current_state
 	#state was caught or not
@@ -260,3 +265,7 @@ func get_hit(attack_info):
 			#push back half idstance and start hurting
 			current_state_ctx.disloge = Vector2(
 				current_state_ctx.disloge.x / 2, 0)
+
+func set_health( health ):
+	self.health = health
+	healthbar.set_value( health );

@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=1]
+[gd_scene load_steps=18 format=1]
 
 [ext_resource path="res://characters/enemies/thug/thug.gd" type="Script" id=1]
 [ext_resource path="res://characters/enemies/thug/bandit_sprites.png" type="Texture" id=2]
+[ext_resource path="res://characters/healthbar/healthbar.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -502,7 +503,7 @@ extents = Vector2( 13.6965, 10.7096 )
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1e-05, 0, 0, 1e-05, -0.505905, 4.18157 )
+shapes/0/transform = Matrix32( 1.4, 0, 0, 1.4, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -513,7 +514,7 @@ feet_pos = Vector2( 0, 0 )
 min_pos = Vector2( 0, 0 )
 max_pos = Vector2( 0, 0 )
 center_pos = Vector2( 0, 0 )
-health = 50
+health = 1
 decision_interval = 2.5
 scan_distance = 350
 attack_distance = 50
@@ -553,7 +554,6 @@ transform/pos = Vector2( 1, 0 )
 texture = ExtResource( 2 )
 vframes = 14
 hframes = 10
-frame = 9
 
 [node name="fist" type="Area2D" parent="sprites"]
 
@@ -581,8 +581,7 @@ transform/pos = Vector2( 1, 0 )
 
 [node name="body" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( -0.505905, 4.18157 )
-transform/scale = Vector2( 1e-05, 1e-05 )
+transform/scale = Vector2( 1.4, 1.4 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
@@ -598,5 +597,12 @@ transform/pos = Vector2( -30, 40 )
 [node name="max_pos" type="Position2D" parent="."]
 
 transform/pos = Vector2( 30, -40 )
+
+[node name="healthbar" parent="." instance=ExtResource( 3 )]
+
+margin/left = -40.0
+margin/top = -50.0
+margin/right = 260.0
+margin/bottom = 0.0
 
 

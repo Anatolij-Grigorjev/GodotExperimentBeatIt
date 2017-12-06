@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://characters/healthbar/heathbar_bg.png" type="Texture" id=1]
+[ext_resource path="res://characters/healthbar/healthbar_border.png" type="Texture" id=2]
+[ext_resource path="res://characters/healthbar/healthbar_fill.png" type="Texture" id=3]
+
+[node name="healthbar" type="TextureProgress"]
+
+rect/scale = Vector2( 0.3, 0.2 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 300.0
+margin/bottom = 50.0
+range/min = 0.0
+range/max = 100.0
+range/step = 1.0
+range/page = 0.0
+range/value = 24.0
+range/exp_edit = false
+range/rounded = false
+texture/under = ExtResource( 1 )
+texture/over = ExtResource( 2 )
+texture/progress = ExtResource( 3 )
+radial_fill/fill_degrees = 360.0
+radial_fill/center_offset = Vector2( 0, 0 )
+
+

@@ -39,6 +39,8 @@ const ANIM_HIT= "hit_spark"
 const SIG_ENEMY_DEATH = "enemy_death"
 const SIG_ENEMY_POOL_FINISHED = "enemy_pool_finished"
 const SIG_ENEMY_POOL_ADD_NEW = "enemy_pool_add_new"
+const SIG_PLAYER_MAX_HP = "set_max_hp"
+const SIG_PLAYER_SET_HP = "set_health"
 
 #player input actions, defined in project settings
 const INPUT_ACTION_MOVE_LEFT = "move_left"

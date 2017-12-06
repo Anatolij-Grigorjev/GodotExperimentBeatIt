@@ -1,5 +1,7 @@
 extends "../basic_movement.gd"
 
+const MAX_HP = 150
+
 onready var anim = get_node("anim")
 onready var movement = get_node("player_move")
 onready var attacks = get_node("player_attack")
@@ -8,6 +10,8 @@ onready var catch_point = get_node("sprites/catch_point")
 var timer
 var curr_anim
 var next_anim
+
+var health #current player health
 
 var caught_enemy
 var getting_hit = false
@@ -18,14 +22,27 @@ onready var init_nodes = [
 	attacks
 ]
 
+signal set_max_hp(max_hp)
+signal set_health(health)
+
 func _ready():
 	curr_anim = ""
 	next_anim = null
 	timer = 0.0
+	health = MAX_HP
 	._ready()
 	for node in init_nodes:
 		if node.has_method("_parent_ready"):
 			node._parent_ready()
+	#get HUD elements and connect signals
+	var hud = get_node("/root/level/overlay/HUD")
+	if (hud != null):
+		connect(CONST.SIG_PLAYER_MAX_HP, hud, "_set_max_hp")
+		connect(CONST.SIG_PLAYER_SET_HP, hud, "_set_hp")
+	
+	emit_signal(CONST.SIG_PLAYER_MAX_HP, MAX_HP)
+	emit_signal(CONST.SIG_PLAYER_SET_HP, health)
+
 
 func _process(delta):
 	curr_anim = anim.get_current_animation()

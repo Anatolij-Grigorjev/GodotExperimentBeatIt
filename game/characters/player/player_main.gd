@@ -1,8 +1,5 @@
 extends "../basic_movement.gd"
 
-const MAX_HP = 150
-
-onready var anim = get_node("anim")
 onready var movement = get_node("player_move")
 onready var attacks = get_node("player_attack")
 onready var catch_point = get_node("sprites/catch_point")
@@ -11,10 +8,7 @@ var timer
 var curr_anim
 var next_anim
 
-var health #current player health
-
 var caught_enemy
-var getting_hit = false
 #nodes to perform additional processing when parent is ready
 #normally children are inited before parent
 onready var init_nodes = [
@@ -29,7 +23,7 @@ func _ready():
 	curr_anim = ""
 	next_anim = null
 	timer = 0.0
-	health = MAX_HP
+	MAX_HP = 150
 	._ready()
 	for node in init_nodes:
 		if node.has_method("_parent_ready"):
@@ -41,7 +35,7 @@ func _ready():
 		connect(CONST.SIG_PLAYER_SET_HP, hud, "_set_hp")
 	
 	emit_signal(CONST.SIG_PLAYER_MAX_HP, MAX_HP)
-	emit_signal(CONST.SIG_PLAYER_SET_HP, health)
+	set_health(MAX_HP)
 
 
 func _process(delta):
@@ -77,10 +71,11 @@ func release_enemy(disloge = CONST.VECTOR2_ZERO):
 		enemy.current_state_ctx.disloge = Vector2(
 			disloge.x * sign(sprite.get_scale().x),
 			disloge.y)
-
-func get_hit(attack_info):
-	pass
 	
 func _draw():
 	._draw()
 	draw_circle(catch_point.get_pos(), 5.0, COLOR_WHITE)
+	
+func set_health (health):
+	.set_health(health)
+	emit_signal(CONST.SIG_PLAYER_SET_HP, health)

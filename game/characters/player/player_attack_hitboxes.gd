@@ -12,10 +12,6 @@ func _ready():
 	attacks.end_catch_disloge = attacks_hitboxes[attacks.CATCH_ATTACK_3].attack_info.disloge_vector
 	
 	
-func _process (delta):
-	for attack_node in attacks_hitboxes:
-		if (attack_node.active):
-			attack_node.process_bodies()
 	
 func do_attack( body, attack_info ):
 	#handle an enemy getting hit

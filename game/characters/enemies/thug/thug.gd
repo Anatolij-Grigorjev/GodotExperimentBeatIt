@@ -12,14 +12,14 @@ func _ready():
 	movement_speed = Vector2(150, 50)
 	lying_down_cooldown = 0.6
 	hurt_pushback_time = 0.2
-	stun_regen_rate = 0.1
+	stun_regen_rate = 15
 	attacks = [
 		CONST.THUG_ANIM_ATTACK_1
 	]
 	movement.jumping = false
 	current_anim = CONST.THUG_ANIM_IDLE
 	anim.play(current_anim)
-	MAX_HP = 50
+	MAX_HP = 1000
 	._ready()
 	
 func _process(delta):
@@ -28,7 +28,7 @@ func _process(delta):
 const CIRCLE_COLOR_PAIN = Color(1, 1, 1)
 func _draw():
 	._draw()
-	#draw_string(FONT_DEBUG_INFO, Vector2(50, max_pos_node.get_pos().y),  "(%s/%s)" % [int(current_stun_points), MAX_STUN_POINTS])
+
 	#draw_string(FONT_DEBUG_INFO, Vector2(-50, max_pos_node.get_pos().y), str(health))
 	if (current_state == HURTING):
 		draw_circle(sprite.get_pos(), 10.0, CIRCLE_COLOR_PAIN)
@@ -65,15 +65,13 @@ func change_anim():
 		else:
 			current_anim = CONST.THUG_ANIM_ON_BELLY
 	elif (current_state == DYING):
+		if (!(current_anim in [CONST.THUG_ANIM_ON_BACK, CONST.THUG_ANIM_ON_BELLY])):
+			#try evaluating again
+			current_state = FALLEN
+			change_anim()
+			current_state = DYING
 		#dying animation name is based on fallen animation name (on belly or on back)
 		current_anim = "thug_death_" + current_anim.right("thug_fall_".length())
 
-func take_action(delta):
-	#custom thug attack actions
-	.take_action(delta)
-	
-func get_hit(attack_info):
-	.get_hit(attack_info)
-	#attack effect based on attack type
-	#hit_effect.instance()
-	
+func do_death():
+	pass

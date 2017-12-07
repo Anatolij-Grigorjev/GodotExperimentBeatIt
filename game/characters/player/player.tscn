@@ -774,6 +774,14 @@ collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
 current_state = null
+current_state_ctx = {
+
+}
+health = 1
+lying_down_cooldown = 0.2
+hurt_pushback_time = 0.15
+armor_coef = 1.0
+stun_regen_rate = 0.0
 feet_pos = Vector2( 0, 0 )
 min_pos = Vector2( 0, 0 )
 max_pos = Vector2( 0, 0 )

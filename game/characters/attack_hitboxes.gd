@@ -57,7 +57,7 @@ func do_attack( body, attack_info ):
 		var enemy_z = enemy.get_z()
 		var diff = abs(parent.get_z() - enemy_z)
 		if (diff <= attack_info.attack_z):
-			enemy.get_hit(attack_info)
+			enemy.get_hit(parent, attack_info)
 		return true
 	else:
 		return false

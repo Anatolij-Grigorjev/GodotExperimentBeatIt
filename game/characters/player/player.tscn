@@ -1,10 +1,10 @@
-[gd_scene load_steps=31 format=1]
+[gd_scene load_steps=38 format=1]
 
 [ext_resource path="res://characters/player/player_main.gd" type="Script" id=1]
 [ext_resource path="res://characters/player/player_sprites.png" type="Texture" id=2]
 [ext_resource path="res://characters/player/catch_point.gd" type="Script" id=3]
 [ext_resource path="res://characters/player/player_attack_hitboxes.gd" type="Script" id=4]
-[ext_resource path="res://characters/player/attacks/body_cache_attack.gd" type="Script" id=5]
+[ext_resource path="res://characters/body_cache_attack.gd" type="Script" id=5]
 [ext_resource path="res://characters/player/player_move.gd" type="Script" id=6]
 [ext_resource path="res://characters/player/player_attack.gd" type="Script" id=7]
 
@@ -541,6 +541,275 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=18]
 
+resource/name = "player_death_on_back"
+length = 0.8
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprites:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.3, 0.5, 0.7, 0.8 ),
+"transitions": FloatArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 34, 110, 34, 110, 34, 110 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:transform/scale")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("body:transform/pos")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ Vector2( -1500, 1500 ) ]
+}
+
+[sub_resource type="Animation" id=19]
+
+resource/name = "player_death_on_belly"
+length = 0.8
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprites:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.3, 0.5, 0.7, 0.8 ),
+"transitions": FloatArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 44, 110, 44, 110, 44, 110 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:transform/scale")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("body:transform/pos")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ Vector2( -1500, 1500 ) ]
+}
+
+[sub_resource type="Animation" id=20]
+
+resource/name = "player_fall_on_back"
+length = 0.2
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprites:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.2 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 1,
+"values": [ 35, 34 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:transform/scale")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("body:transform/pos")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ Vector2( -1500, 1500 ) ]
+}
+
+[sub_resource type="Animation" id=21]
+
+resource/name = "player_fall_on_belly"
+length = 0.2
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprites:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.2 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 1,
+"values": [ 45, 44 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:transform/scale")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("body:transform/pos")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ Vector2( -1500, 1500 ) ]
+}
+
+[sub_resource type="Animation" id=22]
+
+resource/name = "player_falling_backward"
+length = 0.6
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprites:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 40, 41, 42, 43 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:transform/rot")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 35.0, 330.0, 90.0, 90.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("body:transform/scale")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ Vector2( 0.5, 0.5 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("body:transform/pos")
+tracks/3/interp = 1
+tracks/3/imported = false
+tracks/3/keys = {
+"times": FloatArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 7.3, -1 ), Vector2( -6.5, -0.85 ), Vector2( 1.7, -3 ), Vector2( -3.15, 9.7 ) ]
+}
+
+[sub_resource type="Animation" id=23]
+
+resource/name = "player_falling_forward"
+length = 0.6
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprites:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 30, 31, 32, 33 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:transform/rot")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 35.0, 45.0, 90.0, 120.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("body:transform/scale")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ Vector2( 0.5, 0.5 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("body:transform/pos")
+tracks/3/interp = 1
+tracks/3/imported = false
+tracks/3/keys = {
+"times": FloatArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( -5, 1 ), Vector2( -8.25, -5.5 ), Vector2( -3.85, -13.5 ), Vector2( -2.7, -8.15 ) ]
+}
+
+[sub_resource type="Animation" id=24]
+
+resource/name = "player_hurting"
+length = 0.4
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprites:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.3 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 120, 121, 122 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:transform/pos")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ Vector2( -3.35568, 10.7395 ) ]
+}
+
+[sub_resource type="Animation" id=25]
+
 length = 1.1
 loop = true
 step = 0.1
@@ -575,7 +844,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0.75, 0.75 ), Vector2( 0.75, 0.75 ) ]
 }
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id=26]
 
 length = 0.4
 loop = false
@@ -611,7 +880,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0.7, 0.7 ) ]
 }
 
-[sub_resource type="Animation" id=20]
+[sub_resource type="Animation" id=27]
 
 length = 0.1
 loop = false
@@ -647,7 +916,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=21]
+[sub_resource type="Animation" id=28]
 
 length = 0.8
 loop = true
@@ -683,9 +952,8 @@ tracks/2/keys = {
 "values": [ Vector2( 0.75, 0.75 ), Vector2( 0.75, 0.75 ) ]
 }
 
-[sub_resource type="Animation" id=22]
+[sub_resource type="Animation" id=29]
 
-resource/name = "player_run_attack"
 length = 0.6
 loop = false
 step = 0.1
@@ -735,7 +1003,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=23]
+[sub_resource type="Animation" id=30]
 
 length = 0.9
 loop = true
@@ -762,12 +1030,13 @@ tracks/1/keys = {
 }
 
 [node name="player" type="KinematicBody2D" groups=[
+"player",
 "characters",
 ]]
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 0.6, 0, 0, 0.6, -6.6, 6.8 )
+shapes/0/transform = Matrix32( -4.37114e-13, -1e-05, 1e-05, -4.37114e-13, -1500, 1500 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -792,7 +1061,7 @@ center_pos = Vector2( 0, 0 )
 texture = ExtResource( 2 )
 vframes = 18
 hframes = 10
-frame = 102
+frame = 110
 
 [node name="catch_point" type="Position2D" parent="sprites"]
 
@@ -824,7 +1093,7 @@ _update_shape_index = 0
 
 [node name="attack_hitboxes" type="Node2D" parent="sprites"]
 
-editor/display_folded = true
+visibility/visible = false
 script/script = ExtResource( 4 )
 
 [node name="attack_1" type="Area2D" parent="sprites/attack_hitboxes"]
@@ -1061,12 +1330,19 @@ anims/player_catch_attack_1 = SubResource( 14 )
 anims/player_catch_attack_2 = SubResource( 15 )
 anims/player_catch_attack_3 = SubResource( 16 )
 anims/player_catching = SubResource( 17 )
-anims/player_idle = SubResource( 18 )
-anims/player_jump_air = SubResource( 19 )
-anims/player_jump_start = SubResource( 20 )
-anims/player_run = SubResource( 21 )
-anims/player_run_attack = SubResource( 22 )
-anims/player_walk = SubResource( 23 )
+anims/player_death_on_back = SubResource( 18 )
+anims/player_death_on_belly = SubResource( 19 )
+anims/player_fall_on_back = SubResource( 20 )
+anims/player_fall_on_belly = SubResource( 21 )
+anims/player_falling_backward = SubResource( 22 )
+anims/player_falling_forward = SubResource( 23 )
+anims/player_hurting = SubResource( 24 )
+anims/player_idle = SubResource( 25 )
+anims/player_jump_air = SubResource( 26 )
+anims/player_jump_start = SubResource( 27 )
+anims/player_run = SubResource( 28 )
+anims/player_run_attack = SubResource( 29 )
+anims/player_walk = SubResource( 30 )
 next/player_jump_start = "player_jump_air"
 playback/active = true
 playback/speed = 1.0
@@ -1105,9 +1381,9 @@ drag_margin/bottom = 0.2
 
 [node name="body" type="CollisionShape2D" parent="."]
 
-visibility/visible = false
-transform/pos = Vector2( -6.6, 6.8 )
-transform/scale = Vector2( 0.6, 0.6 )
+transform/pos = Vector2( -1500, 1500 )
+transform/rot = 90.0
+transform/scale = Vector2( 1e-05, 1e-05 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0

@@ -36,6 +36,10 @@ func _ready():
 	
 	emit_signal(CONST.SIG_PLAYER_MAX_HP, MAX_HP)
 	set_health(MAX_HP)
+	
+func update_hurt_states(delta):
+	.update_hurt_states(delta)
+	set_hurt_animation()
 
 
 func _process(delta):
@@ -79,3 +83,31 @@ func _draw():
 func set_health (health):
 	.set_health(health)
 	emit_signal(CONST.SIG_PLAYER_SET_HP, health)
+
+func set_hurt_animation():
+	if (current_state == HURTING):
+		next_anim = CONST.PLAYER_ANIM_HURTING
+		#thug was already hurting, lets restart the animation
+		if (anim.is_playing() and 
+		anim.get_current_animation() == next_anim and
+		just_hit):
+			anim.play(next_anim)
+	elif (current_state == FALLING):
+		if current_state_ctx.fall_direction > 0:
+			next_anim = CONST.PLAYER_ANIM_FALLING_FWD 
+		else: 
+			next_anim = CONST.PLAYER_ANIM_FALLING_BCK
+			
+	elif (current_state == FALLEN):
+		if current_state_ctx.fall_direction > 0:
+			next_anim = CONST.PLAYER_ANIM_ON_BACK
+		else:
+			next_anim = CONST.PLAYER_ANIM_ON_BELLY
+	elif (current_state == DYING):
+		if (!(next_anim in [CONST.PLAYER_ANIM_ON_BACK, CONST.PLAYER_ANIM_ON_BELLY])):
+			#try evaluating again
+			current_state = FALLEN
+			set_hurt_animation()
+			current_state = DYING
+		#dying animation name is based on fallen animation name (on belly or on back)
+		next_anim = "player_death_" + next_anim.right("player_fall_".length())

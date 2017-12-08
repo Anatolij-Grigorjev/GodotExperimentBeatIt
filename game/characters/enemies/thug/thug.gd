@@ -8,7 +8,7 @@ func _ready():
 	decision_interval = 0.5 
 	scan_distance = 700 
 	attack_distance = 50
-	aggressiveness = 0.70 
+	aggressiveness = 0.70
 	movement_speed = Vector2(150, 50)
 	lying_down_cooldown = 0.6
 	hurt_pushback_time = 0.2
@@ -40,6 +40,12 @@ func change_anim():
 		current_anim = CONST.THUG_ANIM_MOVE
 	elif (current_state == ATTACKING):
 		current_anim = attacks[current_state_ctx.attack]
+		
+	elif (current_state == CAUGHT):
+		current_anim = CONST.THUG_ANIM_CAUGHT
+	elif (current_state == CAUGHT_HURTING):
+		current_anim = CONST.THUG_ANIM_CAUGHT_HURT
+		
 	elif (current_state == HURTING):
 		current_anim = CONST.THUG_ANIM_HURTING
 		#thug was already hurting, lets restart the animation
@@ -47,12 +53,6 @@ func change_anim():
 		anim.get_current_animation() == current_anim and
 		just_hit):
 			anim.play(current_anim)
-	elif (current_state == CAUGHT):
-		current_anim = CONST.THUG_ANIM_CAUGHT
-	
-	elif (current_state == CAUGHT_HURTING):
-		current_anim = CONST.THUG_ANIM_CAUGHT_HURT
-	
 	elif (current_state == FALLING):
 		if current_state_ctx.fall_direction > 0:
 			current_anim = CONST.THUG_ANIM_FALLING_FWD 

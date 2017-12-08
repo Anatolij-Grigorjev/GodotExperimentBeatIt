@@ -10,6 +10,7 @@ const VECTOR2_ZERO = Vector2(0, 0)
 const FILE_PATH_NAMES_DB = "res://autoload/names-randomized.db"
 
 const PLAYER_ATTACKS_CONFIG_FILE_PATH = "res://characters/player/attacks/attacks.ini"
+const THUG_ATTACKS_CONFIG_FILE_PATH = "res://characters/enemies/thug/attacks.ini"
 const HIT_EFFECTS_FOLDER_PATH = "res://characters/hit_effects/"
 const ENEMIES_POOL_CLASS = "res://stages/enemies_pool.gd"
 #player animations names
@@ -30,6 +31,15 @@ const PLAYER_ANIM_CATTACK_1 = "player_catch_attack_1"
 const PLAYER_ANIM_CATTACK_2 = "player_catch_attack_2"
 const PLAYER_ANIM_CATTACK_3 = "player_catch_attack_3"
 const PLAYER_ANIM_RUN_ATTACK = "player_run_attack"
+#hurt animations
+const PLAYER_ANIM_HURTING = "player_hurting"
+const PLAYER_ANIM_FALLING_FWD = "player_falling_forward"
+const PLAYER_ANIM_FALLING_BCK = "player_falling_backward"
+const PLAYER_ANIM_ON_BACK = "player_fall_on_back"
+const PLAYER_ANIM_ON_BELLY = "player_fall_on_belly"
+const PLAYER_ANIM_DEATH_ON_BACK = "player_death_on_back"
+const PLAYER_ANIM_DEATH_ON_BELLY = "player_death_on_belly"
+
 
 #common animation to receive hit
 const ANIM_HIT= "hit_spark"
@@ -58,7 +68,7 @@ const DOUBLE_TAP_INTERVAL_SEC = 0.15
 #useful to know who gets a dropshadow
 const GROUP_CHARS = "characters"
 const GROUP_ENEMIES = "enemies"
-const GROUP_PLAYER_SWORD = "player_sword"
+const GROUP_PLAYER = "player"
 
 
 #enemy animation names

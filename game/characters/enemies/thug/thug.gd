@@ -14,7 +14,8 @@ func _ready():
 	hurt_pushback_time = 0.2
 	stun_regen_rate = 15
 	attacks = [
-		CONST.THUG_ANIM_ATTACK_1
+		CONST.THUG_ANIM_ATTACK_1,
+		CONST.THUG_ANIM_ATTACK_2,
 	]
 	movement.jumping = false
 	current_anim = CONST.THUG_ANIM_IDLE

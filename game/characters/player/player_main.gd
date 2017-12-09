@@ -19,11 +19,20 @@ onready var init_nodes = [
 signal set_max_hp(max_hp)
 signal set_health(health)
 
+#states that represent when to ignore the input from attack and move scripts
+var INDISPOSED_STATES = [
+	HURTING,
+	FALLING,
+	FALLEN,
+	DYING
+]
+
 func _ready():
 	curr_anim = ""
 	next_anim = null
 	timer = 0.0
 	MAX_HP = 150
+	stun_regen_rate = 17.5
 	._ready()
 	for node in init_nodes:
 		if node.has_method("_parent_ready"):
@@ -83,6 +92,11 @@ func _draw():
 func set_health (health):
 	.set_health(health)
 	emit_signal(CONST.SIG_PLAYER_SET_HP, health)
+	
+func reset_state():
+	.reset_state()
+	if (attacks != null):
+		attacks.reset_attack_state()
 
 func set_hurt_animation():
 	if (current_state == HURTING):

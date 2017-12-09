@@ -41,11 +41,13 @@ onready var parent = get_node("../")
 #access to movement, to know what attack to switch to
 onready var movement = get_node("../player_move")
 
+#states that represent when player is actively attacking
 onready var ATTACK_STATES = [
 	parent.ATTACKING,
 	parent.CATCH_ATTACKING,
 	parent.RUN_ATTACKING,
 ]
+#states that represent when player is handling caught enemy
 onready var CATCHING_STATES = [
 	parent.CATCHING,
 	parent.CATCH_ATTACKING,
@@ -91,7 +93,9 @@ func _ready():
 	#set disloge for end of catch combo
 	
 func _process(delta):
-		
+	#atack inputs ignored while hurting
+	if (parent.current_state in parent.INDISPOSED_STATES):
+		return
 	#gather inputs for frame
 	for action in ACTIONS:
 		pressing[action] = Input.is_action_pressed(action)

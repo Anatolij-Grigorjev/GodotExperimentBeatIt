@@ -88,6 +88,7 @@ func _ready():
 	set_process(true)
 
 func reset_state():
+#	print("reset state for %s" % self)
 	current_state = STANDING
 	getting_hit = false
 	ignore_z = false
@@ -273,7 +274,7 @@ func get_hit(attacker, attack_info):
 			feet_ground_y = feet_pos.y
 		else:
 			#was not yet hurt when attack hit, 
-			#push back half idstance and start hurting
+			#push back half distance and start hurting
 			current_state_ctx.disloge = Vector2(
 				current_state_ctx.disloge.x / 2, 0)
 

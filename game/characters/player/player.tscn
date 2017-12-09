@@ -784,7 +784,7 @@ tracks/3/keys = {
 [sub_resource type="Animation" id=24]
 
 resource/name = "player_hurting"
-length = 0.4
+length = 0.5
 loop = false
 step = 0.1
 tracks/0/type = "value"
@@ -1036,7 +1036,7 @@ tracks/1/keys = {
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( -4.37114e-13, -1e-05, 1e-05, -4.37114e-13, -1500, 1500 )
+shapes/0/transform = Matrix32( -3.27835e-08, -0.75, 0.75, -3.27835e-08, -3.35568, 10.7395 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -1061,7 +1061,7 @@ center_pos = Vector2( 0, 0 )
 texture = ExtResource( 2 )
 vframes = 18
 hframes = 10
-frame = 110
+frame = 120
 
 [node name="catch_point" type="Position2D" parent="sprites"]
 
@@ -1381,9 +1381,9 @@ drag_margin/bottom = 0.2
 
 [node name="body" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( -1500, 1500 )
+transform/pos = Vector2( -3.35568, 10.7395 )
 transform/rot = 90.0
-transform/scale = Vector2( 1e-05, 1e-05 )
+transform/scale = Vector2( 0.75, 0.75 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0

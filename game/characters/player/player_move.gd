@@ -31,7 +31,11 @@ onready var NON_RESET_STATES = [
 	parent.ATTACKING,
 	parent.JUMPING,
 	parent.CATCHING,
-	parent.CATCH_ATTACKING
+	parent.CATCH_ATTACKING,
+	parent.HURTING,
+	parent.FALLING,
+	parent.FALLEN,
+	parent.DYING
 ]
 
 var jump_state
@@ -58,9 +62,11 @@ func _parent_ready():
 	parent.anim.get_animation(CONST.PLAYER_ANIM_JUMP_AIR).set_length(JUMP_ASCEND_TIME)
 
 func _process(delta):
-	
 	#initial frame logic
 	parent.move_vector = CONST.VECTOR2_ZERO
+	#movement inputs ignored while hurting
+	if (parent.current_state in parent.INDISPOSED_STATES):
+		return
 	var frame_action = ""
 	if ((!attacks.locked or jump_state != null) 
 		and not parent.current_state in attacks.CATCHING_STATES ):

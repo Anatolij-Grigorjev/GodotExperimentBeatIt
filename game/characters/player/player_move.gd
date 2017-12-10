@@ -11,6 +11,12 @@ const JUMP_WIND_UP = 0.1
 const JUMP_ASCEND_TIME = 0.35
 const MOVESPEED_X_JUMP = 75
 
+const INITIAL_JUMP_VALS = {
+	"jump_state" : JUMP_STATES.WIND_UP,
+	"current_jump_wind_up": JUMP_WIND_UP,
+	"current_jump_ascend": JUMP_ASCEND_TIME
+}
+
 var WALK_SPEED = Vector2(100, 50)
 var RUN_SPEED = Vector2(175, 80)
 #movement directions dictionary for looped movement processing
@@ -30,6 +36,7 @@ onready var attacks = get_node("../player_attack")
 onready var NON_RESET_STATES = [
 	parent.ATTACKING,
 	parent.JUMPING,
+	parent.JUMP_ATTACK,
 	parent.CATCHING,
 	parent.CATCH_ATTACKING,
 	parent.HURTING,
@@ -37,12 +44,13 @@ onready var NON_RESET_STATES = [
 	parent.FALLEN,
 	parent.DYING
 ]
-
-var jump_state
-var current_jump_wind_up = 0
-var current_jump_ascend = 0
-#is the character locked into this set of actions for now?
-var locked = false
+#states that ignore the movement input in this script (in some cases they register movement on thier own)
+onready var NON_MOVE_STATES = [
+	parent.ATTACKING,
+	parent.JUMP_ATTACK,
+	parent.CATCHING,
+	parent.CATCH_ATTACKING,
+]
 
 var last_action_up = {
 	"time":0,
@@ -60,6 +68,23 @@ func _parent_ready():
 	#setup jump length based on animations
 	parent.anim.get_animation(CONST.PLAYER_ANIM_JUMP_START).set_length(JUMP_WIND_UP)
 	parent.anim.get_animation(CONST.PLAYER_ANIM_JUMP_AIR).set_length(JUMP_ASCEND_TIME)
+	
+func init_jump_state():
+
+	parent.current_state = parent.JUMPING
+	parent.next_anim = CONST.PLAYER_ANIM_JUMP_START
+	for ctx_key in INITIAL_JUMP_VALS:
+		parent.current_state_ctx[ctx_key] = INITIAL_JUMP_VALS[ctx_key]
+
+func finish_jump_state():
+	#Godot "feature" : dictionary erase method only works on local script dictionaries
+	#if you want to erase keys from a dictionary in another script, make a local copy and reassign later
+	#adding more keys doesnt have this problem
+	var copy_dic = parent.current_state_ctx
+	for ctx_key in INITIAL_JUMP_VALS:
+		copy_dic.erase(ctx_key)
+	parent.current_state_ctx = copy_dic
+
 
 func _process(delta):
 	#initial frame logic
@@ -68,16 +93,14 @@ func _process(delta):
 	if (parent.current_state in parent.INDISPOSED_STATES):
 		return
 	var frame_action = ""
-	if ((!attacks.locked or jump_state != null) 
-		and not parent.current_state in attacks.CATCHING_STATES ):
+	if (not (parent.current_state in NON_MOVE_STATES )):
 		for action in MOVEMENT:
-			#movement not allowed when locked into attack, except when parent.JUMPING
 			if (Input.is_action_pressed(action)):
 				parent.move_vector += MOVEMENT[action]
 				frame_action = action
 	
-	if (jump_state == null and !attacks.locked):
-		#resolve parent.RUNNING state
+	if (parent.current_state != parent.JUMPING):
+		#resolve running states
 		if (parent.current_state == parent.RUNNING):
 			#control different when already parent.RUNNING
 			if (!frame_action.empty() and frame_action != last_action_up.action):
@@ -88,62 +111,56 @@ func _process(delta):
 				and parent.timer - last_action_up.time <= CONST.DOUBLE_TAP_INTERVAL_SEC):
 					parent.current_state = parent.RUNNING
 		#process deciding to jump
-		var pressed_jump = Input.is_action_pressed(CONST.INPUT_ACTION_JUMP)
+		var pressed_jump = Input.is_action_pressed(CONST.INPUT_ACTION_JUMP) and not (parent.current_state in NON_MOVE_STATES)
 		if (pressed_jump):
-			parent.current_state = parent.JUMPING
+			init_jump_state()
 			frame_action = CONST.INPUT_ACTION_JUMP
-			jump_state = JUMP_STATES.WIND_UP
-			current_jump_wind_up = JUMP_WIND_UP
-			parent.next_anim = CONST.PLAYER_ANIM_JUMP_START
-			#cant switch to attack while jump-squatting
-			locked = true
 	else: 
+		var jump_state = parent.current_state_ctx.jump_state
 		#process current jump state
 		if (jump_state == JUMP_STATES.WIND_UP):
-			current_jump_wind_up -= delta
+			parent.current_state_ctx.current_jump_wind_up -= delta
 			parent.move_vector.x = 0
-			if (current_jump_wind_up <= 0):
-				current_jump_wind_up = 0
-				jump_state = JUMP_STATES.ASCEND
+			if (parent.current_state_ctx.current_jump_wind_up <= 0):
+				parent.current_state_ctx.current_jump_wind_up = 0
+				parent.current_state_ctx.jump_state = JUMP_STATES.ASCEND
 				parent.move_vector.y = -JUMP_STRENGTH
 				parent.ignore_G = true
-				current_jump_ascend = JUMP_ASCEND_TIME
+				parent.current_state_ctx.current_jump_ascend = JUMP_ASCEND_TIME
 				parent.feet_ground_y = parent.feet_pos.y
-				#once jump is ascending, character can attack
-				locked = false
-		
+
 		if (jump_state == JUMP_STATES.ASCEND):
-			current_jump_ascend -= delta
+			parent.current_state_ctx.current_jump_ascend -= delta
 			#stop moving up when ascend over
-			if current_jump_ascend > 0:
+			if parent.current_state_ctx.current_jump_ascend > 0:
 				parent.move_vector.y = -JUMP_STRENGTH 
 			#move on to descend after attack is finished
-			if (current_jump_ascend <= 0 && !parent.current_state == parent.ATTACKING):
-				current_jump_ascend = 0
-				jump_state = JUMP_STATES.DESCEND
-				#no need to move down with gravity
-				#done in parent
+			if (parent.current_state_ctx.current_jump_ascend <= 0 and parent.current_state != parent.JUMP_ATTACK):
+				parent.current_state_ctx.current_jump_ascend = 0
+				parent.current_state_ctx.jump_state = JUMP_STATES.DESCEND
+				#re-engage gravity, done ascending portion of jump
 				parent.ignore_G = false
 				
 		if (jump_state == JUMP_STATES.DESCEND):
-
 			if (parent.feet_pos.y >= parent.feet_ground_y):
 				parent.move_vector.y = parent.feet_pos.y - parent.feet_ground_y
-				jump_state = null
+				finish_jump_state()
 				#have to manually set it back to not ignore (set automatically when character in air)
 				parent.ignore_z = false
 				parent.feet_ground_y = null
 				#stop descend attack if it was in progress
-				if (parent.current_state == parent.ATTACKING):
+				if (parent.current_state == parent.JUMP_ATTACK):
 					attacks.reset_attack_state()
+				else:
+					parent.current_state = parent.STANDING
 	
-	#locked into run attack, supply movement
+	#locked into run attack, supply movement direction
 	if (parent.current_state == parent.RUN_ATTACKING):
 		parent.move_vector = Vector2(parent.facing_direction, 0)
 		
 	if (parent.move_vector.length_squared() != 0):
 		# resolve movement speed based on character state
-		if (jump_state != null):
+		if (parent.current_state == parent.JUMPING):
 			parent.move_vector.x *= MOVESPEED_X_JUMP
 		elif (parent.current_state == parent.RUNNING 
 		|| parent.current_state == parent.RUN_ATTACKING):
@@ -178,7 +195,7 @@ func _process(delta):
 			parent.next_anim = CONST.PLAYER_ANIM_IDLE
 	
 	#clear animation state if attacking
-	if (parent.current_state in attacks.ATTACK_STATES and attacks.locked):
+	if (parent.current_state in attacks.ATTACK_STATES):
 		parent.next_anim = null
 	
 	

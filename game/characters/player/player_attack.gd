@@ -48,11 +48,6 @@ onready var ATTACK_STATES = [
 	parent.CATCH_ATTACKING,
 	parent.RUN_ATTACKING,
 ]
-#states that represent when player is handling caught enemy
-onready var CATCHING_STATES = [
-	parent.CATCHING,
-	parent.CATCH_ATTACKING,
-]
 
 onready var ACTIONS = [
 	CONST.INPUT_ACTION_ATTACK,
@@ -115,10 +110,10 @@ func _process(delta):
 	#if attack was pressed
 	if (pressing[CONST.INPUT_ACTION_ATTACK] || finish_attack):
 		#regular catch attack
-		if (parent.current_state in CATCHING_STATES):
+		if (parent.current_state in parent.CATCHING_STATES):
 			catch_attack()
 		#regular ground combo
-		elif (parent.current_state == parent.JUMPING || parent.current_state == parent.JUMP_ATTACK):
+		elif (parent.current_state in parent.JUMPING_STATES):
 			#mid-jump-attacks
 			jump_attack()
 		else:

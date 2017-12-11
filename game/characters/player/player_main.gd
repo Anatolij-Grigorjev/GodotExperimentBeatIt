@@ -33,6 +33,7 @@ func _ready():
 	timer = 0.0
 	MAX_HP = 150
 	stun_regen_rate = 17.5
+	attacks_hitboxes = get_node("sprites/attack_hitboxes")
 	._ready()
 	for node in init_nodes:
 		if node.has_method("_parent_ready"):

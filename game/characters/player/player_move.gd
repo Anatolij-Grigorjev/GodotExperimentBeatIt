@@ -47,7 +47,7 @@ onready var NON_RESET_STATES = [
 #states that ignore the movement input in this script (in some cases they register movement on thier own)
 onready var NON_MOVE_STATES = [
 	parent.ATTACKING,
-	parent.JUMP_ATTACK,
+#	parent.JUMP_ATTACK,
 	parent.CATCHING,
 	parent.CATCH_ATTACKING,
 ]
@@ -99,7 +99,7 @@ func _process(delta):
 				parent.move_vector += MOVEMENT[action]
 				frame_action = action
 	
-	if (parent.current_state != parent.JUMPING):
+	if (not (parent.current_state in parent.JUMPING_STATES)):
 		#resolve running states
 		if (parent.current_state == parent.RUNNING):
 			#control different when already parent.RUNNING
@@ -160,7 +160,7 @@ func _process(delta):
 		
 	if (parent.move_vector.length_squared() != 0):
 		# resolve movement speed based on character state
-		if (parent.current_state == parent.JUMPING):
+		if (parent.current_state in parent.JUMPING_STATES):
 			parent.move_vector.x *= MOVESPEED_X_JUMP
 		elif (parent.current_state == parent.RUNNING 
 		|| parent.current_state == parent.RUN_ATTACKING):

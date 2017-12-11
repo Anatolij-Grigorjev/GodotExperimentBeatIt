@@ -9,7 +9,7 @@ const CIRCLE_COLOR_MIN = Color(0, 1, 0)
 const CIRCLE_COLOR_MAX = Color(1, 0, 0)
 const COLOR_WHITE = Color(1, 1, 1)
 onready var FONT_DEBUG_INFO = preload("res://debug_font.fnt")
-
+var attacks_hitboxes
 #graivity affecting characters
 const GRAVITY = Vector2(0.0, 198)
 #main movement vector
@@ -48,9 +48,12 @@ export(int) var current_state = STANDING
 export var current_state_ctx = {}
 
 const DISLOGE_KEYS = [ "disloge", "initial_pos"]
+var JUMPING_STATES = [ JUMPING, JUMP_ATTACK ]
 var HURTING_STATES = [ HURTING, CAUGHT_HURTING ]
 var CAUGHT_STATES = [ CAUGHT, CAUGHT_HURTING ]
 var FALLING_STATES = [ FALLING, FALLEN, DYING ]
+var CATCHING_STATES = [ CATCHING, CATCH_ATTACKING ]
+
 
 #flag representing hit lock > 0
 var getting_hit
@@ -239,6 +242,10 @@ func state_for_stun():
 		return FALLING
 	
 func get_hit(attacker, attack_info):
+	if (attacks_hitboxes != null):
+		attacks_hitboxes.reset_attacks()
+	else:
+		print("No attack hitboxes set on %s!" % self)
 	getting_hit = true
 	just_hit = true
 	hit_lock = attack_info.hit_lock 

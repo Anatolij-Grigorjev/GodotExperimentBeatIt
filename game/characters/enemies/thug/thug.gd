@@ -13,6 +13,7 @@ func _ready():
 	lying_down_cooldown = 0.6
 	hurt_pushback_time = 0.2
 	stun_regen_rate = 15
+	attacks_hitboxes = get_node("sprites/attacks")
 	attacks = [
 		CONST.THUG_ANIM_ATTACK_1,
 		CONST.THUG_ANIM_ATTACK_2,

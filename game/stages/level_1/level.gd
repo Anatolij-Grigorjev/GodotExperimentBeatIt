@@ -79,11 +79,11 @@ func _process(delta):
 		#always check outer level bounds (except when characters falling
 		var good_min = ground.nearest_in_general_bounds(character.node.min_pos)
 		if (good_min.x > character.node.min_pos.x):
-			ground.emit_signal("reached_level_start_x")
+#			ground.emit_signal("reached_level_start_x")
 			character.node.set_pos_by_min(good_min)
 		var good_max = ground.nearest_in_general_bounds(character.node.max_pos)
 		if (good_max.x < character.node.max_pos.x):
-			ground.emit_signal("reached_level_end_x")
+#			ground.emit_signal("reached_level_end_x")
 			character.node.set_pos_by_max(good_max)
 		#use plaeyr camera bounds to limit enemy movements as well
 		#but enemies can at most position themselves out of view

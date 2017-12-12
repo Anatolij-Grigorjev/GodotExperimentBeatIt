@@ -234,6 +234,8 @@ func state_for_stun():
 	#always fall when dead
 	if (health <= 0):
 		return FALLING
+	if (current_state in JUMPING_STATES):
+		return FALLING
 	if (MAX_STUN_POINTS / 2 <= current_stun_points and current_stun_points <= MAX_STUN_POINTS):
 		return STANDING
 	elif (1 <= current_stun_points and current_stun_points < MAX_STUN_POINTS / 2):

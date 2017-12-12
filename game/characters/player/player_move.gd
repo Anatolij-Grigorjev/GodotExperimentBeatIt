@@ -47,7 +47,6 @@ onready var NON_RESET_STATES = [
 #states that ignore the movement input in this script (in some cases they register movement on thier own)
 onready var NON_MOVE_STATES = [
 	parent.ATTACKING,
-#	parent.JUMP_ATTACK,
 	parent.CATCHING,
 	parent.CATCH_ATTACKING,
 ]

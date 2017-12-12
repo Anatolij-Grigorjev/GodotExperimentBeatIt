@@ -1093,7 +1093,7 @@ _update_shape_index = 0
 
 [node name="attack_hitboxes" type="Node2D" parent="sprites"]
 
-visibility/visible = false
+editor/display_folded = true
 script/script = ExtResource( 4 )
 
 [node name="attack_1" type="Area2D" parent="sprites/attack_hitboxes"]

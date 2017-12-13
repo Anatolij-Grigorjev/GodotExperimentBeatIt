@@ -9,11 +9,10 @@ func _ready():
 	attacks_conf_file = CONST.PLAYER_ATTACKS_CONFIG_FILE_PATH
 	enemy_group = CONST.GROUP_ENEMIES
 	._ready()
-	attacks.end_catch_disloge = attacks_hitboxes[attacks.CATCH_ATTACK_3].attack_info.disloge_vector
-	
 	
 	
 func do_attack( body, attack_info ):
+	print(attack_info.attack_name)
 	#handle an enemy getting hit
 	var connected = .do_attack(body, attack_info)
 	if (connected):

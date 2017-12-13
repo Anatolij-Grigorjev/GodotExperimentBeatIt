@@ -291,10 +291,10 @@ tracks/3/keys = {
 "times": FloatArray( 0.2, 0.4 ),
 "transitions": FloatArray( 1, 1 ),
 "values": [ {
-"args": [ 4 ],
+"args": [ 7 ],
 "method": "doing_attack"
 }, {
-"args": [ 4, false ],
+"args": [ 7, false ],
 "method": "doing_attack"
 } ]
 }
@@ -342,10 +342,10 @@ tracks/3/keys = {
 "times": FloatArray( 0.2, 0.45 ),
 "transitions": FloatArray( 1, 1 ),
 "values": [ {
-"args": [ 5 ],
+"args": [ 8 ],
 "method": "doing_attack"
 }, {
-"args": [ 5, false ],
+"args": [ 8, false ],
 "method": "doing_attack"
 } ]
 }
@@ -1036,7 +1036,7 @@ tracks/1/keys = {
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( -3.27835e-08, -0.75, 0.75, -3.27835e-08, -3.35568, 10.7395 )
+shapes/0/transform = Matrix32( -3.27835e-08, -0.75, 0.75, -3.27835e-08, 0.5, 3 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -1061,7 +1061,7 @@ center_pos = Vector2( 0, 0 )
 texture = ExtResource( 2 )
 vframes = 18
 hframes = 10
-frame = 120
+frame = 49
 
 [node name="catch_point" type="Position2D" parent="sprites"]
 
@@ -1093,7 +1093,6 @@ _update_shape_index = 0
 
 [node name="attack_hitboxes" type="Node2D" parent="sprites"]
 
-editor/display_folded = true
 script/script = ExtResource( 4 )
 
 [node name="attack_1" type="Area2D" parent="sprites/attack_hitboxes"]
@@ -1298,6 +1297,8 @@ _update_shape_index = 0
 
 [node name="attack_run" type="Area2D" parent="sprites/attack_hitboxes"]
 
+editor/display_folded = true
+visibility/visible = false
 input/pickable = true
 shapes/0/shape = SubResource( 7 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 14.8228, -0.395271 )
@@ -1381,7 +1382,7 @@ drag_margin/bottom = 0.2
 
 [node name="body" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( -3.35568, 10.7395 )
+transform/pos = Vector2( 0.5, 3 )
 transform/rot = 90.0
 transform/scale = Vector2( 0.75, 0.75 )
 shape = SubResource( 1 )

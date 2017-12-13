@@ -27,7 +27,7 @@ func config_attacks():
 			#add found attack node to hitboxes list
 			attacks_hitboxes.append(attack_node)
 			attack_node.attack_info.attack_name = attack_name
-			for prop in attacks_config.get_section_keys(attack_name):		
+			for prop in attacks_config.get_section_keys(attack_name):
 				attack_node.attack_info[prop] = attacks_config.get_value(
 				attack_name, 
 				prop, 
@@ -35,7 +35,7 @@ func config_attacks():
 			if (attack_node.attack_info.disloge_x != null and attack_node.attack_info.disloge_y != null):
 				attack_node.attack_info.disloge_vector = Vector2(attack_node.attack_info.disloge_x, attack_node.attack_info.disloge_y)
 		for i in range(0, attacks_hitboxes.size()):
-			print("idx %s: %s" % [i, attacks_hitboxes[i].attack_info])
+			print("idx %s %s: %s" % [i, attacks_hitboxes[i].get_name(), attacks_hitboxes[i].attack_info])
 	else:
 		print("problem opening %s: %s" % [attacks_conf_file, err])
 	

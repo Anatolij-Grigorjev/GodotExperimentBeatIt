@@ -69,7 +69,7 @@ func _parent_ready():
 	parent.anim.get_animation(CONST.PLAYER_ANIM_JUMP_AIR).set_length(JUMP_ASCEND_TIME)
 	
 func init_jump_state():
-
+	parent.current_state_ctx["move_factor"] = (RUN_SPEED.x / WALK_SPEED.x) if parent.current_state == parent.RUNNING else 1.0
 	parent.current_state = parent.JUMPING
 	parent.next_anim = CONST.PLAYER_ANIM_JUMP_START
 	for ctx_key in INITIAL_JUMP_VALS:
@@ -82,6 +82,7 @@ func finish_jump_state():
 	var copy_dic = parent.current_state_ctx
 	for ctx_key in INITIAL_JUMP_VALS:
 		copy_dic.erase(ctx_key)
+	copy_dic.erase("move_factor")
 	parent.current_state_ctx = copy_dic
 
 
@@ -123,7 +124,7 @@ func _process(delta):
 			if (parent.current_state_ctx.current_jump_wind_up <= 0):
 				parent.current_state_ctx.current_jump_wind_up = 0
 				parent.current_state_ctx.jump_state = JUMP_STATES.ASCEND
-				parent.move_vector.y = -JUMP_STRENGTH
+				parent.move_vector.y = -(JUMP_STRENGTH * parent.current_state_ctx.move_factor)
 				parent.ignore_G = true
 				parent.current_state_ctx.current_jump_ascend = JUMP_ASCEND_TIME
 				parent.feet_ground_y = parent.feet_pos.y
@@ -132,7 +133,7 @@ func _process(delta):
 			parent.current_state_ctx.current_jump_ascend -= delta
 			#stop moving up when ascend over
 			if parent.current_state_ctx.current_jump_ascend > 0:
-				parent.move_vector.y = -JUMP_STRENGTH 
+				parent.move_vector.y = -(JUMP_STRENGTH * parent.current_state_ctx.move_factor)
 			#move on to descend after attack is finished
 			if (parent.current_state_ctx.current_jump_ascend <= 0 and parent.current_state != parent.JUMP_ATTACK):
 				parent.current_state_ctx.current_jump_ascend = 0
@@ -160,7 +161,7 @@ func _process(delta):
 	if (parent.move_vector.length_squared() != 0):
 		# resolve movement speed based on character state
 		if (parent.current_state in parent.JUMPING_STATES):
-			parent.move_vector.x *= MOVESPEED_X_JUMP
+			parent.move_vector.x *= (MOVESPEED_X_JUMP * parent.current_state_ctx.move_factor)
 		elif (parent.current_state == parent.RUNNING 
 		|| parent.current_state == parent.RUN_ATTACKING):
 			parent.move_vector *= RUN_SPEED

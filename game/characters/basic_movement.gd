@@ -81,6 +81,7 @@ onready var max_pos_node = get_node("max_pos")
 #sprites access to set direction
 onready var sprite = get_node("sprites")
 onready var anim = get_node("anim")
+onready var body_area = get_node("body_area")
 
 var facing_direction setget set_direction
 
@@ -89,6 +90,7 @@ func _ready():
 	set_positions()
 	reset_state()
 	set_z_as_relative(false)
+	setup_body_slam()
 	set_process(true)
 
 func reset_state():
@@ -100,6 +102,9 @@ func reset_state():
 	current_stun_points = MAX_STUN_POINTS
 	current_state_ctx.clear()
 	feet_ground_y = null
+	
+func setup_body_slam():
+	print("[WARN] body slam not setup for %s" % self)
 	
 func set_positions():
 	feet_pos = feet_node.get_global_pos()
@@ -160,6 +165,8 @@ func update_hurt_states(delta):
 				feet_ground_y = null
 				ignore_z = false
 				current_state_ctx.lying_cooldown = lying_down_cooldown
+				#stop attacking with your body
+				body_area.active = false
 		return
 	if (current_state == FALLEN):
 		if (health <= 0):
@@ -282,6 +289,8 @@ func get_hit(attacker, attack_info):
 			#ignore gravity and fly through the air while we can
 			ignore_G = true
 			feet_ground_y = feet_pos.y
+			#beign body area attack
+			body_area.active = true
 		else:
 			#was not yet hurt when attack hit, 
 			#push back half distance and start hurting

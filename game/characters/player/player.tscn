@@ -1058,6 +1058,7 @@ center_pos = Vector2( 0, 0 )
 
 [node name="sprites" type="Sprite" parent="."]
 
+editor/display_folded = true
 texture = ExtResource( 2 )
 vframes = 18
 hframes = 10
@@ -1401,6 +1402,15 @@ transform/pos = Vector2( -40, 40 )
 
 transform/pos = Vector2( 40, -40 )
 
+[node name="body_area" type="Area2D" parent="."]
+
+input/pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 5 )
+
 [connection signal="body_enter" from="sprites/catch_collider" to="sprites/catch_collider" method="_on_catch_point_body_enter"]
 
 [connection signal="body_exit" from="sprites/catch_collider" to="sprites/catch_collider" method="_on_catch_point_body_exit"]
@@ -1444,5 +1454,9 @@ transform/pos = Vector2( 40, -40 )
 [connection signal="body_enter" from="sprites/attack_hitboxes/attack_run" to="sprites/attack_hitboxes/attack_run" method="body_enter"]
 
 [connection signal="body_exit" from="sprites/attack_hitboxes/attack_run" to="sprites/attack_hitboxes/attack_run" method="body_exit"]
+
+[connection signal="body_enter" from="body_area" to="body_area" method="body_enter"]
+
+[connection signal="body_exit" from="body_area" to="body_area" method="body_exit"]
 
 

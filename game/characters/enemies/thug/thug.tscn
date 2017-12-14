@@ -628,6 +628,7 @@ autoplay = ""
 
 [node name="sprites" type="Sprite" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 1, 0 )
 texture = ExtResource( 2 )
 vframes = 14
@@ -713,6 +714,15 @@ margin/top = -50.0
 margin/right = 260.0
 margin/bottom = 0.0
 
+[node name="body_area" type="Area2D" parent="."]
+
+input/pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 4 )
+
 [connection signal="body_enter" from="sprites/attacks/attack_1" to="sprites/attacks/attack_1" method="body_enter"]
 
 [connection signal="body_exit" from="sprites/attacks/attack_1" to="sprites/attacks/attack_1" method="body_exit"]
@@ -720,5 +730,9 @@ margin/bottom = 0.0
 [connection signal="body_enter" from="sprites/attacks/attack_2" to="sprites/attacks/attack_2" method="body_enter"]
 
 [connection signal="body_exit" from="sprites/attacks/attack_2" to="sprites/attacks/attack_2" method="body_exit"]
+
+[connection signal="body_enter" from="body_area" to="body_area" method="body_enter"]
+
+[connection signal="body_exit" from="body_area" to="body_area" method="body_exit"]
 
 

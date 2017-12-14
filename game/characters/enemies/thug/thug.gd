@@ -27,6 +27,23 @@ func _ready():
 func _process(delta):
 	._process(delta)
 	
+func setup_body_slam():
+	#setup nodes
+	body_area.owner = self
+	body_area.parent = attacks_hitboxes
+
+	#attack specifics
+	body_area.attack_info.attack_name = "body_area"
+	body_area.attack_info.attack_stun = 100
+	body_area.attack_info.attack_power = 20
+	body_area.attack_info.attack_z = 3
+	body_area.attack_info.hit_lock = 0.5
+	body_area.attack_info.disloge_vector = Vector2(110,-17)
+	
+	attacks_hitboxes.attacks_hitboxes.append(body_area)
+	print("Added %s to attacks list!" % body_area.attack_info)
+
+	
 const CIRCLE_COLOR_PAIN = Color(1, 1, 1)
 func _draw():
 	._draw()

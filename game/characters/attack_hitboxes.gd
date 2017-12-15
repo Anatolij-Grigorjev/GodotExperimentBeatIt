@@ -34,8 +34,8 @@ func config_attacks():
 				attack_node.attack_info[prop])
 			if (attack_node.attack_info.disloge_x != null and attack_node.attack_info.disloge_y != null):
 				attack_node.attack_info.disloge_vector = Vector2(attack_node.attack_info.disloge_x, attack_node.attack_info.disloge_y)
-		for i in range(0, attacks_hitboxes.size()):
-			print("idx %s %s: %s" % [i, attacks_hitboxes[i].get_name(), attacks_hitboxes[i].attack_info])
+#		for i in range(0, attacks_hitboxes.size()):
+#			print("idx %s %s: %s" % [i, attacks_hitboxes[i].get_name(), attacks_hitboxes[i].attack_info])
 	else:
 		print("problem opening %s: %s" % [attacks_conf_file, err])
 	

@@ -21,7 +21,7 @@ func _ready():
 	movement.jumping = false
 	current_anim = CONST.THUG_ANIM_IDLE
 	anim.play(current_anim)
-	MAX_HP = 1000
+	MAX_HP = 100
 	._ready()
 	
 func _process(delta):
@@ -38,10 +38,11 @@ func setup_body_slam():
 	body_area.attack_info.attack_power = 20
 	body_area.attack_info.attack_z = 3
 	body_area.attack_info.hit_lock = 0.5
-	body_area.attack_info.disloge_vector = Vector2(110,-17)
+	body_area.attack_info.disloge_vector = Vector2(150,-25)
 	
-	attacks_hitboxes.attacks_hitboxes.append(body_area)
-	print("Added %s to attacks list!" % body_area.attack_info)
+	if (attacks_hitboxes != null):
+		attacks_hitboxes.attacks_hitboxes.append(body_area)
+		print("Added %s to attacks list!" % body_area.attack_info)
 
 	
 const CIRCLE_COLOR_PAIN = Color(1, 1, 1)

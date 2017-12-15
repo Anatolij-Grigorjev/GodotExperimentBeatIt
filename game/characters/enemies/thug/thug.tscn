@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=1]
+[gd_scene load_steps=22 format=1]
 
 [ext_resource path="res://characters/enemies/thug/thug.gd" type="Script" id=1]
 [ext_resource path="res://characters/enemies/thug/bandit_sprites.png" type="Texture" id=2]
@@ -381,6 +381,26 @@ tracks/3/keys = {
 "update": 1,
 "values": [ 35.0, 150.0, 90.0, 35.0 ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("body_area/collider:transform/pos")
+tracks/4/interp = 1
+tracks/4/imported = false
+tracks/4/keys = {
+"times": FloatArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 5.3, -0.65 ), Vector2( 5.7, 0.5 ), Vector2( -1.25, 4.35 ), Vector2( 1.45, 6.66 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("body_area/collider:transform/rot")
+tracks/5/interp = 1
+tracks/5/imported = false
+tracks/5/keys = {
+"times": FloatArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 23.0, -18.0, -72.0, -141.0 ]
+}
 
 [sub_resource type="Animation" id=11]
 
@@ -426,6 +446,26 @@ tracks/3/keys = {
 "transitions": FloatArray( 1, 1, 1 ),
 "update": 1,
 "values": [ 45.0, 90.0, 135.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("body_area/collider:transform/pos")
+tracks/4/interp = 1
+tracks/4/imported = false
+tracks/4/keys = {
+"times": FloatArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( -2.4, -2.3 ), Vector2( -4.3, -5.3 ), Vector2( 0.7, -6.9 ), Vector2( -1.23, 0.5 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("body_area/collider:transform/rot")
+tracks/5/interp = 1
+tracks/5/imported = false
+tracks/5/keys = {
+"times": FloatArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0.0, 45.0, 86.0, 120.0 ]
 }
 
 [sub_resource type="Animation" id=12]
@@ -571,6 +611,11 @@ tracks/3/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 13.6965, 10.7096 )
 
+[sub_resource type="RectangleShape2D" id=16]
+
+custom_solver_bias = 0.0
+extents = Vector2( 14.0161, 33.9105 )
+
 [node name="thug" type="KinematicBody2D" groups=[
 "enemies",
 "characters",
@@ -578,7 +623,7 @@ extents = Vector2( 13.6965, 10.7096 )
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1.4, 0, 0, 1.4, -0.505905, 4.18157 )
+shapes/0/transform = Matrix32( 0.819152, -0.573576, 0.573576, 0.819152, 0.9, 11.5 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -633,10 +678,12 @@ transform/pos = Vector2( 1, 0 )
 texture = ExtResource( 2 )
 vframes = 14
 hframes = 10
-frame = 12
+frame = 43
 
 [node name="attacks" type="Node2D" parent="sprites"]
 
+editor/display_folded = true
+visibility/visible = false
 script/script = ExtResource( 3 )
 
 [node name="attack_1" type="Area2D" parent="sprites/attacks"]
@@ -689,8 +736,9 @@ transform/pos = Vector2( 1, 0 )
 
 [node name="body" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( -0.505905, 4.18157 )
-transform/scale = Vector2( 1.4, 1.4 )
+visibility/visible = false
+transform/pos = Vector2( 0.9, 11.5 )
+transform/rot = 35.0
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
@@ -717,11 +765,22 @@ margin/bottom = 0.0
 [node name="body_area" type="Area2D" parent="."]
 
 input/pickable = true
+shapes/0/shape = SubResource( 16 )
+shapes/0/transform = Matrix32( -0.777146, 0.629321, -0.629321, -0.777146, 1.45, 6.66 )
+shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
 script/script = ExtResource( 4 )
+
+[node name="collider" type="CollisionShape2D" parent="body_area"]
+
+transform/pos = Vector2( 1.45, 6.66 )
+transform/rot = -141.0
+shape = SubResource( 16 )
+trigger = false
+_update_shape_index = 0
 
 [connection signal="body_enter" from="sprites/attacks/attack_1" to="sprites/attacks/attack_1" method="body_enter"]
 

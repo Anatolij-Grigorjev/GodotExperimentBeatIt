@@ -56,3 +56,6 @@ func process_bodies():
 		return
 	for named_body in area_bodies:
 		parent.do_attack(area_bodies[named_body], attack_info)
+
+func toggle(active = true):
+	self.active = active

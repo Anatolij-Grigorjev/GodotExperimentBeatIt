@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=1]
+[gd_scene load_steps=39 format=1]
 
 [ext_resource path="res://characters/player/player_main.gd" type="Script" id=1]
 [ext_resource path="res://characters/player/player_sprites.png" type="Texture" id=2]
@@ -733,6 +733,26 @@ tracks/3/keys = {
 "update": 1,
 "values": [ Vector2( 7.3, -1 ), Vector2( -6.5, -0.85 ), Vector2( 1.7, -3 ), Vector2( -3.15, 9.7 ) ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("body_area/collision:transform/pos")
+tracks/4/interp = 1
+tracks/4/imported = false
+tracks/4/keys = {
+"times": FloatArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 4.2, -0.3 ), Vector2( -4.4, -1.65 ), Vector2( 3.2, -4 ), Vector2( 1.5, 7.5 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("body_area/collision:transform/rot")
+tracks/5/interp = 1
+tracks/5/imported = false
+tracks/5/keys = {
+"times": FloatArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 20.0, -27.0, -50.0, -90.0 ]
+}
 
 [sub_resource type="Animation" id=23]
 
@@ -779,6 +799,26 @@ tracks/3/keys = {
 "transitions": FloatArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ Vector2( -5, 1 ), Vector2( -8.25, -5.5 ), Vector2( -3.85, -13.5 ), Vector2( -2.7, -8.15 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("body_area/collision:transform/rot")
+tracks/4/interp = 1
+tracks/4/imported = false
+tracks/4/keys = {
+"times": FloatArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ -165.0, -126.0, -93.471, -62.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("body_area/collision:transform/pos")
+tracks/5/interp = 1
+tracks/5/imported = false
+tracks/5/keys = {
+"times": FloatArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( -2.5, -1.7 ), Vector2( -5.2, -3 ), Vector2( -1.8, -10.5 ), Vector2( 1, -9.5 ) ]
 }
 
 [sub_resource type="Animation" id=24]
@@ -1029,6 +1069,11 @@ tracks/1/keys = {
 "values": [ Vector2( -3, 1 ), Vector2( -3, 1 ) ]
 }
 
+[sub_resource type="RectangleShape2D" id=31]
+
+custom_solver_bias = 0.0
+extents = Vector2( 13.2466, 34.1294 )
+
 [node name="player" type="KinematicBody2D" groups=[
 "player",
 "characters",
@@ -1036,7 +1081,7 @@ tracks/1/keys = {
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( -3.27835e-08, -0.75, 0.75, -3.27835e-08, 0.5, 3 )
+shapes/0/transform = Matrix32( -0.25, -0.433013, 0.433013, -0.25, -2.7, -8.15 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -1062,7 +1107,7 @@ editor/display_folded = true
 texture = ExtResource( 2 )
 vframes = 18
 hframes = 10
-frame = 49
+frame = 33
 
 [node name="catch_point" type="Position2D" parent="sprites"]
 
@@ -1094,6 +1139,7 @@ _update_shape_index = 0
 
 [node name="attack_hitboxes" type="Node2D" parent="sprites"]
 
+editor/display_folded = true
 script/script = ExtResource( 4 )
 
 [node name="attack_1" type="Area2D" parent="sprites/attack_hitboxes"]
@@ -1383,9 +1429,10 @@ drag_margin/bottom = 0.2
 
 [node name="body" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( 0.5, 3 )
-transform/rot = 90.0
-transform/scale = Vector2( 0.75, 0.75 )
+visibility/visible = false
+transform/pos = Vector2( -2.7, -8.15 )
+transform/rot = 120.0
+transform/scale = Vector2( 0.5, 0.5 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
@@ -1405,11 +1452,22 @@ transform/pos = Vector2( 40, -40 )
 [node name="body_area" type="Area2D" parent="."]
 
 input/pickable = true
+shapes/0/shape = SubResource( 31 )
+shapes/0/transform = Matrix32( 0.469472, 0.882948, -0.882948, 0.469472, 1, -9.5 )
+shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
 script/script = ExtResource( 5 )
+
+[node name="collision" type="CollisionShape2D" parent="body_area"]
+
+transform/pos = Vector2( 1, -9.5 )
+transform/rot = -62.0
+shape = SubResource( 31 )
+trigger = false
+_update_shape_index = 0
 
 [connection signal="body_enter" from="sprites/catch_collider" to="sprites/catch_collider" method="_on_catch_point_body_enter"]
 

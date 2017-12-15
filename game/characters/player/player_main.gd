@@ -62,10 +62,11 @@ func setup_body_slam():
 	body_area.attack_info.attack_power = 20
 	body_area.attack_info.attack_z = 3
 	body_area.attack_info.hit_lock = 0.5
-	body_area.attack_info.disloge_vector = Vector2(110,-17)
+	body_area.attack_info.disloge_vector = Vector2(150,-25)
 	
-	attacks_hitboxes.attacks_hitboxes.append(body_area)
-	print("Added %s to attacks list!" % body_area.attack_info)
+	if (attacks_hitboxes != null):
+		attacks_hitboxes.attacks_hitboxes.append(body_area)
+		print("Added %s to attacks list!" % body_area.attack_info)
 
 func _process(delta):
 	curr_anim = anim.get_current_animation()

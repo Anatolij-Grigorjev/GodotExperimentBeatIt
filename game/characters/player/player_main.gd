@@ -52,10 +52,6 @@ func update_hurt_states(delta):
 	set_hurt_animation()
 
 func setup_body_slam():
-	#setup nodes
-	body_area.owner = self
-	body_area.parent = attacks_hitboxes
-
 	#attack specifics
 	body_area.attack_info.attack_name = "body_area"
 	body_area.attack_info.attack_stun = 100

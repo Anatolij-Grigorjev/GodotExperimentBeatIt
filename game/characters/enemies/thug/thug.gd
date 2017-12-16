@@ -5,9 +5,9 @@ onready var hit_effect = preload("res://characters/hit_effects/hit_effect_regula
 
 func _ready():
 	#init enemy variables
-	decision_interval = 0.5 
-	scan_distance = 700 
-	attack_distance = 50
+	decision_interval = 0.75 
+	scan_distance = 250 
+	attack_distance = 75
 	aggressiveness = 0.70
 	movement_speed = Vector2(150, 50)
 	lying_down_cooldown = 0.6
@@ -21,16 +21,13 @@ func _ready():
 	movement.jumping = false
 	current_anim = CONST.THUG_ANIM_IDLE
 	anim.play(current_anim)
-	MAX_HP = 100
+	MAX_HP = 200
 	._ready()
 	
 func _process(delta):
 	._process(delta)
 	
 func setup_body_slam():
-	#setup nodes
-	body_area.owner = self
-	body_area.parent = attacks_hitboxes
 
 	#attack specifics
 	body_area.attack_info.attack_name = "body_area"

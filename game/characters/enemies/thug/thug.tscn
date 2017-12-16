@@ -1,10 +1,11 @@
-[gd_scene load_steps=22 format=1]
+[gd_scene load_steps=23 format=1]
 
 [ext_resource path="res://characters/enemies/thug/thug.gd" type="Script" id=1]
 [ext_resource path="res://characters/enemies/thug/bandit_sprites.png" type="Texture" id=2]
 [ext_resource path="res://characters/enemies/thug/thug_attack_hitboxes.gd" type="Script" id=3]
 [ext_resource path="res://characters/body_cache_attack.gd" type="Script" id=4]
 [ext_resource path="res://characters/healthbar/healthbar.tscn" type="PackedScene" id=5]
+[ext_resource path="res://characters/body_cache_body_slam.gd" type="Script" id=6]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -59,7 +60,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 tracks/4/type = "method"
-tracks/4/path = NodePath("sprites/attacks")
+tracks/4/path = NodePath("sprites/attack_hitboxes")
 tracks/4/interp = 1
 tracks/4/imported = false
 tracks/4/keys = {
@@ -121,7 +122,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 tracks/4/type = "method"
-tracks/4/path = NodePath("sprites/attacks")
+tracks/4/path = NodePath("sprites/attack_hitboxes")
 tracks/4/interp = 1
 tracks/4/imported = false
 tracks/4/keys = {
@@ -673,20 +674,19 @@ autoplay = ""
 
 [node name="sprites" type="Sprite" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 1, 0 )
 texture = ExtResource( 2 )
 vframes = 14
 hframes = 10
 frame = 43
 
-[node name="attacks" type="Node2D" parent="sprites"]
+[node name="attack_hitboxes" type="Node2D" parent="sprites"]
 
 editor/display_folded = true
 visibility/visible = false
 script/script = ExtResource( 3 )
 
-[node name="attack_1" type="Area2D" parent="sprites/attacks"]
+[node name="attack_1" type="Area2D" parent="sprites/attack_hitboxes"]
 
 editor/display_folded = true
 transform/pos = Vector2( -2.15114, 4.61118 )
@@ -700,7 +700,7 @@ linear_damp = 0.1
 angular_damp = 1.0
 script/script = ExtResource( 4 )
 
-[node name="attack_1" type="CollisionShape2D" parent="sprites/attacks/attack_1"]
+[node name="attack_1" type="CollisionShape2D" parent="sprites/attack_hitboxes/attack_1"]
 
 transform/pos = Vector2( 34.0237, -4.40655 )
 transform/scale = Vector2( 0.796457, 0.68497 )
@@ -708,7 +708,7 @@ shape = SubResource( 15 )
 trigger = false
 _update_shape_index = 0
 
-[node name="attack_2" type="Area2D" parent="sprites/attacks"]
+[node name="attack_2" type="Area2D" parent="sprites/attack_hitboxes"]
 
 editor/display_folded = true
 transform/pos = Vector2( -2.15114, 4.61118 )
@@ -722,7 +722,7 @@ linear_damp = 0.1
 angular_damp = 1.0
 script/script = ExtResource( 4 )
 
-[node name="attack_1" type="CollisionShape2D" parent="sprites/attacks/attack_2"]
+[node name="attack_1" type="CollisionShape2D" parent="sprites/attack_hitboxes/attack_2"]
 
 transform/pos = Vector2( 34.0237, -4.40655 )
 transform/scale = Vector2( 0.796457, 0.68497 )
@@ -764,6 +764,7 @@ margin/bottom = 0.0
 
 [node name="body_area" type="Area2D" parent="."]
 
+editor/display_folded = true
 input/pickable = true
 shapes/0/shape = SubResource( 16 )
 shapes/0/transform = Matrix32( -0.777146, 0.629321, -0.629321, -0.777146, 1.45, 6.66 )
@@ -772,7 +773,7 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
-script/script = ExtResource( 4 )
+script/script = ExtResource( 6 )
 
 [node name="collider" type="CollisionShape2D" parent="body_area"]
 
@@ -782,13 +783,13 @@ shape = SubResource( 16 )
 trigger = false
 _update_shape_index = 0
 
-[connection signal="body_enter" from="sprites/attacks/attack_1" to="sprites/attacks/attack_1" method="body_enter"]
+[connection signal="body_enter" from="sprites/attack_hitboxes/attack_1" to="sprites/attack_hitboxes/attack_1" method="body_enter"]
 
-[connection signal="body_exit" from="sprites/attacks/attack_1" to="sprites/attacks/attack_1" method="body_exit"]
+[connection signal="body_exit" from="sprites/attack_hitboxes/attack_1" to="sprites/attack_hitboxes/attack_1" method="body_exit"]
 
-[connection signal="body_enter" from="sprites/attacks/attack_2" to="sprites/attacks/attack_2" method="body_enter"]
+[connection signal="body_enter" from="sprites/attack_hitboxes/attack_2" to="sprites/attack_hitboxes/attack_2" method="body_enter"]
 
-[connection signal="body_exit" from="sprites/attacks/attack_2" to="sprites/attacks/attack_2" method="body_exit"]
+[connection signal="body_exit" from="sprites/attack_hitboxes/attack_2" to="sprites/attack_hitboxes/attack_2" method="body_exit"]
 
 [connection signal="body_enter" from="body_area" to="body_area" method="body_enter"]
 

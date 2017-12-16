@@ -33,6 +33,7 @@ z/relative = false
 
 [node name="stop_1" type="Area2D" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 532, 188 )
 transform/scale = Vector2( 8.8, 5.9 )
 input/pickable = true

@@ -167,6 +167,7 @@ func update_hurt_states(delta):
 				current_state_ctx.lying_cooldown = lying_down_cooldown
 				#stop attacking with your body
 				body_area.active = false
+				body_area.attacker = null
 		return
 	if (current_state == FALLEN):
 		if (health <= 0):
@@ -291,6 +292,7 @@ func get_hit(attacker, attack_info):
 			feet_ground_y = feet_pos.y
 			#beign body area attack
 			body_area.active = true
+			body_area.attacker = opponent
 		else:
 			#was not yet hurt when attack hit, 
 			#push back half distance and start hurting

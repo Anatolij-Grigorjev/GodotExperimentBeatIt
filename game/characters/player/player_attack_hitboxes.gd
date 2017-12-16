@@ -12,7 +12,6 @@ func _ready():
 	
 	
 func do_attack( body, attack_info ):
-	print(attack_info.attack_name)
 	#handle an enemy getting hit
 	var connected = .do_attack(body, attack_info)
 	if (connected):

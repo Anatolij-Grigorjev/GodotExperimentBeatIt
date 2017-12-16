@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=1]
+[gd_scene load_steps=40 format=1]
 
 [ext_resource path="res://characters/player/player_main.gd" type="Script" id=1]
 [ext_resource path="res://characters/player/player_sprites.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://characters/body_cache_attack.gd" type="Script" id=5]
 [ext_resource path="res://characters/player/player_move.gd" type="Script" id=6]
 [ext_resource path="res://characters/player/player_attack.gd" type="Script" id=7]
+[ext_resource path="res://characters/body_cache_body_slam.gd" type="Script" id=8]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -1103,7 +1104,6 @@ center_pos = Vector2( 0, 0 )
 
 [node name="sprites" type="Sprite" parent="."]
 
-editor/display_folded = true
 texture = ExtResource( 2 )
 vframes = 18
 hframes = 10
@@ -1451,6 +1451,7 @@ transform/pos = Vector2( 40, -40 )
 
 [node name="body_area" type="Area2D" parent="."]
 
+editor/display_folded = true
 input/pickable = true
 shapes/0/shape = SubResource( 31 )
 shapes/0/transform = Matrix32( 0.469472, 0.882948, -0.882948, 0.469472, 1, -9.5 )
@@ -1459,7 +1460,7 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
-script/script = ExtResource( 5 )
+script/script = ExtResource( 8 )
 
 [node name="collision" type="CollisionShape2D" parent="body_area"]
 

@@ -18,6 +18,8 @@ enum ATTACK_TYPES {
 var attack_info = {
 	#name of attack
 	attack_name = "<?>",
+	#does attack ignore firendly group relations when hitting
+	friendly_fire = false,
 	#how many stun points attack hits for
 	attack_stun = 0,
 	#how many HP does this attack take in damage
@@ -28,9 +30,6 @@ var attack_info = {
 	hit_lock = 0.2,
 	#force vector to move enemy when hit by attack
 	disloge_vector = Vector2(0,0),
-	#helper components of disloge_vector for reading from file
-	disloge_x = null,
-	disloge_y = null,
 	#attack type, for later use
 	attack_type = GROUND_ATTACK
 }

@@ -5,15 +5,15 @@ onready var hit_effect = preload("res://characters/hit_effects/hit_effect_regula
 
 func _ready():
 	#init enemy variables
-	decision_interval = 0.75 
-	scan_distance = 250 
-	attack_distance = 75
-	aggressiveness = 0.70
-	movement_speed = Vector2(150, 50)
+	decision_interval = rand_range(0.75, 1.1) 
+	scan_distance = rand_range(175, 275) 
+	attack_distance = rand_range(50, 85)
+	aggressiveness = rand_range(0.5, 0.70)
+	movement_speed = Vector2(rand_range(100, 150), rand_range(40, 50))
 	lying_down_cooldown = 0.6
 	hurt_pushback_time = 0.2
-	stun_regen_rate = 15
-	attacks_hitboxes = get_node("sprites/attacks")
+	stun_regen_rate = rand_range(10, 20)
+	attacks_hitboxes = get_node("sprites/attack_hitboxes")
 	attacks = [
 		CONST.THUG_ANIM_ATTACK_1,
 		CONST.THUG_ANIM_ATTACK_2,
@@ -21,7 +21,7 @@ func _ready():
 	movement.jumping = false
 	current_anim = CONST.THUG_ANIM_IDLE
 	anim.play(current_anim)
-	MAX_HP = 200
+	MAX_HP = rand_range(200, 300)
 	._ready()
 	
 func _process(delta):

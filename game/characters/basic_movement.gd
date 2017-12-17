@@ -242,12 +242,16 @@ func state_for_stun():
 	#always fall when dead
 	if (health <= 0):
 		return FALLING
+	#if not enough stun points to stun from attack, then continue doing whatever
+	if (MAX_STUN_POINTS / 2 <= current_stun_points and current_stun_points <= MAX_STUN_POINTS):
+		return current_state
+	#if enough stun points to hurt then fall out of jump
 	if (current_state in JUMPING_STATES):
 		return FALLING
-	if (MAX_STUN_POINTS / 2 <= current_stun_points and current_stun_points <= MAX_STUN_POINTS):
-		return STANDING
+	#if not jumping but enough stun to stun, then stun
 	elif (1 <= current_stun_points and current_stun_points < MAX_STUN_POINTS / 2):
 		return HURTING
+	#no stun points left means we fall
 	else:
 		return FALLING
 	

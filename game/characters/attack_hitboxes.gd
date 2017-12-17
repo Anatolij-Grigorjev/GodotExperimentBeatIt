@@ -2,6 +2,7 @@ extends Node2D
 
 #quick access to constnats
 onready var CONST = get_node("/root/const")
+onready var UTILS = get_node("/root/utils")
 #list gets populated from configuration file
 var attacks_hitboxes = []
 #access to main character node
@@ -28,12 +29,13 @@ func config_attacks():
 			attacks_hitboxes.append(attack_node)
 			attack_node.attack_info.attack_name = attack_name
 			for prop in attacks_config.get_section_keys(attack_name):
-				attack_node.attack_info[prop] = attacks_config.get_value(
-				attack_name, 
-				prop, 
-				attack_node.attack_info[prop])
-			if (attack_node.attack_info.disloge_x != null and attack_node.attack_info.disloge_y != null):
-				attack_node.attack_info.disloge_vector = Vector2(attack_node.attack_info.disloge_x, attack_node.attack_info.disloge_y)
+				var value = attacks_config.get_value(attack_name, prop)
+				if (value != null):
+					#found string, analyze for code
+					if (typeof(value) == TYPE_STRING):
+						attack_node.attack_info[prop] = UTILS.decode_serialized(value)
+					else:
+						attack_node.attack_info[prop] = value
 #		for i in range(0, attacks_hitboxes.size()):
 #			print("idx %s %s: %s" % [i, attacks_hitboxes[i].get_name(), attacks_hitboxes[i].attack_info])
 	else:
@@ -48,7 +50,7 @@ func _process (delta):
 #return true if the body was in enemy group so attack connected
 func do_attack( body, attack_info ):
 	#handle an enemy getting hit
-	if (body.is_in_group(enemy_group)):
+	if (body.is_in_group(enemy_group) || attack_info.friendly_fire):
 		var enemy = body
 		#cant hit an enemy twice while they are being hit
 		if (enemy.getting_hit):

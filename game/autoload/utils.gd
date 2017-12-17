@@ -57,3 +57,14 @@ func mirror_pos( node, axis = "both" ):
 
 func sprites_facing(sprite1, sprite2):
 	return sign(sprite1.get_scale().x) != sign(sprite2.get_scale().x)
+	
+#decode string property value
+func decode_serialized(value):
+	#check known codes
+	for code in ["!v;"]:
+		if (value.begins_with(code)):
+			var actual = value.substr(code.length(), value.length() - code.length())
+			var nums = actual.split_floats("_")
+			return Vector2(nums[0], nums[1])
+	
+	return value

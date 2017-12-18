@@ -30,6 +30,8 @@ var attack_info = {
 	hit_lock = 0.2,
 	#force vector to move enemy when hit by attack
 	disloge_vector = Vector2(0,0),
+	#position of hit spark effect as a 2D vector, null means no spark
+	hit_location = null,
 	#attack type, for later use
 	attack_type = GROUND_ATTACK
 }

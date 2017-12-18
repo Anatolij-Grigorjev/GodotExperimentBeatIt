@@ -1,18 +1,17 @@
 extends "../enemy.gd"
 
 var movement = {}
-onready var hit_effect = preload("res://characters/hit_effects/hit_effect_regular.tscn")
 
 func _ready():
 	#init enemy variables
 	decision_interval = rand_range(0.75, 1.1) 
-	scan_distance = rand_range(175, 275) 
+	scan_distance = rand_range(300, 500) 
 	attack_distance = rand_range(50, 85)
-	aggressiveness = rand_range(0.5, 0.70)
+	aggressiveness = rand_range(0.5, 0.75)
 	movement_speed = Vector2(rand_range(100, 150), rand_range(40, 50))
 	lying_down_cooldown = 0.6
 	hurt_pushback_time = 0.2
-	stun_regen_rate = rand_range(10, 20)
+	stun_regen_rate = rand_range(5, 11)
 	attacks_hitboxes = get_node("sprites/attack_hitboxes")
 	attacks = [
 		CONST.THUG_ANIM_ATTACK_1,

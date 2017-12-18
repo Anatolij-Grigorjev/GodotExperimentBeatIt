@@ -23,6 +23,8 @@ var attack_info = {
 	attack_z = 0,
 	#how long does the post-attack invulnerability last on enemy
 	hit_lock = 0.2,
+	#position of hit spark effect as a 2D vector, null means no spark
+	hit_location = null,
 	#force vector to move enemy when hit by attack
 	disloge_vector = Vector2(0,0),
 }

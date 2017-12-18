@@ -624,7 +624,7 @@ extents = Vector2( 14.0161, 33.9105 )
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 0.819152, -0.573576, 0.573576, 0.819152, 0.9, 11.5 )
+shapes/0/transform = Matrix32( 1.4, 0, 0, 1.4, 4.2, 6.6 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -678,7 +678,7 @@ transform/pos = Vector2( 1, 0 )
 texture = ExtResource( 2 )
 vframes = 14
 hframes = 10
-frame = 43
+frame = 13
 
 [node name="attack_hitboxes" type="Node2D" parent="sprites"]
 
@@ -737,8 +737,8 @@ transform/pos = Vector2( 1, 0 )
 [node name="body" type="CollisionShape2D" parent="."]
 
 visibility/visible = false
-transform/pos = Vector2( 0.9, 11.5 )
-transform/rot = 35.0
+transform/pos = Vector2( 4.2, 6.6 )
+transform/scale = Vector2( 1.4, 1.4 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
@@ -782,6 +782,10 @@ transform/rot = -141.0
 shape = SubResource( 16 )
 trigger = false
 _update_shape_index = 0
+
+[node name="Position2D" type="Position2D" parent="."]
+
+transform/pos = Vector2( 32.9357, 1.29522 )
 
 [connection signal="body_enter" from="sprites/attack_hitboxes/attack_1" to="sprites/attack_hitboxes/attack_1" method="body_enter"]
 

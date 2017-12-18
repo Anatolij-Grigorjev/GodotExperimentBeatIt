@@ -35,6 +35,8 @@ transform/pos = Vector2( 8.5, 4.5 )
 
 [node name="hit_sprite" type="Sprite" parent="."]
 
+z/z = 1024
+z/relative = false
 texture = ExtResource( 1 )
 vframes = 4
 hframes = 6

@@ -9,6 +9,7 @@ const CIRCLE_COLOR_MIN = Color(0, 1, 0)
 const CIRCLE_COLOR_MAX = Color(1, 0, 0)
 const COLOR_WHITE = Color(1, 1, 1)
 onready var FONT_DEBUG_INFO = preload("res://debug_font.fnt")
+onready var hit_effect = preload("res://characters/hit_effects/hit_effect_regular.tscn")
 var attacks_hitboxes
 #graivity affecting characters
 const GRAVITY = Vector2(0.0, 198)

@@ -1082,7 +1082,7 @@ extents = Vector2( 13.2466, 34.1294 )
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( -0.25, -0.433013, 0.433013, -0.25, -2.7, -8.15 )
+shapes/0/transform = Matrix32( 0.75, 0, 0, 0.75, 2, 2 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -1104,10 +1104,11 @@ center_pos = Vector2( 0, 0 )
 
 [node name="sprites" type="Sprite" parent="."]
 
+editor/display_folded = true
 texture = ExtResource( 2 )
 vframes = 18
 hframes = 10
-frame = 33
+frame = 8
 
 [node name="catch_point" type="Position2D" parent="sprites"]
 
@@ -1430,9 +1431,8 @@ drag_margin/bottom = 0.2
 [node name="body" type="CollisionShape2D" parent="."]
 
 visibility/visible = false
-transform/pos = Vector2( -2.7, -8.15 )
-transform/rot = 120.0
-transform/scale = Vector2( 0.5, 0.5 )
+transform/pos = Vector2( 2, 2 )
+transform/scale = Vector2( 0.75, 0.75 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
@@ -1469,6 +1469,10 @@ transform/rot = -62.0
 shape = SubResource( 31 )
 trigger = false
 _update_shape_index = 0
+
+[node name="Position2D" type="Position2D" parent="."]
+
+transform/pos = Vector2( 16.948, -14.6883 )
 
 [connection signal="body_enter" from="sprites/catch_collider" to="sprites/catch_collider" method="_on_catch_point_body_enter"]
 

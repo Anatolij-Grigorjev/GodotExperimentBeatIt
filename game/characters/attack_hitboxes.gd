@@ -54,12 +54,17 @@ func do_attack( body, attack_info ):
 		var enemy = body
 		#cant hit an enemy twice while they are being hit
 		if (enemy.getting_hit):
-			return
+			return true
 		#Z of enemy to see if they in attack range
 		var enemy_z = enemy.get_z()
 		var diff = abs(parent.get_z() - enemy_z)
 		if (diff <= attack_info.attack_z):
 			enemy.get_hit(parent, attack_info)
+			#touched enemy with combo, therefore try hit effect
+			if (attack_info.hit_location != null):
+				var sfx = parent.hit_effect.instance()
+				parent.sprite.add_child(sfx)
+				sfx.set_pos(attack_info.hit_location)
 		return true
 	else:
 		return false

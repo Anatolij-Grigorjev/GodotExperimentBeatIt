@@ -10,12 +10,21 @@ onready var CATCHING_STATES = [
 	parent.WALKING,
 	parent.RUNNING
 ]
+onready var CATCHABLE_STATES = [
+	parent.STANDING,
+	parent.WALKING,
+	parent.RUNNING,
+	parent.HURTING
+]
 
 var last_known_body = null
 #max idle holding of catch, in seconds
 const MAX_CATCH_HOLD_DURATION = 1.5
+const MAX_CATCH_COOLDOWN = 2.0
 #current catch hold duration, catch released after this
 var catch_hold_duration = 0.0
+#cooldown between enemy catches
+var catch_cooldown = 0.0
 
 func _ready():
 	set_process(true)
@@ -31,10 +40,13 @@ func _process(delta):
 			parent.release_enemy()
 			parent.attacks.reset_attack_state()
 			catch_hold_duration = 0.0
+			catch_cooldown = MAX_CATCH_COOLDOWN
 			return
 	#not holding anybody, process candidate
 	else:
-		if ( last_known_body != null):
+		if (catch_cooldown > 0.0):
+			catch_cooldown -= delta
+		if ( last_known_body != null and catch_cooldown <= 0.0):
 			process_caught_body()
 
 func process_caught_body():
@@ -45,7 +57,7 @@ func process_caught_body():
 	if ( last_known_body == parent.caught_enemy ):
 		return
 	#can only grab currently hurting enemies
-	if ( last_known_body.current_state != parent.HURTING ):
+	if ( not (last_known_body.current_state in CATCHABLE_STATES) ):
 		return
 	#if the player is walking towards the enemy, not standing there attacking
 	if ( parent.current_state in CATCHING_STATES): 

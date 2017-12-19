@@ -13,8 +13,8 @@ var attacker = null
 var attack_info = {
 	#name of attack
 	attack_name = "<?>",
-	#does attack ignore firendly group relations when hitting
-	friendly_fire = true,
+	#override for global setting of what group to target with attacks
+	target_group = "enemies",
 	#how many stun points attack hits for
 	attack_stun = 0,
 	#how many HP does this attack take in damage

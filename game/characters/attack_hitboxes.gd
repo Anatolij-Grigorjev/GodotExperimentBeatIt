@@ -50,7 +50,8 @@ func _process (delta):
 #return true if the body was in enemy group so attack connected
 func do_attack( body, attack_info ):
 	#handle an enemy getting hit
-	if (body.is_in_group(enemy_group) || attack_info.friendly_fire):
+	var hit_group = attack_info.target_group if attack_info.target_group != null else enemy_group
+	if ( body.is_in_group(hit_group) ):
 		var enemy = body
 		#cant hit an enemy twice while they are being hit
 		if (enemy.getting_hit):

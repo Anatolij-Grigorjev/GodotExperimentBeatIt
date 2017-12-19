@@ -59,7 +59,7 @@ func sprites_facing(sprite1, sprite2):
 	return sign(sprite1.get_scale().x) != sign(sprite2.get_scale().x)
 	
 func randomize_vec2( vector2, spread = 7.5 ):
-	Vector2(
+	return Vector2(
 		rand_range(vector2.x - spread, vector2.x + spread),
 		rand_range(vector2.y - spread, vector2.y + spread)
 	)

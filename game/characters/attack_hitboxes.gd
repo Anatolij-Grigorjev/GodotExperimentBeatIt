@@ -60,10 +60,12 @@ func do_attack( body, attack_info ):
 		var enemy_z = enemy.get_z()
 		var diff = abs(parent.get_z() - enemy_z)
 		if (diff <= attack_info.attack_z):
+			attack_info["damage"] = UTILS.randomize_num(attack_info.attack_power)
 			enemy.get_hit(parent, attack_info)
 			#touched enemy with combo, therefore try hit effect
 			if (attack_info.hit_location != null):
 				var sfx = parent.hit_effect.instance()
+				sfx.set_vals(attack_info.damage)
 				parent.sprite.add_child(sfx)
 				sfx.set_pos(UTILS.randomize_vec2(attack_info.hit_location))
 		return true

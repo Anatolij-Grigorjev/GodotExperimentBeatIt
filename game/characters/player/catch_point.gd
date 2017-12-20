@@ -6,17 +6,6 @@ onready var UTILS = get_node("/root/utils")
 
 onready var parent = get_node("../../")
 
-onready var CATCHING_STATES = [
-	parent.WALKING,
-	parent.RUNNING
-]
-onready var CATCHABLE_STATES = [
-	parent.STANDING,
-	parent.WALKING,
-	parent.RUNNING,
-	parent.HURTING
-]
-
 var last_known_body = null
 #max idle holding of catch, in seconds
 const MAX_CATCH_HOLD_DURATION = 1.5
@@ -56,11 +45,14 @@ func process_caught_body():
 	#already holding the guy
 	if ( last_known_body == parent.caught_enemy ):
 		return
-	#can only grab currently hurting enemies
-	if ( not (last_known_body.current_state in CATCHABLE_STATES) ):
+	#can only grab people that are very close to me diagonally
+	if ( abs(parent.get_z() - last_known_body.get_z()) > 1):
+		return
+	#can only grab enemies in grab-ready states
+	if ( not (last_known_body.current_state in parent.CATCHABLE_STATES) ):
 		return
 	#if the player is walking towards the enemy, not standing there attacking
-	if ( parent.current_state in CATCHING_STATES): 
+	if ( parent.current_state in parent.CATCHING_READY_STATES): 
 		#set the porper states
 		last_known_body.current_state = parent.CAUGHT
 		last_known_body.getting_hit = false

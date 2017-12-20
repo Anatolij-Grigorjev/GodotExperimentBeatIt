@@ -63,6 +63,9 @@ func randomize_vec2( vector2, spread = 7.5 ):
 		rand_range(vector2.x - spread, vector2.x + spread),
 		rand_range(vector2.y - spread, vector2.y + spread)
 	)
+
+func randomize_num( number, spread = 5.0 ):
+	return rand_range( number - spread, number + spread )
 	
 #decode string property value
 func decode_serialized(value):

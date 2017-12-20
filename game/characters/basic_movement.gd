@@ -49,12 +49,35 @@ export(int) var current_state = STANDING
 export var current_state_ctx = {}
 
 const DISLOGE_KEYS = [ "disloge", "initial_pos"]
+#states in which character is mid jump
 var JUMPING_STATES = [ JUMPING, JUMP_ATTACK ]
+#states in which character is beingh actively hurt
 var HURTING_STATES = [ HURTING, CAUGHT_HURTING ]
+#states in which character has been caught and held
 var CAUGHT_STATES = [ CAUGHT, CAUGHT_HURTING ]
+#states in which character is falling after an attack
 var FALLING_STATES = [ FALLING, FALLEN, DYING ]
+#states in which character is performing a catch
 var CATCHING_STATES = [ CATCHING, CATCH_ATTACKING ]
-
+#states in which character is attacking
+var ATTACK_STATES = [
+	ATTACKING,
+	JUMP_ATTACK,
+	CATCH_ATTACKING,
+	RUN_ATTACKING,
+]
+#states in which character can catch
+var CATCHING_READY_STATES = [
+	WALKING,
+	RUNNING
+]
+#states in which character can get caught
+var CATCHABLE_STATES = [
+	STANDING,
+	WALKING,
+	RUNNING,
+	HURTING
+]
 
 #flag representing hit lock > 0
 var getting_hit
@@ -265,7 +288,8 @@ func get_hit(attacker, attack_info):
 	just_hit = true
 	hit_lock = attack_info.hit_lock 
 	current_stun_points -= attack_info.attack_stun
-	set_health(health - attack_info.attack_power)
+	#get hit by randomized damage if the attack had it, by base power otherwise
+	set_health(health - attack_info.damage if attack_info.has("damage") else attack_info.attack_power)
 	#check prev state later in method
 	var prev_state = current_state
 	#state was caught or not

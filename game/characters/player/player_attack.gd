@@ -41,14 +41,6 @@ onready var parent = get_node("../")
 #access to movement, to know what attack to switch to
 onready var movement = get_node("../player_move")
 
-#states that represent when player is actively attacking
-onready var ATTACK_STATES = [
-	parent.ATTACKING,
-	parent.JUMP_ATTACK,
-	parent.CATCH_ATTACKING,
-	parent.RUN_ATTACKING,
-]
-
 onready var ACTIONS = [
 	CONST.INPUT_ACTION_ATTACK,
 	CONST.INPUT_ACTION_MOVE_LEFT,
@@ -56,10 +48,8 @@ onready var ACTIONS = [
 	CONST.INPUT_ACTION_MOVE_UP,
 	CONST.INPUT_ACTION_MOVE_DOWN
 ]
-onready var JUMP_STATE_TO_ATTACK = {
-	movement.JUMP_STATES.ASCEND: CONST.PLAYER_ANIM_ATTACK_JUMP_ASCEND,
-	movement.JUMP_STATES.DESCEND: CONST.PLAYER_ANIM_ATTACK_JUMP_DESCEND
-}
+onready var slow_jump_attack = CONST.PLAYER_ANIM_ATTACK_JUMP_ASCEND
+onready var run_jump_attack = CONST.PLAYER_ANIM_ATTACK_JUMP_DESCEND
 
 #are the attacks connecting to something? 
 #combo cant be continued if they dont
@@ -94,7 +84,7 @@ func _process(delta):
 
 	#if we are attacking, 
 	#lets ignore input while the animation plays out
-	if (parent.current_state in ATTACK_STATES):
+	if (parent.current_state in parent.ATTACK_STATES):
 		#parent still playing some attack animation, no updates needed
 		if (parent.anim.is_playing() and parent.curr_anim in ATTACK_ANIMATIONS):
 			return
@@ -214,18 +204,16 @@ func queue_combo_move(new_attack_state, new_anim):
 	parent.next_anim = new_anim
 				
 func jump_attack():
-	#attack depends on the jump state
-	for jump_state in JUMP_STATE_TO_ATTACK:
-		if (parent.current_state_ctx.jump_state == jump_state):
-			#start jump ascend attack
-			if (parent.current_state != parent.JUMP_ATTACK):
-				parent.current_state = parent.JUMP_ATTACK
-				current_combo_countdown = MAX_COMBO_COUNTDOWN
-				parent.next_anim = (JUMP_STATE_TO_ATTACK[jump_state])
-			#attack already ahppening, ignore input and wait
-			else:
-				if (!parent.anim.is_playing() and parent.curr_anim in ATTACK_ANIMATIONS):
-					reset_attack_state()
+
+	var run_jump = parent.current_state_ctx.move_factor > 1.0
+	if (parent.current_state != parent.JUMP_ATTACK):
+		parent.current_state = parent.JUMP_ATTACK
+		current_combo_countdown = MAX_COMBO_COUNTDOWN
+		parent.next_anim = run_jump_attack if run_jump else slow_jump_attack
+	#attack already happening, ignore input and wait
+	else:
+		if (!parent.anim.is_playing() and parent.curr_anim in ATTACK_ANIMATIONS):
+			reset_attack_state()
 					
 func run_attack():
 	#start run attack

@@ -196,7 +196,7 @@ func _process(delta):
 			parent.next_anim = CONST.PLAYER_ANIM_IDLE
 	
 	#clear animation state if attacking
-	if (parent.current_state in attacks.ATTACK_STATES):
+	if (parent.current_state in parent.ATTACK_STATES):
 		parent.next_anim = null
 	
 	

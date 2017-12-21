@@ -249,7 +249,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=12]
 
 resource/name = "player_attack_jump_run"
 length = 0.45
@@ -301,9 +301,8 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=13]
 
-resource/name = "player_attack_jump_slow"
 length = 0.4
 loop = false
 step = 0.1
@@ -1373,8 +1372,8 @@ anims/player_attack_1 = SubResource( 8 )
 anims/player_attack_2 = SubResource( 9 )
 anims/player_attack_3 = SubResource( 10 )
 anims/player_attack_4 = SubResource( 11 )
-anims/player_attack_jump_run = SubResource( 13 )
-anims/player_attack_jump_slow = SubResource( 12 )
+anims/player_attack_jump_run = SubResource( 12 )
+anims/player_attack_jump_slow = SubResource( 13 )
 anims/player_catch_attack_1 = SubResource( 14 )
 anims/player_catch_attack_2 = SubResource( 15 )
 anims/player_catch_attack_3 = SubResource( 16 )

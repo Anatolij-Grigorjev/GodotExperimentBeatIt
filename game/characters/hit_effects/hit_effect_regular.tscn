@@ -45,6 +45,7 @@ tracks/2/keys = {
 
 [node name="hit_effect" type="Node2D"]
 
+visibility/visible = false
 transform/pos = Vector2( 8.5, 4.5 )
 z/z = 1024
 z/relative = false
@@ -55,6 +56,7 @@ script/script = ExtResource( 1 )
 texture = ExtResource( 2 )
 vframes = 4
 hframes = 6
+frame = 5
 
 [node name="hit_anim" type="AnimationPlayer" parent="."]
 
@@ -69,16 +71,22 @@ autoplay = "hit_spark"
 
 [node name="label" type="Label" parent="."]
 
+rect/scale = Vector2( 0.5, 0.5 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = -18.0
-margin/top = -8.0
-margin/right = 22.0
-margin/bottom = 26.0
+margin/left = -8.0
+margin/top = -1.0
+margin/right = 24.0
+margin/bottom = 33.0
 custom_fonts/font = ExtResource( 3 )
-custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 0.857941, 1, 0.0429688, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = -1
+custom_constants/shadow_as_outline = 5
+text = "52"
 uppercase = true
 percent_visible = 1.0
 lines_skipped = 0

@@ -64,8 +64,8 @@ func randomize_vec2( vector2, spread = 7.5 ):
 		rand_range(vector2.y - spread, vector2.y + spread)
 	)
 
-func randomize_num( number, spread = 5.0 ):
-	return rand_range( number - spread, number + spread )
+func randomize_num( number, spread = 5.0, min_max = Vector2( 1.0, 1.5e27 ) ):
+	return clamp( rand_range( number - spread, number + spread ), min_max.x, min_max.y )
 	
 #decode string property value
 func decode_serialized(value):

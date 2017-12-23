@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 onready var CONST = get_node("/root/const")
 onready var UTILS = get_node("/root/utils")

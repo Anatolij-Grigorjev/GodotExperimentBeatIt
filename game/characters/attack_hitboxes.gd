@@ -67,7 +67,7 @@ func do_attack( body, attack_info ):
 				var sfx = parent.hit_effect.instance()
 				parent.sprite.add_child(sfx)
 				sfx.set_pos(UTILS.randomize_vec2(attack_info.hit_location))
-				sfx.set_vals(attack_info.damage, enemy)
+				sfx.set_vals(attack_info.damage)
 		return true
 	else:
 		return false

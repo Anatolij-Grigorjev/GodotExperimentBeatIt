@@ -83,19 +83,12 @@ func _process(delta):
 		var good_max = ground.nearest_in_general_bounds(character.node.max_pos)
 		if (good_max.x < character.node.max_pos.x):
 			character.node.set_pos_by_max(good_max)
-		#use plaeyr camera bounds to limit enemy movements as well
-		#but enemies can at most position themselves out of view
-		if (character.node != player and player_current_bounds_x != null):
-			if (character.node.max_pos.x < player_current_bounds_x.x):
-				character.node.set_pos_by_max(Vector2(player_current_bounds_x.x + 1, character.node.max_pos.y))
-			if (character.node.min_pos.x > player_current_bounds_x.y):
-				character.node.set_pos_by_min(Vector2(player_current_bounds_x.y - 1, character.node.min_pos.y))
-	#check player in bounds
-	if (player_current_bounds_x != null):
-		if (player.min_pos.x < player_current_bounds_x.x):
-			player.set_pos_by_min(Vector2(player_current_bounds_x.x + 1, player.min_pos.y))
-		if (player.max_pos.x > player_current_bounds_x.y):
-			player.set_pos_by_max(Vector2(player_current_bounds_x.y - 1, player.max_pos.y))
+		#check character in bounds
+		if (player_current_bounds_x != null):
+			if (character.node.min_pos.x < player_current_bounds_x.x):
+				character.node.set_pos_by_min(Vector2(player_current_bounds_x.x + 1, character.node.min_pos.y))
+			if (character.node.max_pos.x > player_current_bounds_x.y):
+				character.node.set_pos_by_max(Vector2(player_current_bounds_x.y - 1, character.node.max_pos.y))
 	#check current stop enemies
 	if (current_stop != null and player_current_bounds_x != null):
 		var pool = areas_info[current_stop].enemy_pool
@@ -110,7 +103,11 @@ func _pool_stop_finished( ):
 func _enemy_created( enemy_node, global_feet_pos ):
 	self.add_child( enemy_node )
 	enemy_node.set_pos_by_feet( global_feet_pos )
-	print("Created enemy %s at position %s" % [enemy_node, enemy_node.get_global_pos()])	
+	characters_in_level.append( make_character_data(enemy_node) )
+	print("Created enemy %s at position %s" % [enemy_node, enemy_node.get_global_pos()])
+	
+func _enemy_dead( enemy_node ):
+	characters_in_level.remove( make_character_data(enemy_node) )
 	
 func _on_stop_1_body_enter( body ):
 	if (body.get_name() == "player"):
@@ -122,13 +119,18 @@ func _on_stop_1_body_enter( body ):
 func _on_stop_1_body_exit( body ):
 	if (body.get_name() == "player"):
 		var stop_1 = areas_nodes["stop_1"]
-		#time to stop overhead camera and do player one
-		set_area_activeness(stop_1, false)
-		body.get_node("camera").make_current()
-		#remove this stop later since its been dealt with
-		areas_info.erase(stop_1)
-		areas_nodes.erase("stop_1")
-		stop_1.queue_free()
+		var pool = areas_info[stop_1].enemy_pool
+		#only let my people go if the enemies pool is finished for the stop
+		if (pool == null or pool.finished):
+			#time to stop overhead camera and do player one
+			set_area_activeness(stop_1, false)
+			body.get_node("camera").make_current()
+			#remove this stop later since its been dealt with
+			areas_info.erase(stop_1)
+			areas_nodes.erase("stop_1")
+			stop_1.queue_free()
+		else:
+			print("player tried to esacpe stop_1!")
 
 
 func set_area_activeness(area, active = true):

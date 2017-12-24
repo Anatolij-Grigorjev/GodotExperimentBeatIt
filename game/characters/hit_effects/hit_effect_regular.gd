@@ -12,5 +12,4 @@ func set_vals(num):
 	#attach to scene
 	level.add_child(dmg)
 	dmg.set_global_pos(get_global_pos())
-	dmg.prepare_animation(str(round(num)))
-
+	dmg.get_node("info/dmg_label").set_text(str(round(num)))

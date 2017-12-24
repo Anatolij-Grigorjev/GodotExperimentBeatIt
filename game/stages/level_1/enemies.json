@@ -3,10 +3,6 @@
 		{
 			"code": "thug",
 			"from": "left"
-		},
-		{
-			"code": "thug",
-			"from": "right"
-		}
+		}	
 	]
 }

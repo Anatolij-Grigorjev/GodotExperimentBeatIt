@@ -35,6 +35,7 @@ func setup_body_slam():
 	body_area.attack_info.attack_z = 3
 	body_area.attack_info.hit_lock = 0.5
 	body_area.attack_info.disloge_vector = Vector2(150,-25)
+	body_area.attack_info.hit_location = CONST.VECTOR2_ZERO
 	
 	if (attacks_hitboxes != null):
 		attacks_hitboxes.attacks_hitboxes.append(body_area)

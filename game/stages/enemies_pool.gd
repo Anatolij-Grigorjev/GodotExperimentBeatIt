@@ -23,6 +23,7 @@ var code_to_enemy_scene = {
 var level
 #level signals
 signal enemy_pool_finished
+signal enemy_pool_enemy_dead(enemy_node)
 signal enemy_pool_add_new(enemy_node, global_feet_pos)
 
 func _init(
@@ -57,6 +58,7 @@ func _ready():
 	connect(CONST.SIG_ENEMY_POOL_ADD_NEW, level, "_enemy_created")
 	#pool exhausted and over
 	connect(CONST.SIG_ENEMY_POOL_FINISHED, level, "_pool_stop_finished")
+	connect("enemy_pool_enemy_dead", level, "_enemy_dead")
 	
 func _process(delta):
 	if (finished):
@@ -82,6 +84,8 @@ func _enemy_dead(idx):
 	#ignore indices out of range
 	if (idx >= 0 and idx < current_enemies.size()):
 		print("enemy dead at index %s, removing..." % idx)
+		var enemy = current_enemies[idx]
 		current_enemies.remove(idx)
+		emit_signal("enemy_pool_enemy_dead", enemy)
 	if (current_enemies.empty()):
 			finished = true

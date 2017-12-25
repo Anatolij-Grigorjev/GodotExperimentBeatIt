@@ -96,9 +96,14 @@ func _process(delta):
 			pool._process(delta)
 
 
-func _pool_stop_finished( ):
+func _pool_stop_finished( pool ):
+	for area in areas_info:
+		if ( areas_info[area].enemy_pool == pool ):
+			#found right area, better clear enemy_pool
+			areas_info[area].enemy_pool = null
+			print("enemy pool over for %s, unbinding player!" % area)
 	player_current_bounds_x = null
-	print("enemy pool over, player unbound!")
+	
 	
 func _enemy_created( enemy_node, global_feet_pos ):
 	self.add_child( enemy_node )
@@ -107,7 +112,16 @@ func _enemy_created( enemy_node, global_feet_pos ):
 	print("Created enemy %s at position %s" % [enemy_node, enemy_node.get_global_pos()])
 	
 func _enemy_dead( enemy_node ):
-	characters_in_level.remove( make_character_data(enemy_node) )
+	var enemy_idx = -1
+	for idx in range(characters_in_level.size()):
+		var char_info = characters_in_level[idx]
+		if (char_info.node == enemy_node):
+			enemy_idx = idx
+	if (enemy_idx >= 0):
+		characters_in_level.remove(enemy_idx)
+		print("removed enemy %s from level characters!" % enemy_node)
+	else:
+		print("node %s not found in characters list!" % enemy_node)
 	
 func _on_stop_1_body_enter( body ):
 	if (body.get_name() == "player"):

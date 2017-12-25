@@ -10,10 +10,12 @@ var last_known_body = null
 #max idle holding of catch, in seconds
 const MAX_CATCH_HOLD_DURATION = 1.5
 const MAX_CATCH_COOLDOWN = 2.0
+const CATCH_POINT_Z_RADIUS = 1
 #current catch hold duration, catch released after this
 var catch_hold_duration = 0.0
 #cooldown between enemy catches
 var catch_cooldown = 0.0
+
 
 func _ready():
 	set_process(true)
@@ -71,7 +73,10 @@ func _on_catch_point_body_enter( body ):
 	#collision with own body
 	if ( body == parent ):
 		return
-	last_known_body = body
+	#only catch if in close Z proximity
+	if ( abs(body.get_z() - parent.get_z()) <= CATCH_POINT_Z_RADIUS ):
+		last_known_body = body
+
 	
 
 func _on_catch_point_body_exit( body ):

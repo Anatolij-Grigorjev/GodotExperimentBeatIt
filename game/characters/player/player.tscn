@@ -1117,8 +1117,6 @@ transform/pos = Vector2( 23, 0 )
 
 [node name="catch_collider" type="Area2D" parent="sprites"]
 
-editor/display_folded = true
-visibility/visible = false
 visibility/behind_parent = true
 transform/scale = Vector2( 0.548853, 0.589701 )
 input/pickable = true

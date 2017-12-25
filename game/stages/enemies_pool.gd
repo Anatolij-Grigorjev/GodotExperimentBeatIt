@@ -22,7 +22,7 @@ var code_to_enemy_scene = {
 }
 var level
 #level signals
-signal enemy_pool_finished
+signal enemy_pool_finished( pool )
 signal enemy_pool_enemy_dead(enemy_node)
 signal enemy_pool_add_new(enemy_node, global_feet_pos)
 
@@ -63,7 +63,7 @@ func _ready():
 func _process(delta):
 	if (finished):
 		print("pool %s finished!" % self)
-		emit_signal(CONST.SIG_ENEMY_POOL_FINISHED)
+		emit_signal(CONST.SIG_ENEMY_POOL_FINISHED, self)
 		queue_free()
 		return
 	#still have enemies to release, check in with timer and do it

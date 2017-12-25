@@ -20,7 +20,7 @@ func _ready():
 	movement.jumping = false
 	current_anim = CONST.THUG_ANIM_IDLE
 	anim.play(current_anim)
-	MAX_HP = rand_range(200, 300)
+	MAX_HP = rand_range(100, 200)
 	._ready()
 	
 func _process(delta):

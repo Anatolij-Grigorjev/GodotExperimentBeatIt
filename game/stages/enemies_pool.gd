@@ -8,8 +8,8 @@ var spawn_wait_max = 0.0
 var current_spawn_wait
 #pool holds packed enemy scene  and baked enemy spawn position
 var enemies_pool = []
-#currently available onscreen enemies
-var current_enemies = []
+#currently available onscreen enemies (keys are node names)
+var current_enemies = {}
 #left side spanw X and rightside spawn X
 var x_bounds = Vector2()
 #coninuous range of spawn-ready Ys
@@ -32,7 +32,7 @@ enemies_data,
 left_x, 
 right_x, 
 spawn_y_bounds,
-spawn_interval_bound = 0.75):
+spawn_interval_bound = 0.1):
 	spawn_wait_max = spawn_interval_bound
 	x_bounds = {
 		"left": left_x,
@@ -47,7 +47,7 @@ spawn_interval_bound = 0.75):
 			"position": Vector2(x_bounds[enemy.from], 
 			rand_range(y_bounds.x, y_bounds.y))
 		})
-	current_enemies = []
+	current_enemies = {}
 	current_spawn_wait = rand_range(0, spawn_wait_max)
 	self.level = level
 	
@@ -76,16 +76,14 @@ func _process(delta):
 			enemies_pool.pop_back()
 			var real_enemy = packed_enemy.scene.instance()
 			emit_signal(CONST.SIG_ENEMY_POOL_ADD_NEW, real_enemy, packed_enemy.position)
-			real_enemy.pool_idx = current_enemies.size()
 			real_enemy.connect_pool_signal(self)
-			current_enemies.append(real_enemy)
+			current_enemies[real_enemy.get_name()] = real_enemy
 
-func _enemy_dead(idx):
+func _enemy_dead( enemy_node ):
 	#ignore indices out of range
-	if (idx >= 0 and idx < current_enemies.size()):
-		print("enemy dead at index %s, removing..." % idx)
-		var enemy = current_enemies[idx]
-		current_enemies.remove(idx)
-		emit_signal("enemy_pool_enemy_dead", enemy)
+	if (current_enemies.has(enemy_node.get_name())):
+		print("enemy %s dead, removing..." % enemy_node.get_name())
+		current_enemies.erase(enemy_node.get_name())
+		emit_signal("enemy_pool_enemy_dead", enemy_node)
 	if (current_enemies.empty()):
 			finished = true

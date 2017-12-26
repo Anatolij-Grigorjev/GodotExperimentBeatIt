@@ -15,10 +15,6 @@ var current_stop = null
 onready var EnemiesPool = load(CONST.ENEMIES_POOL_CLASS)
 var player_current_bounds_x = null
 
-#nodes in level in the group characters. 
-#this will be a list of maps where character nodes and other properties are strored
-var characters_in_level = []
-
 #level signals
 signal enemy_pool_finished
 signal enemy_pool_add_new(enemy_node, global_feet_pos)
@@ -26,10 +22,6 @@ signal enemy_pool_add_new(enemy_node, global_feet_pos)
 func _ready():
 	var tex_extents = ground.texture_extents
 	player.get_node("camera").set_limit(MARGIN_BOTTOM, tex_extents.y * 2)
-	#populate characters info map
-	for character in get_tree().get_nodes_in_group(CONST.GROUP_CHARS):
-		#add character node to processed characters list in map
-		characters_in_level.append(make_character_data(character))
 	
 	#create signals for enemy pools to emit
 	#pool created enemy to add to level
@@ -60,35 +52,28 @@ func _ready():
 	
 	set_process(true)
 	
-#creation of character data externalized to dynamically add more when needed (like generated enemies)
-func make_character_data(character):
-	return {
-		"id": character.get_name(),
-		"node": character,
-		"can_jump": character.has_method("jumping")
-	}
 	
 func _process(delta):
-	for character in characters_in_level:
+	for character in get_tree().get_nodes_in_group(CONST.GROUP_CHARS):
 		#check ground Z bounds when character not in air
-		if (character.node.feet_ground_y == null):
-			var feet_pos = character.node.feet_pos
+		if (character.feet_ground_y == null):
+			var feet_pos = character.feet_pos
 			var good_feet_pos = ground.nearest_in_bounds(feet_pos)
 			if (feet_pos != good_feet_pos):
-				character.node.set_pos_by_feet(good_feet_pos)
+				character.set_pos_by_feet(good_feet_pos)
 		#always check outer level bounds (except when characters falling
-		var good_min = ground.nearest_in_general_bounds(character.node.min_pos)
-		if (good_min.x > character.node.min_pos.x):
-			character.node.set_pos_by_min(good_min)
-		var good_max = ground.nearest_in_general_bounds(character.node.max_pos)
-		if (good_max.x < character.node.max_pos.x):
-			character.node.set_pos_by_max(good_max)
+		var good_min = ground.nearest_in_general_bounds(character.min_pos)
+		if (good_min.x > character.min_pos.x):
+			character.set_pos_by_min(good_min)
+		var good_max = ground.nearest_in_general_bounds(character.max_pos)
+		if (good_max.x < character.max_pos.x):
+			character.set_pos_by_max(good_max)
 		#check character in bounds
 		if (player_current_bounds_x != null):
-			if (character.node.min_pos.x < player_current_bounds_x.x):
-				character.node.set_pos_by_min(Vector2(player_current_bounds_x.x + 1, character.node.min_pos.y))
-			if (character.node.max_pos.x > player_current_bounds_x.y):
-				character.node.set_pos_by_max(Vector2(player_current_bounds_x.y - 1, character.node.max_pos.y))
+			if (character.min_pos.x < player_current_bounds_x.x):
+				character.set_pos_by_min(Vector2(player_current_bounds_x.x + 1, character.min_pos.y))
+			if (character.max_pos.x > player_current_bounds_x.y):
+				character.set_pos_by_max(Vector2(player_current_bounds_x.y - 1, character.max_pos.y))
 	#check current stop enemies
 	if (current_stop != null and player_current_bounds_x != null):
 		var pool = areas_info[current_stop].enemy_pool
@@ -108,20 +93,11 @@ func _pool_stop_finished( pool ):
 func _enemy_created( enemy_node, global_feet_pos ):
 	self.add_child( enemy_node )
 	enemy_node.set_pos_by_feet( global_feet_pos )
-	characters_in_level.append( make_character_data(enemy_node) )
+	enemy_node.set_positions()
 	print("Created enemy %s at position %s" % [enemy_node, enemy_node.get_global_pos()])
 	
 func _enemy_dead( enemy_node ):
-	var enemy_idx = -1
-	for idx in range(characters_in_level.size()):
-		var char_info = characters_in_level[idx]
-		if (char_info.node == enemy_node):
-			enemy_idx = idx
-	if (enemy_idx >= 0):
-		characters_in_level.remove(enemy_idx)
-		print("removed enemy %s from level characters!" % enemy_node)
-	else:
-		print("node %s not found in characters list!" % enemy_node)
+	pass
 	
 func _on_stop_1_body_enter( body ):
 	if (body.get_name() == "player"):

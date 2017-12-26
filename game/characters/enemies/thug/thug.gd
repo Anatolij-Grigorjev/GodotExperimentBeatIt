@@ -91,4 +91,5 @@ func change_anim():
 		current_anim = "thug_death_" + current_anim.right("thug_fall_".length())
 
 func do_death():
-	pass
+	.do_death()
+	remove_from_group(CONST.GROUP_CHARS)

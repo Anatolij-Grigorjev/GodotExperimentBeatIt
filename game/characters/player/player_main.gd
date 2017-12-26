@@ -3,6 +3,7 @@ extends "../basic_movement.gd"
 onready var movement = get_node("player_move")
 onready var attacks = get_node("player_attack")
 onready var catch_point = get_node("sprites/catch_point")
+onready var catch_collider = get_node("sprites/catch_collider")
 #generic timer counting gametime up during processing updates, in ms
 var timer
 var curr_anim
@@ -86,6 +87,8 @@ func release_enemy(disloge = CONST.VECTOR2_ZERO):
 	var enemy = caught_enemy
 	if (enemy != null):
 		caught_enemy = null
+		#reset post-catch waiting for next catch
+		catch_collider.catch_cooldown = catch_collider.MAX_CATCH_COOLDOWN
 		enemy.set_pos_by_feet(feet_pos - Vector2(0, 1))
 		enemy.feet_ground_y = feet_pos.y
 		enemy.current_state_ctx.fall_start_y = feet_pos.y

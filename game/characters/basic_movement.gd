@@ -217,7 +217,7 @@ func update_hurt_states(delta):
 		return
 		
 func do_death():
-	print("[WARN] Function do_death not overriden in %s!" % self)
+	remove_child( get_node("body") )
 
 func _process(delta):
 	set_positions()

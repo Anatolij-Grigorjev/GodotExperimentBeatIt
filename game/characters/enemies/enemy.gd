@@ -5,8 +5,6 @@ var current_decision_wait
 var attacks = []
 var current_anim
 
-#enemy pool index, should be updated before death
-var pool_idx = -1
 onready var healthbar = get_node("healthbar")
 var player
 #main defaults for enemies on things
@@ -112,7 +110,8 @@ func connect_pool_signal( pool ):
 
 func dying():
 	print("Enemy %s dead!" % self)
-	emit_signal(CONST.SIG_ENEMY_DEATH, pool_idx)
+	remove_from_group(CONST.GROUP_ENEMIES)
+	emit_signal(CONST.SIG_ENEMY_DEATH, self)
 	queue_free()
 
 func set_health( health ):

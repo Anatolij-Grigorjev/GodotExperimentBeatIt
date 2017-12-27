@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=1]
+[gd_scene load_steps=41 format=1]
 
 [ext_resource path="res://characters/player/player_main.gd" type="Script" id=1]
 [ext_resource path="res://characters/player/player_sprites.png" type="Texture" id=2]
@@ -533,6 +533,63 @@ tracks/4/keys = {
 "transitions": FloatArray( 1 ),
 "update": 1,
 "values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=32]
+
+resource/name = "player_catch_throw"
+length = 0.5
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprites:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.3 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 94, 95, 96 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprites/catch_point:transform/pos")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.2, 0.5 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 23, 0 ), Vector2( 11, 0 ), Vector2( 23, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("body:transform/scale")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ Vector2( 0.64, 0.64 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("body:transform/rot")
+tracks/3/interp = 1
+tracks/3/imported = false
+tracks/3/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("body:transform/pos")
+tracks/4/interp = 1
+tracks/4/imported = false
+tracks/4/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ Vector2( 0.65, 8.5 ) ]
 }
 
 [sub_resource type="Animation" id=17]
@@ -1073,7 +1130,7 @@ extents = Vector2( 13.2466, 34.1294 )
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 0.64, 0, 0, 0.64, -2.1, -4.5 )
+shapes/0/transform = Matrix32( 0.64, 0, 0, 0.64, 0.65, 8.5 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -1098,15 +1155,15 @@ center_pos = Vector2( 0, 0 )
 texture = ExtResource( 2 )
 vframes = 18
 hframes = 10
-frame = 62
+frame = 94
 
 [node name="catch_point" type="Position2D" parent="sprites"]
 
-visibility/behind_parent = true
 transform/pos = Vector2( 23, 0 )
 
 [node name="catch_collider" type="Area2D" parent="sprites"]
 
+editor/display_folded = true
 visibility/visible = false
 visibility/behind_parent = true
 transform/scale = Vector2( 0.548853, 0.589701 )
@@ -1129,7 +1186,6 @@ _update_shape_index = 0
 
 [node name="attack_hitboxes" type="Node2D" parent="sprites"]
 
-editor/display_folded = true
 script/script = ExtResource( 4 )
 
 [node name="attack_1" type="Area2D" parent="sprites/attack_hitboxes"]
@@ -1248,7 +1304,6 @@ _update_shape_index = 0
 [node name="attack_catch_2" type="Area2D" parent="sprites/attack_hitboxes"]
 
 editor/display_folded = true
-visibility/visible = false
 transform/pos = Vector2( 10, -15 )
 input/pickable = true
 shapes/0/shape = SubResource( 3 )
@@ -1354,6 +1409,28 @@ shape = SubResource( 7 )
 trigger = false
 _update_shape_index = 0
 
+[node name="attack_catch_throw" type="Area2D" parent="sprites/attack_hitboxes"]
+
+editor/display_folded = true
+transform/pos = Vector2( 10, -15 )
+input/pickable = true
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 0.400713, 0, 0, 1, 11.8652, 4.22975 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 5 )
+
+[node name="collision" type="CollisionShape2D" parent="sprites/attack_hitboxes/attack_catch_throw"]
+
+transform/pos = Vector2( 11.8652, 4.22975 )
+transform/scale = Vector2( 0.400713, 1 )
+shape = SubResource( 3 )
+trigger = false
+_update_shape_index = 0
+
 [node name="anim" type="AnimationPlayer" parent="."]
 
 playback/process_mode = 1
@@ -1368,6 +1445,7 @@ anims/player_attack_jump_slow = SubResource( 13 )
 anims/player_catch_attack_1 = SubResource( 14 )
 anims/player_catch_attack_2 = SubResource( 15 )
 anims/player_catch_attack_3 = SubResource( 16 )
+anims/player_catch_throw = SubResource( 32 )
 anims/player_catching = SubResource( 17 )
 anims/player_death_on_back = SubResource( 18 )
 anims/player_death_on_belly = SubResource( 19 )
@@ -1420,7 +1498,7 @@ drag_margin/bottom = 0.2
 
 [node name="body" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( -2.1, -4.5 )
+transform/pos = Vector2( 0.65, 8.5 )
 transform/scale = Vector2( 0.64, 0.64 )
 shape = SubResource( 1 )
 trigger = false
@@ -1503,6 +1581,10 @@ _update_shape_index = 0
 [connection signal="body_enter" from="sprites/attack_hitboxes/attack_run" to="sprites/attack_hitboxes/attack_run" method="body_enter"]
 
 [connection signal="body_exit" from="sprites/attack_hitboxes/attack_run" to="sprites/attack_hitboxes/attack_run" method="body_exit"]
+
+[connection signal="body_enter" from="sprites/attack_hitboxes/attack_catch_throw" to="sprites/attack_hitboxes/attack_catch_throw" method="body_enter"]
+
+[connection signal="body_exit" from="sprites/attack_hitboxes/attack_catch_throw" to="sprites/attack_hitboxes/attack_catch_throw" method="body_exit"]
 
 [connection signal="body_enter" from="body_area" to="body_area" method="body_enter"]
 

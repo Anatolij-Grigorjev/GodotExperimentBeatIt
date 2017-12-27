@@ -33,6 +33,7 @@ onready var ATTACK_ANIMATIONS = [
 	CONST.PLAYER_ANIM_CATTACK_1,
 	CONST.PLAYER_ANIM_CATTACK_2,
 	CONST.PLAYER_ANIM_CATTACK_3,
+	CONST.PLAYER_ANIM_CATCH_THROW,
 	CONST.PLAYER_ANIM_RUN_ATTACK,
 ]
 
@@ -54,6 +55,8 @@ onready var run_jump_attack = CONST.PLAYER_ANIM_ATTACK_JUMP_RUN
 #are the attacks connecting to something? 
 #combo cant be continued if they dont
 var hitting = false
+#is the character busy throwing
+var doing_throw = false
 #should the update loop finish attack
 # sequence regardless of input
 var finish_attack = false
@@ -81,7 +84,21 @@ func _process(delta):
 	#gather inputs for frame
 	for action in ACTIONS:
 		pressing[action] = Input.is_action_pressed(action)
-
+	
+	
+	var pressing_x_direction = pressing[CONST.INPUT_ACTION_MOVE_LEFT] or pressing[CONST.INPUT_ACTION_MOVE_RIGHT]
+	#if attack and direction was pressed while catching
+	if (doing_throw or 
+	(parent.current_state in parent.CATCHING_STATES and 
+	(pressing[CONST.INPUT_ACTION_ATTACK] and pressing_x_direction))): 
+		#flip the player direction if this throw was in opposite one
+		if (parent.facing_direction == parent.DIR_LEFT and pressing[CONST.INPUT_ACTION_MOVE_RIGHT]):
+			parent.facing_direction = parent.DIR_RIGHT
+		elif (parent.facing_direction == parent.DIR_RIGHT and pressing[CONST.INPUT_ACTION_MOVE_LEFT]):
+			parent.facing_direction = parent.DIR_LEFT
+		doing_throw = true
+		catch_throw()
+		return
 	#if we are attacking, 
 	#lets ignore input while the animation plays out
 	if (parent.current_state in parent.ATTACK_STATES):
@@ -124,7 +141,19 @@ func reset_attack_state():
 	last_combo_attack = null
 	current_combo_countdown = 0
 	hitting = false
+	doing_throw = false
 	hitboxes.reset_attacks()
+	
+func catch_throw():
+	#set throw animation
+	parent.next_anim = CONST.PLAYER_ANIM_CATCH_THROW
+	#wait until it finished
+	if (parent.curr_anim == CONST.PLAYER_ANIM_CATCH_THROW and parent.anim.get_current_animation_pos() >= 0.3):
+		var catch_attack_info = hitboxes.attacks_nodes["attack_catch_throw"].attack_info
+		parent.release_enemy(catch_attack_info.disloge_vector, catch_attack_info.attack_power)
+	if (parent.curr_anim == CONST.PLAYER_ANIM_CATCH_THROW and !parent.anim.is_playing()):
+		reset_attack_state()
+
 
 func catch_attack():
 	#add to catch point longevity when in this method
@@ -150,7 +179,7 @@ func catch_attack():
 			if (!parent.anim.is_playing() and parent.curr_anim in ATTACK_ANIMATIONS):
 				#release person in attack, catch combo over
 				if (last_combo_attack >= LAST_CATCH_COMBO):
-					var end_catch_disloge = hitboxes.attacks_hitboxes[LAST_CATCH_COMBO].attack_info.disloge_vector
+					var end_catch_disloge = hitboxes.attacks_nodes["attack_catch_3"].attack_info.disloge_vector
 					if (end_catch_disloge != CONST.VECTOR2_ZERO):
 						parent.release_enemy(end_catch_disloge)
 					else: 

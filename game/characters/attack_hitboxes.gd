@@ -5,6 +5,8 @@ onready var CONST = get_node("/root/const")
 onready var UTILS = get_node("/root/utils")
 #list gets populated from configuration file
 var attacks_hitboxes = []
+#same as hitboxes but keyed by attack node name for easier access
+var attacks_nodes = {}
 #access to main character node
 var parent
 var attacks_conf_file = "<empty>"
@@ -27,6 +29,7 @@ func config_attacks():
 			var attack_node = get_node(attack_name)
 			#add found attack node to hitboxes list
 			attacks_hitboxes.append(attack_node)
+			attacks_nodes[attack_node.get_name()] = attack_node
 			attack_node.attack_info.attack_name = attack_name
 			for prop in attacks_config.get_section_keys(attack_name):
 				var value = attacks_config.get_value(attack_name, prop)

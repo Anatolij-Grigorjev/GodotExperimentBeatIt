@@ -30,6 +30,7 @@ const PLAYER_ANIM_ATTACK_JUMP_RUN = "player_attack_jump_run"
 const PLAYER_ANIM_CATTACK_1 = "player_catch_attack_1"
 const PLAYER_ANIM_CATTACK_2 = "player_catch_attack_2"
 const PLAYER_ANIM_CATTACK_3 = "player_catch_attack_3"
+const PLAYER_ANIM_CATCH_THROW = "player_catch_throw"
 const PLAYER_ANIM_RUN_ATTACK = "player_run_attack"
 #hurt animations
 const PLAYER_ANIM_HURTING = "player_hurting"

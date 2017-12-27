@@ -83,7 +83,7 @@ func _process(delta):
 		caught_enemy.set_pos(catch_point.get_pos() + new_pos)
 	timer += delta
 
-func release_enemy(disloge = CONST.VECTOR2_ZERO):
+func release_enemy(disloge = CONST.VECTOR2_ZERO, throw_dmg = 0):
 	var enemy = caught_enemy
 	if (enemy != null):
 		caught_enemy = null
@@ -95,6 +95,8 @@ func release_enemy(disloge = CONST.VECTOR2_ZERO):
 		enemy.current_state = FALLING
 		enemy.ignore_G = true
 		enemy.ignore_z = true
+		if (throw_dmg > 0):
+			enemy.set_health(clamp(enemy.health - UTILS.randomize_num(throw_dmg), 0, enemy.MAX_HP))
 		enemy.current_state_ctx.fall_direction = 1
 		enemy.current_state_ctx.initial_pos = enemy.center_pos
 		#make sure disloge happens in the right direction
